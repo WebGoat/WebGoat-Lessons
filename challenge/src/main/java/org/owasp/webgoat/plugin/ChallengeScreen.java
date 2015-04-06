@@ -158,7 +158,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
             s.setMessage("Welcome to stage 2 -- get credit card numbers!");
             setStage(s, 2);
 
-            return (doStage2(s));
+            return (doStage3(s));
         }
 
         s.setMessage("Invalid login");

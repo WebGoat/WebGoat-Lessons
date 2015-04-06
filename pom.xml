@@ -7,10 +7,11 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>sql-string-injection</module>
         <module>challenge</module>
-        <module>how-to-work</module>
         <module>common</module>
+        <module>how-to-work</module>
+        <module>html-clues</module>
+        <module>sql-string-injection</module>
     </modules>
 
     <dependencies>

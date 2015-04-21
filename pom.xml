@@ -12,12 +12,13 @@
         <module>how-to-work</module>
         <module>html-clues</module>
         <module>sql-string-injection</module>
+        <module>lesson-converter</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
-            <artifactId>webgoat-container</artifactId>
+            <artifactId>WebGoat-Container</artifactId>
             <version>6.1.0</version>
             <scope>provided</scope>
         </dependency>

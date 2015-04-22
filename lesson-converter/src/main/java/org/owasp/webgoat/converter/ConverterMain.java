@@ -35,13 +35,14 @@ public class ConverterMain {
     public ConverterMain(Options options) {
         log.setLevel(Level.ALL);
 
-        LessonCreator lesson = new LessonCreator(options.lessonName, options.destDir.toPath());
+        LessonCreator lesson = new LessonCreator(options.lessonName, options.destDir.toPath(), options.sourceDir.toPath());
         try {
             if (options.overwrite) {
                 lesson.deleteDirectory();
             }
             lesson.createDirectory();
             lesson.writePomFile();
+            lesson.createPackageForSources();
             lesson.copyJavaSourceFiles();
         } catch (IOException e) {
             log.log(Level.SEVERE, "Unable to convert", e);

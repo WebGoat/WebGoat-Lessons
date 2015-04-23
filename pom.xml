@@ -8,7 +8,6 @@
     <version>1.0</version>
     <modules>
         <module>challenge</module>
-        <module>common</module>
         <module>how-to-work</module>
         <module>html-clues</module>
         <module>sql-string-injection</module>

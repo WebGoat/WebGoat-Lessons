@@ -1,16 +1,15 @@
 package org.owasp.webgoat.converter;
 
-import com.google.common.base.Preconditions;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Log
 public class JavaSourceLessonFinder {
@@ -20,27 +19,24 @@ public class JavaSourceLessonFinder {
     private final Path srcDir;
 
     public JavaSourceLessonFinder(Path srcDir) {
-        Preconditions.checkNotNull(srcDir, "src-dir cannot be null");
-
-        this.srcDir = srcDir;
+        this.srcDir = Objects.requireNonNull(srcDir, "src-dir cannot be null");
     }
 
     //TODO: detect multiple sources within a package now only is able to detect single lessons
     public List<JavaSource> findSources(final String lessonName) throws IOException {
         final List<JavaSource> sourceFiles = new ArrayList<>();
         final String lessonJavaName = lessonName + JAVA;
-
-        Files.walkFileTree(srcDir, new SimpleFileVisitor<Path>() {
-
+        List<Path> files = LessonConverterFileUtils.findFiles(srcDir, new Predicate<Path>() {
             @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                log.info(String.format("Visiting %s and see if it matches %s", file.getFileName(), lessonJavaName));
-                if (file.getFileName().toString().equals(lessonJavaName)) {
-                    sourceFiles.add(new JavaSource(file, lessonName));
-                }
-                return FileVisitResult.CONTINUE;
+            public boolean apply(Path file) {
+                return file.getFileName().toString().equals(lessonJavaName);
             }
         });
-        return sourceFiles;
+        return FluentIterable.from(files).transform(new Function<Path, JavaSource>() {
+            @Override
+            public JavaSource apply(Path file) {
+                return new JavaSource(file, lessonName);
+            }
+        }).toList();
     }
 }

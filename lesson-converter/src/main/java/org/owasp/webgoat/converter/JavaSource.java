@@ -1,5 +1,6 @@
 package org.owasp.webgoat.converter;
 
+import lombok.Getter;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Log
+@Getter
 public class JavaSource {
 
     /**

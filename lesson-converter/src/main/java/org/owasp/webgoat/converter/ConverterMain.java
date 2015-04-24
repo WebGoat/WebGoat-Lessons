@@ -1,6 +1,5 @@
 package org.owasp.webgoat.converter;
 
-import lombok.extern.java.Log;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.annotation.Arg;
 import net.sourceforge.argparse4j.impl.Arguments;
@@ -9,9 +8,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 
-@Log
 public class ConverterMain {
 
     private static class Options {
@@ -33,18 +30,23 @@ public class ConverterMain {
             .description("Converts a legacy lesson to a new plugin lesson");
 
     public ConverterMain(Options options) {
-        log.setLevel(Level.ALL);
-
-        LessonCreator lesson = new LessonCreator(options.lessonName, options.destDir.toPath());
+        LessonCreator lesson = new LessonCreator(options.lessonName, options.destDir.toPath(), options.sourceDir.toPath());
         try {
             if (options.overwrite) {
                 lesson.deleteDirectory();
             }
             lesson.createDirectory();
             lesson.writePomFile();
-            lesson.copyJavaSourceFiles();
+            lesson.createPackageForSources();
+            lesson.createResourceBundleDirectory();
+            lesson.createHtmlLessonDirectory();
+            lesson.createHtmlSolutionDirectory();
+            JavaSource javaSource = lesson.copyJavaSourceFiles();
+            lesson.copyLessonPlans();
+            lesson.copyLessonSolutions();
+            lesson.copyI18N(javaSource);
         } catch (IOException e) {
-            log.log(Level.SEVERE, "Unable to convert", e);
+            e.printStackTrace();
         }
     }
 

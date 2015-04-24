@@ -1,6 +1,5 @@
 package org.owasp.webgoat.converter;
 
-import lombok.Getter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Getter
 public class JavaSource {
 
     /**
@@ -43,4 +41,7 @@ public class JavaSource {
         return referencedProperties;
     }
 
+    public Path getJavaSourceFile() {
+        return javaSourceFile;
+    }
 }

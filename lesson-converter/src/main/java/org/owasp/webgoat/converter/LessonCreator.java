@@ -125,6 +125,6 @@ public class LessonCreator {
     }
 
     public void copyI18N(JavaSource javaSource) throws IOException {
-        new PropertyCreator(srcDir, i18nDirectory, javaSource).writeToPropertyFile();
+        new PropertyCreator(srcDir, i18nDirectory, javaSource).write();
     }
 }

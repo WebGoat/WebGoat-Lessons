@@ -1,44 +1,30 @@
 package org.owasp.webgoat.converter;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Maps;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
 public class PropertyCreator {
 
-    private enum LANGUAGE {
-
-        ENGLISH("english", "en"), RUSSIAN("russian", "ru"), GERMAN("german", "de"), FRENCH("french", "fr");
-
-        private final String oldName;
-        private final String newName;
-
-        LANGUAGE(String oldName, String newName) {
-            this.oldName = oldName;
-            this.newName = newName;
-        }
-
-        String to() {
-            return newName;
-        }
-    }
-
+    private static Map<String, String> LANGUAGES = new HashMap<String, String>() {{
+        this.put("english", "en");
+        this.put("russian", "ru");
+        this.put("french", "fr");
+        this.put("german", "de");
+    }};
     private static final String WEBGOAT_PROPERTIES = "WebGoatLabels_%s.properties";
     private final Path srcDir;
     private final JavaSource javaSource;
     private final Path destDir;
+    private List<String> referencedProperties;
 
     public PropertyCreator(Path srcDir, Path destDir, JavaSource javaSource) {
         this.srcDir = Objects.requireNonNull(srcDir);
@@ -46,59 +32,62 @@ public class PropertyCreator {
         this.destDir = Objects.requireNonNull(destDir);
     }
 
-    public void writeToPropertyFile() throws IOException {
-        Logger.start("Start writing property files...");
-        List<String> referencedProperties = javaSource.referencedProperties();
+    public void write() throws IOException {
+        referencedProperties = javaSource.referencedProperties();
         if (referencedProperties.isEmpty()) {
             Logger.log("No property files needed for this lesson.");
         } else {
-            Map<LANGUAGE, Path> webgoatPropertyFiles = findWebgoatPropertyFiles();
+            for (String language : LANGUAGES.keySet()) {
+                Logger.start("Property bundle for language '%s'", language);
+                final List<Path> propertyFiles = LessonConverterFileUtils.findFile(srcDir, String.format(WEBGOAT_PROPERTIES, language));
+                final Path target = destDir.resolve(String.format(WEBGOAT_PROPERTIES, language));
+                final List<String> newProperties = new ArrayList<>();
+                FluentIterable.from(propertyFiles) //
+                        .transformAndConcat(fromPathToProperties()) //
+                        .filter(usedProperties()).copyInto(newProperties);
 
-            for (Map.Entry<LANGUAGE, Path> languagePropertyFile : webgoatPropertyFiles.entrySet()) {
-                writeToPropertyFile(destDir.resolve(String.format(WEBGOAT_PROPERTIES, languagePropertyFile.getKey().to())),
-                        languagePropertyFile.getValue(), referencedProperties);
+                Logger.log("Writing properties to '%s'", target);
+                Files.write(target, newProperties, StandardCharsets.UTF_8, CREATE);
+                Logger.end();
             }
         }
-        Logger.end();
     }
 
-    //TODO split the writing and the filtering
-    private void writeToPropertyFile(Path destFile, Path originalPropertyFile, List<String> referencedProperties)
-            throws IOException {
-        Logger.start("Start selecting and writing properties from '%s' to '%s'", originalPropertyFile.getFileName(), destFile);
-        final Properties properties = new Properties();
-        properties.load(new FileReader(originalPropertyFile.toFile()));
+    private Function<Path, List<String>> fromPathToProperties() throws IOException {
+        return new Function<Path, List<String>>() {
 
-        List<String> newProperties = new ArrayList<>();
-        FluentIterable.from(referencedProperties).transform(new Function<String, String>() {
             @Override
-            public String apply(String input) {
-                String property = input + "=" + properties.getProperty(input);
-                Logger.log("Writing property '%s'", property);
-                return property;
-            }
-        }).copyInto(newProperties);
-        Files.write(destFile, newProperties, StandardCharsets.UTF_8, CREATE);
-        Logger.end();
-    }
-
-    private Map<LANGUAGE, Path> findWebgoatPropertyFiles() throws IOException {
-        final Map<LANGUAGE, Path> languageProperties = Maps.newHashMap();
-
-        Files.walkFileTree(srcDir, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                for (LANGUAGE language : EnumSet.allOf(LANGUAGE.class)) {
-                    String languageFile = String.format(WEBGOAT_PROPERTIES, language.oldName);
-                    if (file.getFileName().toString().equals(languageFile)) {
-                        languageProperties.put(language, file);
-                    }
+            public List<String> apply(Path input) {
+                final List<String> properties = new ArrayList<>();
+                try {
+                    properties.addAll(Files.readAllLines(input, StandardCharsets.ISO_8859_1));
+                } catch (IOException e) {
+                    throw new ConverterException("", e);
                 }
-                return FileVisitResult.CONTINUE;
+                return properties;
             }
-        });
-        return languageProperties;
+        };
+    }
+
+    private Predicate<String> usedProperties() {
+        return new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                boolean contains = referencedProperties.contains(input.split("=")[0]);
+                if (contains) Logger.log("Property '%s' found in properties ('%s')", input.split("=")[0], input);
+                return contains;
+
+            }
+        };
+    }
+
+    private Function<List<String>, List<String>> translateProperty() {
+        return new Function<List<String>, List<String>>() {
+            @Override
+            public List<String> apply(List<String> input) {
+                return null;
+            }
+        };
     }
 }
-
 

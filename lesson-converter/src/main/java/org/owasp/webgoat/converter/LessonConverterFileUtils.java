@@ -28,6 +28,21 @@ public class LessonConverterFileUtils extends PluginFileUtils {
         return files;
     }
 
+    public static List<Path> findFile(Path root, final String name) throws IOException {
+        final List<Path> files = new ArrayList<>();
+
+        Files.walkFileTree(root, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                if (file.getFileName().toString().equals(name)) {
+                    files.add(file);
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+        return files;
+    }
+
     public static Path findSubDirectory(Path root, final String name) throws IOException {
         Objects.requireNonNull(root);
         Objects.requireNonNull(name);

@@ -3,7 +3,6 @@ package org.owasp.webgoat.converter;
 import com.google.common.base.Predicate;
 import com.google.common.base.Verify;
 import com.google.common.collect.Maps;
-import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Log
 public class HtmlLessonSourceFinder {
 
     private static final List<String> LANGUAGES = Arrays.asList("en", "de", "ru");

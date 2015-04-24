@@ -38,11 +38,13 @@ public class ConverterMain {
             lesson.createDirectory();
             lesson.writePomFile();
             lesson.createPackageForSources();
+            lesson.createResourceBundleDirectory();
             lesson.createHtmlLessonDirectory();
             lesson.createHtmlSolutionDirectory();
-            lesson.copyJavaSourceFiles();
+            JavaSource javaSource = lesson.copyJavaSourceFiles();
             lesson.copyLessonPlans();
             lesson.copyLessonSolutions();
+            lesson.copyI18N(javaSource);
         } catch (IOException e) {
             e.printStackTrace();
         }

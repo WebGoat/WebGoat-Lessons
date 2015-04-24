@@ -26,7 +26,7 @@ public class JavaSourceTest {
     @Test
     public void regularExpressionShouldPickUpProperty() throws IOException {
         List<String> lines = new ArrayList<>();
-        lines.add("WebGoatI18N.get(\"test\")");
+        lines.add("aaaWebGoatI18N.get(\"test\")");
         Path tempFile = tempDirectory.resolve("test");
         Files.write(tempFile, lines, StandardCharsets.UTF_8);
         List<String> properties = new JavaSource(tempFile, "Test").referencedProperties();

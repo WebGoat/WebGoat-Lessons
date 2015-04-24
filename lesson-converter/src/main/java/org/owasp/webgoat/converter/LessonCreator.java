@@ -1,7 +1,6 @@
 package org.owasp.webgoat.converter;
 
 import com.google.common.base.*;
-import lombok.extern.java.Log;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
@@ -15,10 +14,10 @@ import static java.nio.file.StandardOpenOption.CREATE;
 import static org.owasp.webgoat.converter.LessonConverterFileUtils.copyTo;
 import static org.owasp.webgoat.plugins.PluginFileUtils.createDirsIfNotExists;
 
-@Log
 public class LessonCreator {
     private static final String PACKAGE = "src/main/java/org/owasp/webgoat/plugin";
     private static final String LESSONS = "src/main/resources/plugin/%s/%s";
+    private static final String I18N = "src/main/resources/i18n";
     private final String lessonName;
     private final Path srcDir;
     private Path destDir;
@@ -26,6 +25,7 @@ public class LessonCreator {
     private Path lessonPlanDirectory;
     private Path lessonSolutionDirectory;
     private Path lessonSolutionImageDirectory;
+    private Path i18nDirectory;
 
     public LessonCreator(String lessonName, Path destDir, Path srcDir) {
         Preconditions.checkNotNull(lessonName);
@@ -46,8 +46,10 @@ public class LessonCreator {
     }
 
     public void writePomFile() throws IOException {
+        String lessonProjectName = lessonNameToProjectDirectoryName();
         Path pomFile = Files.createFile(destDir.resolve("pom.xml"));
-        Files.write(pomFile, new PomCreator().createPom(lessonNameToProjectDirectoryName()), Charsets.UTF_8, CREATE);
+        Logger.log("Creating pom file '%s' with project name '%s'", pomFile, lessonProjectName);
+        Files.write(pomFile, new PomCreator().createPom(lessonProjectName), Charsets.UTF_8, CREATE);
     }
 
     public void deleteDirectory() throws IOException {
@@ -115,5 +117,14 @@ public class LessonCreator {
             copyTo(image, lessonSolutionImageDirectory);
         }
         Logger.end();
+    }
+
+    public void createResourceBundleDirectory() throws IOException {
+        Logger.log("Creating i18n directory...");
+        this.i18nDirectory = createDirsIfNotExists(destDir.resolve(I18N));
+    }
+
+    public void copyI18N(JavaSource javaSource) throws IOException {
+        new PropertyCreator(srcDir, i18nDirectory, javaSource).writeToPropertyFile();
     }
 }

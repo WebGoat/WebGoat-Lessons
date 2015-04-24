@@ -1,7 +1,6 @@
 package org.owasp.webgoat.converter;
 
 import lombok.Getter;
-import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,14 +10,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Log
 @Getter
 public class JavaSource {
 
     /**
      * Regular expression for looking in the Java source lesson for properties.
      */
-    private static final Pattern propertyPattern = Pattern.compile("WebGoatI18N.get\\(\"([a-zA-Z]*)\"\\)");
+    private static final Pattern propertyPattern = Pattern.compile(".*WebGoatI18N.get\\(\"([a-zA-Z]*)\"\\).*");
 
     private final Path javaSourceFile;
     private final String className;
@@ -29,6 +27,7 @@ public class JavaSource {
     }
 
     public List<String> referencedProperties() throws IOException {
+        Logger.start("Start finding referenced properties...");
         List<String> sourceLines = java.nio.file.Files.readAllLines(javaSourceFile, StandardCharsets.UTF_8);
         List<String> referencedProperties = new ArrayList<>();
 
@@ -36,10 +35,11 @@ public class JavaSource {
             Matcher matcher = propertyPattern.matcher(input);
             if (matcher.matches()) {
                 String property = matcher.group(1);
-                log.info(String.format("Found property %s in %s", property, className));
+                Logger.log("Property %s found", property);
                 referencedProperties.add(property);
             }
         }
+        Logger.end();
         return referencedProperties;
     }
 

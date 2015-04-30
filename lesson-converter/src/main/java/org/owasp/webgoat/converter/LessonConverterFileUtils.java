@@ -77,10 +77,11 @@ public class LessonConverterFileUtils extends PluginFileUtils {
         return hasParentDirectoryWithName(currentFile, nameOfParentDirectory.getFileName().toString(), onlyOneLevel);
     }
 
-    public static void copyTo(Path source, Path targetDirectory, StandardCopyOption... options) throws IOException {
+    public static Path copyTo(Path source, Path targetDirectory, StandardCopyOption... options) throws IOException {
         Path target = targetDirectory.resolve(source.getFileName());
         Logger.log("Copying '%s' to '%s'", source, target);
         Files.copy(source, target, options);
+        return target;
     }
 
 }

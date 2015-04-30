@@ -2,6 +2,7 @@ package org.owasp.webgoat.converter;
 
 import com.google.common.base.*;
 import org.apache.commons.io.FileUtils;
+import org.owasp.webgoat.plugins.PluginFileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -110,7 +111,8 @@ public class LessonCreator {
     public void copyLessonSolutions() throws IOException {
         Logger.start("Starting to copy the lesson solutions...");
         HtmlLessonSolutionFinder htmlLessonSolutionFinder = new HtmlLessonSolutionFinder(srcDir, lessonName);
-        copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
+        Path targetSolutions = copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
+        PluginFileUtils.replaceInFile("lesson_solutions/", "", targetSolutions);
 
         List<Path> solutionImages = htmlLessonSolutionFinder.findSolutionImages();
         for (Path image : solutionImages) {

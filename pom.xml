@@ -7,11 +7,12 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>back-doors</module>
         <module>challenge</module>
         <module>how-to-work</module>
         <module>html-clues</module>
-        <module>sql-string-injection</module>
         <module>lesson-converter</module>
+        <module>sql-string-injection</module>
     </modules>
 
     <dependencies>

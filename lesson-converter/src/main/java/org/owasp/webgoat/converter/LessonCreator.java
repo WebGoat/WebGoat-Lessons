@@ -87,7 +87,7 @@ public class LessonCreator {
         Map<String, Path> lessons = htmlLessonSourceFinder.findSources();
 
         for (Map.Entry<String, Path> lesson : lessons.entrySet()) {
-            Path target = createDirsIfNotExists(lessonPlanDirectory.resolve(lessonName).resolve(lesson.getKey()));
+            Path target = createDirsIfNotExists(lessonPlanDirectory.resolve(lesson.getKey()));
             copyTo(lesson.getValue(), target);
         }
 
@@ -102,7 +102,7 @@ public class LessonCreator {
 
     public void createHtmlSolutionDirectory() throws IOException {
         Logger.log("Creating the lesson solution directory...");
-        String dir = String.format(LESSONS, lessonName, "lessonSolution");
+        String dir = String.format(LESSONS, lessonName, "lessonSolutions");
         this.lessonSolutionDirectory = createDirsIfNotExists(destDir.resolve(dir).resolve("en"));
         this.lessonSolutionImageDirectory = createDirsIfNotExists(lessonSolutionDirectory.resolve(lessonName + "_files"));
     }

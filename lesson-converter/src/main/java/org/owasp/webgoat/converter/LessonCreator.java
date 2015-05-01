@@ -76,7 +76,10 @@ public class LessonCreator {
         Verify.verify(sources.size() == 1, "Multiple lessons found for lesson: " + lessonName);
 
         JavaSource javaSourceFile = sources.get(0);
-        copyTo(javaSourceFile.getJavaSourceFile(), destDir.resolve(this.lessonSourcePackage), REPLACE_EXISTING);
+        Path targetJavaSource = copyTo(javaSourceFile.getJavaSourceFile(), destDir.resolve(this.lessonSourcePackage), REPLACE_EXISTING);
+
+        Logger.log("Rewriting package...");
+        PluginFileUtils.replaceInFile("package org.owasp.webgoat.lessons;", "package org.owasp.webgoat.plugin;", targetJavaSource);
 
         Logger.end();
         return javaSourceFile;

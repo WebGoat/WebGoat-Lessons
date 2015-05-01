@@ -15,6 +15,7 @@
         <module>lesson-converter</module>
         <module>log-spoofing</module>
         <module>sql-string-injection</module>
+        <module>xpath-injection</module>
     </modules>
 
     <dependencies>

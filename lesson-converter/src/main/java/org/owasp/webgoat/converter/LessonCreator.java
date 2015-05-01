@@ -18,7 +18,7 @@ import static org.owasp.webgoat.plugins.PluginFileUtils.createDirsIfNotExists;
 public class LessonCreator {
     private static final String PACKAGE = "src/main/java/org/owasp/webgoat/plugin";
     private static final String LESSONS = "src/main/resources/plugin/%s/%s";
-    private static final String I18N = "src/main/resources/i18n";
+    private static final String I18N = "src/main/resources/plugin/i18n";
     private final String lessonName;
     private final Path srcDir;
     private Path destDir;
@@ -80,6 +80,9 @@ public class LessonCreator {
 
         Logger.log("Rewriting package...");
         PluginFileUtils.replaceInFile("package org.owasp.webgoat.lessons;", "package org.owasp.webgoat.plugin;", targetJavaSource);
+
+        Logger.log("Changing WebGoatI18N to LabelManager...");
+        PluginFileUtils.replaceInFile("WebGoatI18N.get", "getLabelManager().get", targetJavaSource);
 
         Logger.end();
         return javaSourceFile;

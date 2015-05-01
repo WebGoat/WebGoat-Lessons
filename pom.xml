@@ -13,6 +13,7 @@
         <module>how-to-work</module>
         <module>html-clues</module>
         <module>lesson-converter</module>
+        <module>log-spoofing</module>
         <module>sql-string-injection</module>
     </modules>
 

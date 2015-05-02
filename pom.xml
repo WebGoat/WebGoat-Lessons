@@ -7,11 +7,15 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>access-control-matrix</module>
+        <module>back-doors</module>
         <module>challenge</module>
         <module>how-to-work</module>
         <module>html-clues</module>
-        <module>sql-string-injection</module>
         <module>lesson-converter</module>
+        <module>log-spoofing</module>
+        <module>sql-string-injection</module>
+        <module>xpath-injection</module>
     </modules>
 
     <dependencies>

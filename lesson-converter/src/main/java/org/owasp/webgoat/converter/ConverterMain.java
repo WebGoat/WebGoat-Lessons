@@ -1,5 +1,9 @@
 package org.owasp.webgoat.converter;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Lists;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.annotation.Arg;
 import net.sourceforge.argparse4j.impl.Arguments;
@@ -8,6 +12,10 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.Collections;
+import java.util.List;
 
 public class ConverterMain {
 
@@ -45,9 +53,37 @@ public class ConverterMain {
             lesson.copyLessonPlans();
             lesson.copyLessonSolutions();
             lesson.copyI18N(javaSource);
+            adjustMainPom(options.destDir, lesson.lessonNameToProjectDirectoryName());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void adjustMainPom(File destDir, String module) throws IOException {
+        Path pom = destDir.toPath().resolve("pom.xml");
+        List<String> lines = Files.readAllLines(pom, StandardCharsets.UTF_8);
+        List<String> modules = Lists.newArrayList();
+        FluentIterable.from(lines).filter(new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                return input.contains("<module>");
+            }
+        }).copyInto(modules);
+        lines.removeAll(modules);
+        String newModule = String.format("        <module>%s</module>", module);
+        if (!modules.contains(newModule)) {
+            modules.add(newModule);
+        }
+        Collections.sort(modules);
+        int beginIndex = 0;
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).contains("<modules>")) {
+                beginIndex = i + 1;
+            }
+        }
+        lines.addAll(beginIndex, modules);
+        Logger.log(String.format("Writing pom.xml with new module '%s' to '%s'", module, pom));
+        Files.write(pom, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     /**

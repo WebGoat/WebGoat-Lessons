@@ -2,6 +2,7 @@ package org.owasp.webgoat.converter;
 
 import com.google.common.base.*;
 import org.apache.commons.io.FileUtils;
+import org.owasp.webgoat.plugins.PluginFileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +18,7 @@ import static org.owasp.webgoat.plugins.PluginFileUtils.createDirsIfNotExists;
 public class LessonCreator {
     private static final String PACKAGE = "src/main/java/org/owasp/webgoat/plugin";
     private static final String LESSONS = "src/main/resources/plugin/%s/%s";
-    private static final String I18N = "src/main/resources/i18n";
+    private static final String I18N = "src/main/resources/plugin/i18n";
     private final String lessonName;
     private final Path srcDir;
     private Path destDir;
@@ -75,7 +76,13 @@ public class LessonCreator {
         Verify.verify(sources.size() == 1, "Multiple lessons found for lesson: " + lessonName);
 
         JavaSource javaSourceFile = sources.get(0);
-        copyTo(javaSourceFile.getJavaSourceFile(), destDir.resolve(this.lessonSourcePackage), REPLACE_EXISTING);
+        Path targetJavaSource = copyTo(javaSourceFile.getJavaSourceFile(), destDir.resolve(this.lessonSourcePackage), REPLACE_EXISTING);
+
+        Logger.log("Rewriting package...");
+        PluginFileUtils.replaceInFile("package org.owasp.webgoat.lessons;", "package org.owasp.webgoat.plugin;", targetJavaSource);
+
+        Logger.log("Changing WebGoatI18N to LabelManager...");
+        PluginFileUtils.replaceInFile("WebGoatI18N.get", "getLabelManager().get", targetJavaSource);
 
         Logger.end();
         return javaSourceFile;
@@ -87,7 +94,7 @@ public class LessonCreator {
         Map<String, Path> lessons = htmlLessonSourceFinder.findSources();
 
         for (Map.Entry<String, Path> lesson : lessons.entrySet()) {
-            Path target = createDirsIfNotExists(lessonPlanDirectory.resolve(lessonName).resolve(lesson.getKey()));
+            Path target = createDirsIfNotExists(lessonPlanDirectory.resolve(lesson.getKey()));
             copyTo(lesson.getValue(), target);
         }
 
@@ -102,7 +109,7 @@ public class LessonCreator {
 
     public void createHtmlSolutionDirectory() throws IOException {
         Logger.log("Creating the lesson solution directory...");
-        String dir = String.format(LESSONS, lessonName, "lessonSolution");
+        String dir = String.format(LESSONS, lessonName, "lessonSolutions");
         this.lessonSolutionDirectory = createDirsIfNotExists(destDir.resolve(dir).resolve("en"));
         this.lessonSolutionImageDirectory = createDirsIfNotExists(lessonSolutionDirectory.resolve(lessonName + "_files"));
     }
@@ -110,7 +117,8 @@ public class LessonCreator {
     public void copyLessonSolutions() throws IOException {
         Logger.start("Starting to copy the lesson solutions...");
         HtmlLessonSolutionFinder htmlLessonSolutionFinder = new HtmlLessonSolutionFinder(srcDir, lessonName);
-        copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
+        Path targetSolutions = copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
+        PluginFileUtils.replaceInFile("lesson_solutions/", "", targetSolutions);
 
         List<Path> solutionImages = htmlLessonSolutionFinder.findSolutionImages();
         for (Path image : solutionImages) {

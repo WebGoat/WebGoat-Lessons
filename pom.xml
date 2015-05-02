@@ -7,12 +7,13 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>lesson-template-legacy</module>
         <module>challenge</module>
         <module>common</module>
         <module>how-to-work</module>
         <module>html-clues</module>
         <module>sql-string-injection</module>
-        <module>lesson-converter</module>
+       <!--  <module>lesson-converter</module> -->
     </modules>
 
     <dependencies>

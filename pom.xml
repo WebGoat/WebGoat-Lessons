@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
-            <artifactId>WebGoat-Container</artifactId>
+            <artifactId>webgoat-container</artifactId>
             <version>6.1.0</version>
             <classifier>classes</classifier>
             <scope>provided</scope>

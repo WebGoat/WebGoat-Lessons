@@ -10,10 +10,6 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>org.owasp.webgoat</groupId>
-            <artifactId>webgoat-container</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

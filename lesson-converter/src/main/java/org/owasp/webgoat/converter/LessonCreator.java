@@ -3,6 +3,7 @@ package org.owasp.webgoat.converter;
 import com.google.common.base.*;
 import org.apache.commons.io.FileUtils;
 import org.owasp.webgoat.plugins.PluginFileUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +22,7 @@ public class LessonCreator {
     private static final String I18N = "src/main/resources/plugin/i18n";
     private final String lessonName;
     private final Path srcDir;
+    private final String destName;
     private Path destDir;
     private Path lessonSourcePackage;
     private Path lessonPlanDirectory;
@@ -28,17 +30,21 @@ public class LessonCreator {
     private Path lessonSolutionImageDirectory;
     private Path i18nDirectory;
 
-    public LessonCreator(String lessonName, Path destDir, Path srcDir) {
+    public LessonCreator(String lessonName, Path destDir, String destName, Path srcDir) {
         Preconditions.checkNotNull(lessonName);
         Preconditions.checkNotNull(destDir);
         Preconditions.checkNotNull(srcDir);
 
         this.lessonName = lessonName;
+        this.destName = destName;
         this.destDir = destDir.resolve(lessonNameToProjectDirectoryName());
         this.srcDir = srcDir;
     }
 
     public String lessonNameToProjectDirectoryName() {
+        if (StringUtils.hasText(destName)) {
+            return destName;
+        }
         if (CharMatcher.JAVA_UPPER_CASE.matchesAllOf(lessonName)) {
             return lessonName.toLowerCase();
         } else {

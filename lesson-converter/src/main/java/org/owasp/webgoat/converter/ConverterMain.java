@@ -1,6 +1,5 @@
 package org.owasp.webgoat.converter;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
@@ -13,7 +12,9 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,13 +33,16 @@ public class ConverterMain {
 
         @Arg(dest = "overwrite")
         public Boolean overwrite = false;
+
+        @Arg(dest = "dest_name")
+        public String destName;
     }
 
     public static final ArgumentParser parser = ArgumentParsers.newArgumentParser("Lesson converter")
             .description("Converts a legacy lesson to a new plugin lesson");
 
     public ConverterMain(Options options) {
-        LessonCreator lesson = new LessonCreator(options.lessonName, options.destDir.toPath(), options.sourceDir.toPath());
+        LessonCreator lesson = new LessonCreator(options.lessonName, options.destDir.toPath(), options.destName, options.sourceDir.toPath());
         try {
             if (options.overwrite) {
                 lesson.deleteDirectory();
@@ -100,6 +104,9 @@ public class ConverterMain {
                 .help("Top level directory of the new WebGoat lecacy project") //
                 .required(true)//
                 .type(Arguments.fileType().verifyIsDirectory().verifyCanWrite());
+        parser.addArgument("-n", "--dest-name") //
+                .help("Overwrite the default directory name") //
+                .required(false);
         parser.addArgument("-l", "--lesson-name").help("Name of the lesson to be converted").required(true);
         parser.addArgument("-o", "--overwrite").help("Overwrite an existing directory").action(Arguments.storeTrue());
 

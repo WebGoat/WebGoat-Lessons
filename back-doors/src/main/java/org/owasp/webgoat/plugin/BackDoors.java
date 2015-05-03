@@ -260,11 +260,6 @@ public class BackDoors extends SequentialLessonAdapter
         return ec;
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
-    }
-
     protected List<String> getHints(WebSession s)
     {
         List<String> hints = new ArrayList<String>();

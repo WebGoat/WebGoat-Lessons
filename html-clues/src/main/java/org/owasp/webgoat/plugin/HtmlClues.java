@@ -236,8 +236,4 @@ public class HtmlClues extends LessonAdapter
         return ("Discover Clues in the HTML");
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
-    }
 }

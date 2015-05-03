@@ -271,9 +271,4 @@ public class AccessControlMatrix extends LessonAdapter
         List resources = getResources(roles);
         return (resources.contains(resource));
     }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
-    }
 }

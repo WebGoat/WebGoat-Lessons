@@ -155,8 +155,4 @@ public class LogSpoofing extends LessonAdapter
         return Category.INJECTION;
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
-    }
 }

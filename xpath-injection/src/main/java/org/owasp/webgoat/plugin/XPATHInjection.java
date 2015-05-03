@@ -198,11 +198,6 @@ public class XPATHInjection extends LessonAdapter
         return ec;
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
-    }
-
     protected Category getDefaultCategory()
     {
 

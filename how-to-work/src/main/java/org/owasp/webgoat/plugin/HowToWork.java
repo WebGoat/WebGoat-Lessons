@@ -83,9 +83,4 @@ public class HowToWork extends LessonAdapter
         return ("How to work with WebGoat");
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by: Reto Lippuner, Marcel Wirth", new StringElement(""));
-    }
-
 }

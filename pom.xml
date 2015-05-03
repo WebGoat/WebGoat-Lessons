@@ -15,14 +15,16 @@
         <module>lesson-converter</module>
         <module>log-spoofing</module>
         <module>sql-string-injection</module>
+        <module>xml-injection</module>
         <module>xpath-injection</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
-            <artifactId>WebGoat-Container</artifactId>
+            <artifactId>webgoat-container</artifactId>
             <version>6.1.0</version>
+            <classifier>classes</classifier>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -73,16 +75,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.owasp.webgoat</groupId>
-                <artifactId>webgoat-container</artifactId>
-                <version>6.1.0</version>
-                <scope>provided</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 </project>

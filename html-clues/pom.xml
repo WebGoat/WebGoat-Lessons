@@ -8,12 +8,4 @@
         <artifactId>webgoat-plugins-parent</artifactId>
         <version>1.0</version>
     </parent>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.owasp.webgoat</groupId>
-            <artifactId>webgoat-container</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>

@@ -42,7 +42,7 @@ import org.owasp.webgoat.session.WebSession;
  * @created April, 2015
  */
 
-public class NewLegayLesson extends LessonAdapter
+public class NewLegacyLesson extends LessonAdapter
 {
     /**
      * Creates the HTML content for a lesson.

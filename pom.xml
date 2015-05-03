@@ -16,7 +16,6 @@
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
         <module>sql-string-injection</module>
-        <module>xml-injection</module>
         <module>xpath-injection</module>
     </modules>
 

@@ -7,20 +7,25 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>lesson-template-legacy</module>
+        <module>access-control-matrix</module>
+        <module>back-doors</module>
         <module>challenge</module>
-        <module>common</module>
         <module>how-to-work</module>
         <module>html-clues</module>
+        <module>lesson-converter</module>
+        <module>lesson-template-legacy</module>
+        <module>log-spoofing</module>
         <module>sql-string-injection</module>
-       <!--  <module>lesson-converter</module> -->
+        <module>xml-injection</module>
+        <module>xpath-injection</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
-            <artifactId>WebGoat-Container</artifactId>
+            <artifactId>webgoat-container</artifactId>
             <version>6.1.0</version>
+            <classifier>classes</classifier>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -71,16 +76,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.owasp.webgoat</groupId>
-                <artifactId>webgoat-container</artifactId>
-                <version>6.1.0</version>
-                <scope>provided</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 </project>

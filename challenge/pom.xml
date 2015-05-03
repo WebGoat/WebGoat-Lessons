@@ -11,15 +11,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.owasp.webgoat</groupId>
-            <artifactId>webgoat-container</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.owasp.webgoat.lesson</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>

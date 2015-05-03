@@ -1,0 +1,80 @@
+<html>
+
+<head>
+</head>
+
+<body lang=EN-US style='tab-interval: .5in'>
+
+	<div>
+
+		<h1>Solution For: Creating a New Legacy Lesson</h1>
+
+		<h1>Concept / Topic To Teach:</h1>
+
+		<p>Describe the general problem. This should also be in the lesson
+			plan so there may be no need for the concept section.</p>
+
+		<h1>General Goal(s):</h1>
+
+		<p>Put your goals here. This should also be in the lesson plan so
+			there may be no need for the goals section.</p>
+
+		<p>1. The user should understand how Attack X works</p>
+		<p>2. The user should recognize the pattern for Attack X</p>
+		<p>3. The user should be able to ...</p>
+
+		<h1>Lesson Setup:</h1>
+		<p>Any special tools/steps I need to run this lesson,</p>
+
+		<h1>Solution:</h1>
+		<p>Your solution goes here. This is an example for what a SQL
+			Injection solution might look like.</p>
+
+		<p>This lesson takes a string value and performs a database query.
+			The database query is dynamically constructed by the WebGoat
+			application.</p>
+
+		<p>
+			<img width=731 height=537 src="NewLegacyLesson_files/image002.png">
+		</p>
+
+		<p>The query used is:</p>
+		<p>
+			<span style='font-family: "Courier New"'>SELECT * FROM
+				user_data WHERE last_name = 'Your Name' </span>
+		</p>
+
+		<p>Since the query is being built dynamically in the code as:</p>
+		<p>
+			<span style='font-family: "Courier New"'>String query =
+				&quot;SELECT * FROM user_data WHERE last_name = '&quot; +
+				accountName &quot;'&quot;</span>
+		</p>
+
+		<p>
+			What value can be put in the <span style='font-family: "Courier New"'>accountName</span>
+			field to make the query evaluate to always true.
+		</p>
+
+		<p>
+			Entering accountName as: <span style='font-family: "Courier New"'>smith'
+				or '1' = '1</span>
+		</p>
+
+		<p>Causes a query to be built like this</p>
+
+		<p>
+			<span style='font-family: "Courier New"'>SELECT * FROM
+				user_data WHERE last_name = 'smith' or '1'='1'</span>
+		</p>
+
+		<p>Which evaluates to: select * from user_data where last name =
+			'smith' or true. This returns all the records in the database.</p>
+
+		<p>
+			<img width=726 height=865 src="NewLegacyLesson_files/image004.png">
+		</p>
+
+	</div>
+</body>
+</html>

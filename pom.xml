@@ -13,9 +13,9 @@
         <module>how-to-work</module>
         <module>html-clues</module>
         <module>lesson-converter</module>
+        <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
         <module>sql-string-injection</module>
-        <module>xml-injection</module>
         <module>xpath-injection</module>
     </modules>
 

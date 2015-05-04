@@ -16,6 +16,7 @@
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
         <module>sql-string-injection</module>
+        <module>xml-injection</module>
         <module>xpath-injection</module>
     </modules>
 
@@ -28,6 +29,16 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <resources>

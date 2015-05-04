@@ -33,6 +33,8 @@ optional arguments:
   -l LESSON_NAME, --lesson-name LESSON_NAME
                          Name of the lesson to be converted
   -o, --overwrite        Overwrite an existing directory
+  -n, --dest-name		 Overwrite the default directory name, specify a specific target directory in which the lesson
+  						 should be placed.
 ```
 
 ## Run

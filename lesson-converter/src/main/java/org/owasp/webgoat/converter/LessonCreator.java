@@ -125,6 +125,7 @@ public class LessonCreator {
         HtmlLessonSolutionFinder htmlLessonSolutionFinder = new HtmlLessonSolutionFinder(srcDir, lessonName);
         Path targetSolutions = copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
         PluginFileUtils.replaceInFile("lesson_solutions/", "", targetSolutions);
+        PluginFileUtils.replaceInFile("content=\"text/html; charset=windows-1252\"", "content=\"text/html; charset=UTF-8\"", targetSolutions);
 
         List<Path> solutionImages = htmlLessonSolutionFinder.findSolutionImages();
         for (Path image : solutionImages) {

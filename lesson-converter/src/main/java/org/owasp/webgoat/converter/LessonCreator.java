@@ -1,18 +1,23 @@
 package org.owasp.webgoat.converter;
 
-import com.google.common.base.*;
+import com.google.common.base.CaseFormat;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Verify;
 import org.apache.commons.io.FileUtils;
 import org.owasp.webgoat.plugins.PluginFileUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static org.owasp.webgoat.converter.LessonConverterFileUtils.copyTo;
 import static org.owasp.webgoat.plugins.PluginFileUtils.createDirsIfNotExists;
 
@@ -52,11 +57,12 @@ public class LessonCreator {
         }
     }
 
-    public void writePomFile() throws IOException {
+    public void writePomFile(JavaSource javaSource) throws IOException {
         String lessonProjectName = lessonNameToProjectDirectoryName();
         Path pomFile = Files.createFile(destDir.resolve("pom.xml"));
         Logger.log("Creating pom file '%s' with project name '%s'", pomFile, lessonProjectName);
-        Files.write(pomFile, new PomCreator().createPom(lessonProjectName), Charsets.UTF_8, CREATE);
+        String pomExample = javaSource.containsReferenceToJavax() ? "pom2.example" : "pom1.example";
+        Files.write(pomFile, new PomCreator().createPom(lessonProjectName, pomExample), Charsets.UTF_8, CREATE);
     }
 
     public void deleteDirectory() throws IOException {
@@ -82,13 +88,10 @@ public class LessonCreator {
         Verify.verify(sources.size() == 1, "Multiple lessons found for lesson: " + lessonName);
 
         JavaSource javaSourceFile = sources.get(0);
-        Path targetJavaSource = copyTo(javaSourceFile.getJavaSourceFile(), destDir.resolve(this.lessonSourcePackage), REPLACE_EXISTING);
 
-        Logger.log("Rewriting package...");
-        PluginFileUtils.replaceInFile("package org.owasp.webgoat.lessons;", "package org.owasp.webgoat.plugin;", targetJavaSource);
-
-        Logger.log("Changing WebGoatI18N to LabelManager...");
-        PluginFileUtils.replaceInFile("WebGoatI18N.get", "getLabelManager().get", targetJavaSource);
+        Path javaTargetSourceFile = destDir.resolve(this.lessonSourcePackage)
+                .resolve(javaSourceFile.getJavaSourceFile().getFileName());
+        Files.write(javaTargetSourceFile, javaSourceFile.getLines(), StandardCharsets.UTF_8, CREATE, TRUNCATE_EXISTING);
 
         Logger.end();
         return javaSourceFile;
@@ -125,6 +128,7 @@ public class LessonCreator {
         HtmlLessonSolutionFinder htmlLessonSolutionFinder = new HtmlLessonSolutionFinder(srcDir, lessonName);
         Path targetSolutions = copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
         PluginFileUtils.replaceInFile("lesson_solutions/", "", targetSolutions);
+        PluginFileUtils.replaceInFile("content=\"text/html; charset=windows-1252\"", "content=\"text/html; charset=UTF-8\"", targetSolutions);
 
         List<Path> solutionImages = htmlLessonSolutionFinder.findSolutionImages();
         for (Path image : solutionImages) {

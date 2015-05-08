@@ -48,12 +48,12 @@ public class ConverterMain {
                 lesson.deleteDirectory();
             }
             lesson.createDirectory();
-            lesson.writePomFile();
             lesson.createPackageForSources();
             lesson.createResourceBundleDirectory();
             lesson.createHtmlLessonDirectory();
             lesson.createHtmlSolutionDirectory();
             JavaSource javaSource = lesson.copyJavaSourceFiles();
+            lesson.writePomFile(javaSource);
             lesson.copyLessonPlans();
             lesson.copyLessonSolutions();
             lesson.copyI18N(javaSource);

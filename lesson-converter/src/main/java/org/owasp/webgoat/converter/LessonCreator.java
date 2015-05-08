@@ -57,11 +57,12 @@ public class LessonCreator {
         }
     }
 
-    public void writePomFile() throws IOException {
+    public void writePomFile(JavaSource javaSource) throws IOException {
         String lessonProjectName = lessonNameToProjectDirectoryName();
         Path pomFile = Files.createFile(destDir.resolve("pom.xml"));
         Logger.log("Creating pom file '%s' with project name '%s'", pomFile, lessonProjectName);
-        Files.write(pomFile, new PomCreator().createPom(lessonProjectName), Charsets.UTF_8, CREATE);
+        String pomExample = javaSource.containsReferenceToJavax() ? "pom2.example" : "pom1.example";
+        Files.write(pomFile, new PomCreator().createPom(lessonProjectName, pomExample), Charsets.UTF_8, CREATE);
     }
 
     public void deleteDirectory() throws IOException {

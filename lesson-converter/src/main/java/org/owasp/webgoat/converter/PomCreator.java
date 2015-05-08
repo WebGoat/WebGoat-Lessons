@@ -19,11 +19,11 @@ public class PomCreator {
     public PomCreator() {
     }
 
-    public List<String> createPom(final String artifactId) {
+    public List<String> createPom(final String artifactId, final String pomExample) {
         Preconditions.checkNotNull(artifactId, "artifactId cannot be null");
 
         try {
-            URL pomUrl = getClass().getResource("/pom.example");
+            URL pomUrl = getClass().getResource("/" + pomExample);
             List<String> lines = Files.readAllLines(Paths.get(pomUrl.toURI()), Charsets.UTF_8);
             return FluentIterable.from(lines).transform(new Function<String, String>() {
                 @Override
@@ -32,7 +32,7 @@ public class PomCreator {
                 }
             }).toList();
         } catch (IOException | URISyntaxException e) {
-            throw new ConverterException("Unable to read pom.example, should be in the src/main/resources directory",
+            throw new ConverterException("Unable to read pom1.example, should be in the src/main/resources directory",
                     e);
         }
     }

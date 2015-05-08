@@ -48,7 +48,21 @@ public class JavaSource {
         return referencedProperties;
     }
 
-    public String getSuperClass(List<String> lines) {
+    public List<String> getLines() throws IOException {
+        List<String> lines = Files.readAllLines(javaSourceFile);
+        rewritePackageName(lines);
+        addImportForSuperclass(lines);
+        addImportForCategory(lines);
+        replaceWebgoatI18N(lines);
+
+        return lines;
+    }
+
+    public Path getJavaSourceFile() {
+        return javaSourceFile;
+    }
+
+    private String getSuperClass(List<String> lines) {
         Optional<String> line = FluentIterable.from(lines).firstMatch(new Predicate<String>() {
             @Override
             public boolean apply(String line) {
@@ -76,29 +90,48 @@ public class JavaSource {
         String superClass = getSuperClass(lines);
         String importToAdd = String.format("import org.owasp.webgoat.lessons.%s;", superClass.trim());
         Logger.log("Adding import for package superclass %s", importToAdd);
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
+        addImport(importToAdd, lines);
+    }
+
+    private void addImportForCategory(List<String> lines) {
+        Optional<String> category = FluentIterable.from(lines).firstMatch(new Predicate<String>() {
+            @Override
+            public boolean apply(String line) {
+                return line.contains("Category");
+            }
+        });
+        if (category.isPresent()) {
+            addImport("import org.owasp.webgoat.lessons.Category;", lines);
+        }
+    }
+
+    private void addImport(String importToAdd, List<String> lines) {
+        ListIterator<String> it = lines.listIterator();
+
+        while (it.hasNext()) {
+            String line = it.next();
             if (line.startsWith("import")) {
                 if (line.compareTo(importToAdd) >= 0) {
-                    lines.add(i, importToAdd);
+                    it.previous();
+                    it.add(importToAdd);
                     break;
                 }
             }
         }
     }
 
+    /**
+     * This methods tries to get whether a reference to 'javax.servlet-api' is necessary.
+     * Add more methods to scan the source.
+     */
     public boolean containsReferenceToJavax() throws IOException {
         List<String> lines = Files.readAllLines(javaSourceFile);
-        return false;
-    }
-
-    public List<String> getLines() throws IOException {
-        List<String> lines = Files.readAllLines(javaSourceFile);
-        rewritePackageName(lines);
-        addImportForSuperclass(lines);
-        replaceWebgoatI18N(lines);
-
-        return lines;
+       return FluentIterable.from(lines).anyMatch(new Predicate<String>() {
+            @Override
+            public boolean apply(String line) {
+                return line.contains("s.getRequest()") || line.contains("s.setRequest(") || line.contains("s.getResponse()");
+            }
+        });
     }
 
     private void replaceWebgoatI18N(List<String> lines) {
@@ -110,7 +143,4 @@ public class JavaSource {
         }
     }
 
-    public Path getJavaSourceFile() {
-        return javaSourceFile;
-    }
 }

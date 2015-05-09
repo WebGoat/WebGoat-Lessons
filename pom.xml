@@ -16,6 +16,7 @@
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
         <module>sql-string-injection</module>
+        <module>weak-session-id</module>
         <module>ws-sax-injection</module>
         <module>ws-sql-injection</module>
         <module>xml-injection</module>

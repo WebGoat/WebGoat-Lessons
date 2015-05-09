@@ -19,6 +19,7 @@
         <module>weak-session-id</module>
         <module>ws-sax-injection</module>
         <module>ws-sql-injection</module>
+        <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
     </modules>

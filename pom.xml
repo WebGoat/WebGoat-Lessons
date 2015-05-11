@@ -15,6 +15,7 @@
         <module>lesson-converter</module>
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
+        <module>remote-admin-flaw</module>
         <module>session-fixation</module>
         <module>silent-transactions</module>
         <module>soap-request</module>

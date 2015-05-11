@@ -15,6 +15,7 @@
         <module>lesson-converter</module>
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
+        <module>sql-numeric-injection</module>
         <module>sql-string-injection</module>
         <module>stored-xss</module>
         <module>thread-safety-problem</module>

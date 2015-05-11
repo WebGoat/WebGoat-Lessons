@@ -21,7 +21,7 @@ public class JavaSource {
     /**
      * Regular expression for looking in the Java source lesson for properties.
      */
-    private static final Pattern propertyPattern = Pattern.compile(".*WebGoatI18N.get\\(\"(.+?)\"\\).*");
+    private static final Pattern propertyPattern = Pattern.compile(".*getLabelManager\\(\\).get\\(\"(.+?)\"\\).*");
 
     private final Path javaSourceFile;
     private final String className;
@@ -49,7 +49,7 @@ public class JavaSource {
     }
 
     public List<String> getLines() throws IOException {
-        List<String> lines = Files.readAllLines(javaSourceFile);
+        List<String> lines = Files.readAllLines(javaSourceFile, StandardCharsets.UTF_8);
         rewritePackageName(lines);
         addImportForSuperclass(lines);
         addImportForCategory(lines);

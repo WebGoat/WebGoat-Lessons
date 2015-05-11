@@ -40,8 +40,8 @@ public class PropertyCreator {
         } else {
             for (String language : LANGUAGES.keySet()) {
                 Logger.start("Property bundle for language '%s'", language);
-                final List<Path> propertyFiles = LessonConverterFileUtils.findFile(srcDir, String.format(WEBGOAT_PROPERTIES_LANGUAGE, language));
-                final Path target = i18nTarget(language);
+                final List<Path> propertyFiles = LessonConverterFileUtils.findFile(srcDir, i18nTarget(language));
+                final Path target = destDir.resolve(i18nTarget(language));
                 final List<String> newProperties = new ArrayList<>();
                 FluentIterable.from(propertyFiles) //
                         .transformAndConcat(fromPathToProperties()) //
@@ -54,11 +54,11 @@ public class PropertyCreator {
         }
     }
 
-    private Path i18nTarget(String language) {
+    private String i18nTarget(String language) {
         if ("english".equals(language)) {
-            return destDir.resolve(WEBGOAT_PROPERTIES);
+            return WEBGOAT_PROPERTIES;
         }
-        return destDir.resolve(String.format(WEBGOAT_PROPERTIES_LANGUAGE, LANGUAGES.get(language)));
+        return String.format(WEBGOAT_PROPERTIES_LANGUAGE, LANGUAGES.get(language));
     }
 
     private Function<Path, List<String>> fromPathToProperties() throws IOException {

@@ -15,7 +15,18 @@
         <module>lesson-converter</module>
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
+        <module>off-by-one</module>
+        <module>phishing</module>
+        <module>reflected-xss</module>
+        <module>remote-admin-flaw</module>
+        <module>session-fixation</module>
+        <module>silent-transactions</module>
+        <module>soap-request</module>
+        <module>sql-numeric-injection</module>
         <module>sql-string-injection</module>
+        <module>stored-xss</module>
+        <module>thread-safety-problem</module>
+        <module>unchecked-email</module>
         <module>weak-session-id</module>
         <module>ws-sax-injection</module>
         <module>ws-sql-injection</module>

@@ -48,8 +48,10 @@ public class HtmlLessonSolutionFinder {
 
         if (lessonDirectory != null) {
             Path images = lessonDirectory.resolve(lessonName + "_files");
-            if (images != null) {
+            if (images != null && images.toFile().exists()) {
                 return PluginFileUtils.getFilesInDirectory(images);
+            } else {
+                Logger.log("No images for the lesson " + lessonName);
             }
         }
         return new ArrayList<>();

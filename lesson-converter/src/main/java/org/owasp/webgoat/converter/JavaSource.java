@@ -21,7 +21,7 @@ public class JavaSource {
     /**
      * Regular expression for looking in the Java source lesson for properties.
      */
-    private static final Pattern propertyPattern = Pattern.compile(".*WebGoatI18N.get\\(\"(.+?)\"\\).*");
+    private static final Pattern propertyPattern = Pattern.compile(".*getLabelManager\\(\\).get\\(\"(.+?)\"\\).*");
 
     private final Path javaSourceFile;
     private final String className;

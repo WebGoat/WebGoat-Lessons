@@ -135,6 +135,6 @@ After the run you can compile the new project and place in the container as jar.
 
 ## Need work:
 
-TraceXSS.java crashed while reading the Java file
-
+- TraceXSS.java crashed while reading the Java file
+- SQLInjection consist of multiple stages need to call the parts separately
 

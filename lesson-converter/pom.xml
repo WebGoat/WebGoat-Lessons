@@ -9,7 +9,7 @@
     <dependencies>
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
-            <artifactId>Webgoat-Container</artifactId>
+            <artifactId>webgoat-container</artifactId>
             <version>6.1.0</version>
             <type>jar</type>
         </dependency>

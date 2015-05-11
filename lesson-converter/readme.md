@@ -137,4 +137,7 @@ After the run you can compile the new project and place in the container as jar.
 
 - TraceXSS.java crashed while reading the Java file
 - SQLInjection consist of multiple stages need to call the parts separately
+- SameOriginPolicyProtection does not convert
+- Role based access control multiple stages convert manually
+
 

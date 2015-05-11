@@ -40,7 +40,6 @@
             <groupId>org.owasp.webgoat</groupId>
             <artifactId>webgoat-container</artifactId>
             <version>6.1.0</version>
-            <classifier>classes</classifier>
             <scope>provided</scope>
         </dependency>
     </dependencies>

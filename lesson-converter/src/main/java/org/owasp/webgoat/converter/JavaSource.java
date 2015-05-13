@@ -125,7 +125,7 @@ public class JavaSource {
      * Add more methods to scan the source.
      */
     public boolean containsReferenceToJavax() throws IOException {
-        List<String> lines = Files.readAllLines(javaSourceFile);
+        List<String> lines = Files.readAllLines(javaSourceFile, StandardCharsets.UTF_8);
        return FluentIterable.from(lines).anyMatch(new Predicate<String>() {
             @Override
             public boolean apply(String line) {

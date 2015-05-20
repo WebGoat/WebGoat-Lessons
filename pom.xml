@@ -12,6 +12,7 @@
         <module>challenge</module>
         <module>how-to-work</module>
         <module>html-clues</module>
+        <module>insecure-login</module>
         <module>java-script-validation</module>
         <module>json-injection</module>
         <module>lesson-converter</module>

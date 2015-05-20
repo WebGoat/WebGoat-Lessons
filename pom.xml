@@ -15,6 +15,7 @@
         <module>lesson-converter</module>
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
+        <module>multi-level-login1</module>
         <module>multi-level-login2</module>
         <module>off-by-one</module>
         <module>phishing</module>

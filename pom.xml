@@ -12,6 +12,7 @@
         <module>challenge</module>
         <module>how-to-work</module>
         <module>html-clues</module>
+        <module>json-injection</module>
         <module>lesson-converter</module>
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>

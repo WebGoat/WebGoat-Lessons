@@ -10,6 +10,7 @@
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>challenge</module>
+        <module>fail-open-authentication</module>
         <module>forced-browsing</module>
         <module>forgot-password</module>
         <module>hidden-field-tampering</module>
@@ -35,6 +36,7 @@
         <module>stored-xss</module>
         <module>thread-safety-problem</module>
         <module>unchecked-email</module>
+        <module>weak-authentication-cookie</module>
         <module>weak-session-id</module>
         <module>ws-sax-injection</module>
         <module>ws-sql-injection</module>

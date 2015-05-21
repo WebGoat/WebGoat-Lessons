@@ -139,5 +139,7 @@ After the run you can compile the new project and place in the container as jar.
 - SQLInjection consist of multiple stages need to call the parts separately
 - SameOriginPolicyProtection does not convert
 - Role based access control multiple stages convert manually
+- DBSQLInjection multiple stages convert manually
+- DBCrossSiteScripting same as above
 
 

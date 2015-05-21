@@ -10,6 +10,7 @@
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>challenge</module>
+        <module>dangerous-eval-injection</module>
         <module>dom-injection</module>
         <module>dom-xss</module>
         <module>dos-login</module>

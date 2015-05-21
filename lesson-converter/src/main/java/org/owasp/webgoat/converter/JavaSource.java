@@ -39,7 +39,6 @@ public class JavaSource {
         for (String input : sourceLines) {
             Matcher matcher = propertyPattern.matcher(input);
             while (matcher.find()) {
-                System.out.println("ind");
                 String property = matcher.group(1);
                 Logger.log("Property %s found", property);
                 referencedProperties.add(property);

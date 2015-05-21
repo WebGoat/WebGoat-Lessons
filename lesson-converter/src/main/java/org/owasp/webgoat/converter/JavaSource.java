@@ -21,7 +21,7 @@ public class JavaSource {
     /**
      * Regular expression for looking in the Java source lesson for properties.
      */
-    private static final Pattern propertyPattern = Pattern.compile(".*getLabelManager\\(\\).get\\(\"(.+?)\"\\).*");
+    private static final Pattern propertyPattern = Pattern.compile("getLabelManager\\(\\)\\.get\\(\"([^\")]*)\"\\)");
 
     private final Path javaSourceFile;
     private final String className;
@@ -38,7 +38,8 @@ public class JavaSource {
 
         for (String input : sourceLines) {
             Matcher matcher = propertyPattern.matcher(input);
-            if (matcher.matches()) {
+            while (matcher.find()) {
+                System.out.println("ind");
                 String property = matcher.group(1);
                 Logger.log("Property %s found", property);
                 referencedProperties.add(property);

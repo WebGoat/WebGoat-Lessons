@@ -10,6 +10,7 @@
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>challenge</module>
+        <module>dos-login</module>
         <module>encoding</module>
         <module>fail-open-authentication</module>
         <module>forced-browsing</module>

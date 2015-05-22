@@ -10,6 +10,7 @@
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>challenge</module>
+        <module>client-side-validation</module>
         <module>command-injection</module>
         <module>concurrency-cart</module>
         <module>csrf</module>

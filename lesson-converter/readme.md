@@ -145,5 +145,8 @@ After the run you can compile the new project and place in the container as jar.
 - CsrfTokenByPass same as CsrfPromptByPass
 - CrossSiteScripting extends GoatHillsFinancial needs more work
 - Hints for Insecure Client Storage do not work correctly
+- BufferOverflow does not find source
+- BlindSqlInjection same as above
+
 
 

@@ -26,11 +26,22 @@ public class JavaSourceTest {
     @Test
     public void regularExpressionShouldPickUpProperty() throws IOException {
         List<String> lines = new ArrayList<>();
-        lines.add("aaaWebGoatI18N.get(\"testa\")");
-        lines.add("aaaWebGoatI18N.get(\"test1\")1234");
+        lines.add("getLabelManager().get(\"testa\")");
+        lines.add("getLabelManager().get(\"test1\")1234");
         Path tempFile = tempDirectory.resolve("test");
         Files.write(tempFile, lines, StandardCharsets.UTF_8);
         List<String> properties = new JavaSource(tempFile, "Test").referencedProperties();
         assertThat(properties, IsCollectionContaining.hasItems("test1", "testa"));
+    }
+
+    @Test
+    public void regularExpressionOnSameLineShouldPickUpBoth() throws IOException {
+        List<String> lines = new ArrayList<>();
+        lines.add("getLabelManager().get(\"HiddenFieldTamperingHint3\")+ PRICE_TV +getLabelManager().get(\"HiddenFieldTamperingHint32\") + PRICE_TV_HACKED");
+
+        Path tempFile = tempDirectory.resolve("test");
+        Files.write(tempFile, lines, StandardCharsets.UTF_8);
+        List<String> properties = new JavaSource(tempFile, "Test").referencedProperties();
+        assertThat(properties, IsCollectionContaining.hasItems("HiddenFieldTamperingHint3", "HiddenFieldTamperingHint32"));
     }
 }

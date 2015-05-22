@@ -9,14 +9,32 @@
     <modules>
         <module>access-control-matrix</module>
         <module>back-doors</module>
+        <module>basic-authentication</module>
         <module>challenge</module>
+        <module>client-side-filtering</module>
+        <module>client-side-validation</module>
+        <module>command-injection</module>
+        <module>concurrency-cart</module>
+        <module>csrf</module>
+        <module>dangerous-eval-injection</module>
+        <module>dom-injection</module>
+        <module>dom-xss</module>
+        <module>dos-login</module>
+        <module>encoding</module>
+        <module>fail-open-authentication</module>
+        <module>forced-browsing</module>
+        <module>forgot-password</module>
+        <module>hidden-field-tampering</module>
         <module>how-to-work</module>
         <module>html-clues</module>
-<!--
+        <module>insecure-login</module>
+        <module>java-script-validation</module>
+        <module>json-injection</module>
         <module>lesson-converter</module>
--->
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
+        <module>multi-level-login1</module>
+        <module>multi-level-login2</module>
         <module>off-by-one</module>
         <module>phishing</module>
         <module>reflected-xss</module>
@@ -29,12 +47,15 @@
         <module>stored-xss</module>
         <module>thread-safety-problem</module>
         <module>unchecked-email</module>
+        <module>weak-authentication-cookie</module>
         <module>weak-session-id</module>
         <module>ws-sax-injection</module>
         <module>ws-sql-injection</module>
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
+<!--
+-->
     </modules>
 
     <dependencies>

@@ -54,8 +54,9 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
-<!--
--->
+        <module>dist</module>
+        <!--
+        -->
     </modules>
 
     <dependencies>

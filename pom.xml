@@ -17,6 +17,7 @@
         <module>concurrency-cart</module>
         <module>csrf</module>
         <module>dangerous-eval-injection</module>
+        <module>dist</module>
         <module>dom-injection</module>
         <module>dom-xss</module>
         <module>dos-login</module>
@@ -46,6 +47,7 @@
         <module>sql-string-injection</module>
         <module>stored-xss</module>
         <module>thread-safety-problem</module>
+        <module>trace-xss</module>
         <module>unchecked-email</module>
         <module>weak-authentication-cookie</module>
         <module>weak-session-id</module>
@@ -54,8 +56,8 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
-<!--
--->
+        <!--
+        -->
     </modules>
 
     <dependencies>
@@ -64,6 +66,7 @@
             <artifactId>webgoat-container</artifactId>
             <version>6.1.0</version>
             <scope>provided</scope>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

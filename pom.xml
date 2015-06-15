@@ -43,6 +43,7 @@
         <module>session-fixation</module>
         <module>silent-transactions</module>
         <module>soap-request</module>
+        <module>sql-injection</module>
         <module>sql-numeric-injection</module>
         <module>sql-string-injection</module>
         <module>stored-xss</module>
@@ -56,6 +57,7 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
+        <module>goat-hills-financial</module>
         <!--
         -->
     </modules>
@@ -69,8 +71,8 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-
     <dependencyManagement>
+
         <dependencies>
             <dependency>
                 <groupId>javax.servlet</groupId>

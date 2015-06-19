@@ -1,5 +1,5 @@
 
-package org.owasp.webgoat.plugin.RoleBasedAccessControl;
+package org.owasp.webgoat.plugin.sqlinjection;
 
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DefaultLessonAction;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
@@ -54,54 +54,96 @@ public class ViewProfile extends DefaultLessonAction
     {
         getLesson().setCurrentAction(s, getActionName());
 
+        Employee employee = null;
+
         if (isAuthenticated(s))
         {
-            int userId = getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
-            int employeeId = -1;
+            String userId = getSessionAttribute(s, getLessonName() + "." + org.owasp.webgoat.plugin.sqlinjection.SQLInjection.USER_ID);
+            String employeeId = null;
             try
             {
                 // User selected employee
-                employeeId = s.getParser().getIntParameter(RoleBasedAccessControl.EMPLOYEE_ID);
+                employeeId = s.getParser().getRawParameter(org.owasp.webgoat.plugin.sqlinjection.SQLInjection.EMPLOYEE_ID);
             } catch (ParameterNotFoundException e)
             {
                 // May be an internally selected employee
-                employeeId = getIntRequestAttribute(s, getLessonName() + "." + RoleBasedAccessControl.EMPLOYEE_ID);
+                employeeId = getRequestAttribute(s, getLessonName() + "." + org.owasp.webgoat.plugin.sqlinjection.SQLInjection.EMPLOYEE_ID);
             }
 
-            Employee employee = getEmployeeProfile(s, userId, employeeId);
-            setSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.EMPLOYEE_ATTRIBUTE_KEY, employee);
+            // FIXME: If this fails and returns null, ViewProfile.jsp will blow up as it expects an
+            // Employee.
+            // Most other JSP's can handle null session attributes.
+            employee = getEmployeeProfile(s, userId, employeeId);
+            // If employee==null redirect to the error page.
+            if (employee == null)
+                getLesson().setCurrentAction(s, org.owasp.webgoat.plugin.sqlinjection.SQLInjection.ERROR_ACTION);
+            else
+                setSessionAttribute(s, getLessonName() + "." + org.owasp.webgoat.plugin.sqlinjection.SQLInjection.EMPLOYEE_ATTRIBUTE_KEY, employee);
         }
         else
             throw new UnauthenticatedException();
 
-        updateLessonStatus(s);
-    }
-
-    private void updateLessonStatus(WebSession s)
-    {
-        // If the logged in user is not authorized to see the given employee's data, stage is
-        // complete.
-        try
-        {
-            int userId = getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
-            int employeeId = s.getParser().getIntParameter(RoleBasedAccessControl.EMPLOYEE_ID);
-
-            if (RoleBasedAccessControl.STAGE3.equals(getStage(s)) && !isAuthorizedForEmployee(s, userId, employeeId))
-            {
-                setStageComplete(s, RoleBasedAccessControl.STAGE3);
-            }
-        } catch (ParameterNotFoundException e)
-        {
-        }
+        updateLessonStatus(s, employee);
     }
 
     public String getNextPage(WebSession s)
     {
-        return RoleBasedAccessControl.VIEWPROFILE_ACTION;
+        return org.owasp.webgoat.plugin.sqlinjection.SQLInjection.VIEWPROFILE_ACTION;
     }
 
-    public Employee getEmployeeProfile(WebSession s, int userId, int subjectUserId) throws UnauthorizedException
+    public Employee getEmployeeProfile(WebSession s, String userId, String subjectUserId) throws UnauthorizedException
     {
+        Employee profile = null;
+
+        // Query the database for the profile data of the given employee
+        try
+        {
+            String query = "SELECT employee.* "
+                    + "FROM employee,ownership WHERE employee.userid = ownership.employee_id and "
+                    + "ownership.employer_id = " + userId + " and ownership.employee_id = " + subjectUserId;
+
+            try
+            {
+                Statement answer_statement = WebSession.getConnection(s)
+                        .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet answer_results = answer_statement.executeQuery(query);
+                if (answer_results.next())
+                {
+                    // Note: Do NOT get the password field.
+                    profile = new Employee(answer_results.getInt("userid"), answer_results.getString("first_name"),
+                            answer_results.getString("last_name"), answer_results.getString("ssn"), answer_results
+                                    .getString("title"), answer_results.getString("phone"), answer_results
+                                    .getString("address1"), answer_results.getString("address2"), answer_results
+                                    .getInt("manager"), answer_results.getString("start_date"), answer_results
+                                    .getInt("salary"), answer_results.getString("ccn"), answer_results
+                                    .getInt("ccn_limit"), answer_results.getString("disciplined_date"), answer_results
+                                    .getString("disciplined_notes"), answer_results.getString("personal_description"));
+                    // System.out.println("Profile: " + profile);
+                    /*
+                     * System.out.println("Retrieved employee from db: " + profile.getFirstName() +
+                     * " " + profile.getLastName() + " (" + profile.getId() + ")");
+                     */}
+            } catch (SQLException sqle)
+            {
+                s.setMessage("Error getting employee profile");
+                sqle.printStackTrace();
+            }
+        } catch (Exception e)
+        {
+            s.setMessage("Error getting employee profile");
+            e.printStackTrace();
+        }
+
+        return profile;
+    }
+
+    public Employee getEmployeeProfile_BACKUP(WebSession s, String userId, String subjectUserId)
+            throws UnauthorizedException
+    {
+        // Query the database to determine if this employee has access to this function
+        // Query the database for the profile data of the given employee if "owned" by the given
+        // user
+
         Employee profile = null;
 
         // Query the database for the profile data of the given employee
@@ -143,49 +185,46 @@ public class ViewProfile extends DefaultLessonAction
         return profile;
     }
 
-    public Employee getEmployeeProfile_BACKUP(WebSession s, int userId, int subjectUserId) throws UnauthorizedException
+    private void updateLessonStatus(WebSession s, Employee employee)
     {
-        // Query the database to determine if the given employee is owned by the given user
-        // Query the database for the profile data of the given employee
-
-        Employee profile = null;
-
-        // Query the database for the profile data of the given employee
         try
         {
-            String query = "SELECT * FROM employee WHERE userid = " + subjectUserId;
-
-            try
+            String userId = getSessionAttribute(s, getLessonName() + "." + org.owasp.webgoat.plugin.sqlinjection.SQLInjection.USER_ID);
+            String employeeId = s.getParser().getRawParameter(org.owasp.webgoat.plugin.sqlinjection.SQLInjection.EMPLOYEE_ID);
+            String stage = getStage(s);
+            if (org.owasp.webgoat.plugin.sqlinjection.SQLInjection.STAGE3.equals(stage))
             {
-                Statement answer_statement = WebSession.getConnection(s)
-                        .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet answer_results = answer_statement.executeQuery(query);
-                if (answer_results.next())
+                // If the employee we are viewing is the prize and we are not authorized to have it,
+                // the stage is completed
+                if (employee != null && employee.getId() == org.owasp.webgoat.plugin.sqlinjection.SQLInjection.PRIZE_EMPLOYEE_ID
+                        && !isAuthorizedForEmployee(s, Integer.parseInt(userId), employee.getId()))
                 {
-                    // Note: Do NOT get the password field.
-                    profile = new Employee(answer_results.getInt("userid"), answer_results.getString("first_name"),
-                            answer_results.getString("last_name"), answer_results.getString("ssn"), answer_results
-                                    .getString("title"), answer_results.getString("phone"), answer_results
-                                    .getString("address1"), answer_results.getString("address2"), answer_results
-                                    .getInt("manager"), answer_results.getString("start_date"), answer_results
-                                    .getInt("salary"), answer_results.getString("ccn"), answer_results
-                                    .getInt("ccn_limit"), answer_results.getString("disciplined_date"), answer_results
-                                    .getString("disciplined_notes"), answer_results.getString("personal_description"));
-                    /*
-                     * System.out.println("Retrieved employee from db: " + profile.getFirstName() +
-                     * " " + profile.getLastName() + " (" + profile.getId() + ")");
-                     */}
-            } catch (SQLException sqle)
-            {
-                s.setMessage("Error getting employee profile");
-                sqle.printStackTrace();
+                    setStageComplete(s, org.owasp.webgoat.plugin.sqlinjection.SQLInjection.STAGE3);
+                }
             }
-        } catch (Exception e)
+            else if (org.owasp.webgoat.plugin.sqlinjection.SQLInjection.STAGE4.equals(stage))
+            {
+                // If we were denied the employee to view, and we would have been able to view it
+                // in the broken state, the stage is completed.
+                // This assumes the student hasn't modified getEmployeeProfile_BACKUP().
+                if (employee == null)
+                {
+                    Employee targetEmployee = null;
+                    try
+                    {
+                        targetEmployee = getEmployeeProfile_BACKUP(s, userId, employeeId);
+                    } catch (UnauthorizedException e)
+                    {
+                    }
+                    if (targetEmployee != null && targetEmployee.getId() == org.owasp.webgoat.plugin.sqlinjection.SQLInjection.PRIZE_EMPLOYEE_ID)
+                    {
+                        setStageComplete(s, org.owasp.webgoat.plugin.sqlinjection.SQLInjection.STAGE4);
+                    }
+                }
+            }
+        } catch (ParameterNotFoundException pnfe)
         {
-            s.setMessage("Error getting employee profile");
-            e.printStackTrace();
         }
-
-        return profile;
     }
+
 }

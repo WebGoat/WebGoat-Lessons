@@ -25,6 +25,7 @@
         <module>fail-open-authentication</module>
         <module>forced-browsing</module>
         <module>forgot-password</module>
+        <module>goat-hills-financial</module>
         <module>hidden-field-tampering</module>
         <module>how-to-work</module>
         <module>html-clues</module>
@@ -40,6 +41,7 @@
         <module>phishing</module>
         <module>reflected-xss</module>
         <module>remote-admin-flaw</module>
+        <module>role-based-access-control</module>
         <module>session-fixation</module>
         <module>silent-transactions</module>
         <module>soap-request</module>
@@ -57,7 +59,6 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
-        <module>goat-hills-financial</module>
         <!--
         -->
     </modules>

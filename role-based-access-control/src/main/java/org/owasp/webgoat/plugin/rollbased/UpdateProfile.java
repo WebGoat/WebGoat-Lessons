@@ -1,5 +1,5 @@
 
-package org.owasp.webgoat.plugin.RoleBasedAccessControl;
+package org.owasp.webgoat.plugin.rollbased;
 
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DefaultLessonAction;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
@@ -17,119 +17,118 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-/***************************************************************************************************
- * 
- * 
+/**
+ * ************************************************************************************************
+ * <p/>
+ * <p/>
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
  * please see http://www.owasp.org/
- * 
+ * <p/>
  * Copyright (c) 2002 - 20014 Bruce Mayhew
- * 
+ * <p/>
  * This program is free software; you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation; either version 2 of the
  * License, or (at your option) any later version.
- * 
+ * <p/>
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
- * 
+ * <p/>
  * You should have received a copy of the GNU General Public License along with this program; if
  * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
- * 
+ * <p/>
  * Getting Source ==============
- * 
+ * <p/>
  * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software
  * projects.
- * 
+ * <p/>
  * For details, please see http://webgoat.github.io
  */
-public class UpdateProfile extends DefaultLessonAction
-{
+public class UpdateProfile extends DefaultLessonAction {
 
     private LessonAction chainedAction;
 
-    public UpdateProfile(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
-    {
+    public UpdateProfile(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction) {
         super(lesson, lessonName, actionName);
         this.chainedAction = chainedAction;
     }
 
     public void handleRequest(WebSession s) throws ParameterNotFoundException, UnauthenticatedException,
-            UnauthorizedException, ValidationException
-    {
-        if (isAuthenticated(s))
-        {
+            UnauthorizedException, ValidationException {
+        if (isAuthenticated(s)) {
             int userId = getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
 
             int subjectId = s.getParser().getIntParameter(RoleBasedAccessControl.EMPLOYEE_ID, 0);
 
             String firstName = s.getParser().getStringParameter(RoleBasedAccessControl.FIRST_NAME);
             String lastName = s.getParser().getStringParameter(RoleBasedAccessControl.LAST_NAME);
-            String ssn = s.getParser().getStringParameter(RoleBasedAccessControl.SSN);
-            String title = s.getParser().getStringParameter(RoleBasedAccessControl.TITLE);
-            String phone = s.getParser().getStringParameter(RoleBasedAccessControl.PHONE_NUMBER);
-            String address1 = s.getParser().getStringParameter(RoleBasedAccessControl.ADDRESS1);
-            String address2 = s.getParser().getStringParameter(RoleBasedAccessControl.ADDRESS2);
-            int manager = s.getParser().getIntParameter(RoleBasedAccessControl.MANAGER);
-            String startDate = s.getParser().getStringParameter(RoleBasedAccessControl.START_DATE);
-            int salary = s.getParser().getIntParameter(RoleBasedAccessControl.SALARY);
-            String ccn = s.getParser().getStringParameter(RoleBasedAccessControl.CCN);
-            int ccnLimit = s.getParser().getIntParameter(RoleBasedAccessControl.CCN_LIMIT);
-            String disciplinaryActionDate = s.getParser().getStringParameter(RoleBasedAccessControl.DISCIPLINARY_DATE);
+            String ssn = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.SSN);
+            String title = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.TITLE);
+            String phone = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.PHONE_NUMBER);
+            String address1 = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.ADDRESS1);
+            String address2 = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.ADDRESS2);
+            int manager = s.getParser().getIntParameter(
+                    RoleBasedAccessControl.MANAGER);
+            String startDate = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.START_DATE);
+            int salary = s.getParser().getIntParameter(
+                    RoleBasedAccessControl.SALARY);
+            String ccn = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.CCN);
+            int ccnLimit = s.getParser().getIntParameter(
+                    RoleBasedAccessControl.CCN_LIMIT);
+            String disciplinaryActionDate = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.DISCIPLINARY_DATE);
             String disciplinaryActionNotes = s.getParser()
                     .getStringParameter(RoleBasedAccessControl.DISCIPLINARY_NOTES);
-            String personalDescription = s.getParser().getStringParameter(RoleBasedAccessControl.DESCRIPTION);
+            String personalDescription = s.getParser().getStringParameter(
+                    RoleBasedAccessControl.DESCRIPTION);
 
             Employee employee = new Employee(subjectId, firstName, lastName, ssn, title, phone, address1, address2,
                     manager, startDate, salary, ccn, ccnLimit, disciplinaryActionDate, disciplinaryActionNotes,
                     personalDescription);
 
-            if (subjectId > 0)
-            {
+            if (subjectId > 0) {
                 this.changeEmployeeProfile(s, userId, subjectId, employee);
                 setRequestAttribute(s, getLessonName() + "." + RoleBasedAccessControl.EMPLOYEE_ID, Integer
                         .toString(subjectId));
-            }
-            else
+            } else
                 this.createEmployeeProfile(s, userId, employee);
 
-            try
-            {
+            try {
                 chainedAction.handleRequest(s);
-            } catch (UnauthenticatedException ue1)
-            {
+            } catch (UnauthenticatedException ue1) {
                 // System.out.println("Internal server error");
                 ue1.printStackTrace();
-            } catch (UnauthorizedException ue2)
-            {
+            } catch (UnauthorizedException ue2) {
                 // System.out.println("Internal server error");
                 ue2.printStackTrace();
             }
-        }
-        else
+        } else
             throw new UnauthenticatedException();
     }
 
-    public String getNextPage(WebSession s)
-    {
+    public String getNextPage(WebSession s) {
         return RoleBasedAccessControl.VIEWPROFILE_ACTION;
     }
 
     public void changeEmployeeProfile(WebSession s, int userId, int subjectId, Employee employee)
-            throws UnauthorizedException
-    {
-        try
-        {
+            throws UnauthorizedException {
+        try {
             // Note: The password field is ONLY set by ChangePassword
             String query = "UPDATE employee SET first_name = ?, last_name = ?, ssn = ?, title = ?, phone = ?, address1 = ?, address2 = ?,"
                     + " manager = ?, start_date = ?, ccn = ?, ccn_limit = ?,"
                     + " personal_description = ? WHERE userid = ?;";
-            try
-            {
+            try {
                 PreparedStatement ps = WebSession.getConnection(s).prepareStatement(query,
-                                                                                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                                                    ResultSet.CONCUR_READ_ONLY);
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
 
                 ps.setString(1, employee.getFirstName());
                 ps.setString(2, employee.getLastName());
@@ -145,33 +144,28 @@ public class UpdateProfile extends DefaultLessonAction
                 ps.setString(12, employee.getPersonalDescription());
                 ps.setInt(13, subjectId);
                 ps.execute();
-            } catch (SQLException sqle)
-            {
+            } catch (SQLException sqle) {
                 s.setMessage("Error updating employee profile");
                 sqle.printStackTrace();
             }
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             s.setMessage("Error updating employee profile");
             e.printStackTrace();
         }
     }
 
     public void changeEmployeeProfile_BACKUP(WebSession s, int userId, int subjectId, Employee employee)
-            throws UnauthorizedException
-    {
-        try
-        {
+            throws UnauthorizedException {
+        try {
             // Note: The password field is ONLY set by ChangePassword
             String query = "UPDATE employee SET first_name = ?, last_name = ?, ssn = ?, title = ?, phone = ?, address1 = ?, address2 = ?,"
                     + " manager = ?, start_date = ?, ccn = ?, ccn_limit = ?,"
                     + " personal_description = ? WHERE userid = ?;";
-            try
-            {
+            try {
                 PreparedStatement ps = WebSession.getConnection(s).prepareStatement(query,
-                                                                                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                                                    ResultSet.CONCUR_READ_ONLY);
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
 
                 ps.setString(1, employee.getFirstName());
                 ps.setString(2, employee.getLastName());
@@ -187,49 +181,41 @@ public class UpdateProfile extends DefaultLessonAction
                 ps.setString(12, employee.getPersonalDescription());
                 ps.setInt(13, subjectId);
                 ps.executeUpdate(query);
-            } catch (SQLException sqle)
-            {
+            } catch (SQLException sqle) {
                 s.setMessage("Error updating employee profile");
                 sqle.printStackTrace();
             }
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             s.setMessage("Error updating employee profile");
             e.printStackTrace();
         }
     }
 
-    protected int getNextUID(WebSession s)
-    {
+    protected int getNextUID(WebSession s) {
         int uid = -1;
-        try
-        {
+        try {
             Statement statement = WebSession.getConnection(s).createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                                                ResultSet.CONCUR_READ_ONLY);
+                    ResultSet.CONCUR_READ_ONLY);
             ResultSet results = statement.executeQuery("select max(userid) as uid from employee");
             results.first();
             uid = results.getInt("uid");
-        } catch (SQLException sqle)
-        {
+        } catch (SQLException sqle) {
             sqle.printStackTrace();
             s.setMessage("Error updating employee profile");
         }
         return uid + 1;
     }
 
-    public void createEmployeeProfile(WebSession s, int userId, Employee employee) throws UnauthorizedException
-    {
-        try
-        {
+    public void createEmployeeProfile(WebSession s, int userId, Employee employee) throws UnauthorizedException {
+        try {
             // FIXME: Cannot choose the id because we cannot guarantee uniqueness
             int nextId = getNextUID(s);
             String query = "INSERT INTO employee VALUES ( " + nextId + ", ?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             // System.out.println("Query: " + query);
 
-            try
-            {
+            try {
                 PreparedStatement ps = WebSession.getConnection(s).prepareStatement(query);
 
                 ps.setString(1, employee.getFirstName().toLowerCase());
@@ -248,13 +234,11 @@ public class UpdateProfile extends DefaultLessonAction
                 ps.setString(14, employee.getPersonalDescription());
 
                 ps.execute();
-            } catch (SQLException sqle)
-            {
+            } catch (SQLException sqle) {
                 s.setMessage("Error updating employee profile");
                 sqle.printStackTrace();
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             s.setMessage("Error updating employee profile");
             e.printStackTrace();
         }

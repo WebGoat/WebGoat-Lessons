@@ -1,5 +1,5 @@
 
-package org.owasp.webgoat.plugin.RoleBasedAccessControl;
+package org.owasp.webgoat.plugin.rollbased;
 
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DefaultLessonAction;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
@@ -59,7 +59,8 @@ public class DeleteProfile extends DefaultLessonAction
         getLesson().setCurrentAction(s, getActionName());
 
         int userId = getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
-        int employeeId = s.getParser().getIntParameter(RoleBasedAccessControl.EMPLOYEE_ID);
+        int employeeId = s.getParser().getIntParameter(
+                RoleBasedAccessControl.EMPLOYEE_ID);
 
         if (isAuthenticated(s))
         {

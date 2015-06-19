@@ -1,5 +1,5 @@
 
-package org.owasp.webgoat.plugin.RoleBasedAccessControl;
+package org.owasp.webgoat.plugin.rollbased;
 
 import org.apache.ecs.ElementContainer;
 import org.owasp.webgoat.lessons.Category;

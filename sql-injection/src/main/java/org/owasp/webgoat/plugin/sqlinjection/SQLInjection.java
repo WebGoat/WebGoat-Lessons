@@ -1,5 +1,5 @@
 
-package org.owasp.webgoat.plugin;
+package org.owasp.webgoat.plugin.sqlinjection;
 
 import org.apache.ecs.ElementContainer;
 import org.owasp.webgoat.lessons.Category;

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" 
-	import="java.util.*, org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.SQLInjection"
+	import="java.util.*, org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.sqlinjection.SQLInjection"
 	errorPage="" %>
 <%
 	WebSession webSession = ((WebSession)session.getAttribute("websession"));

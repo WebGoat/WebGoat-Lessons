@@ -1,7 +1,6 @@
 
 package org.owasp.webgoat.plugin.GoatHillsFinancial;
 
-import org.owasp.webgoat.plugin.RoleBasedAccessControl.RoleBasedAccessControl;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;
@@ -180,7 +179,7 @@ public abstract class DefaultLessonAction implements LessonAction
 
     public int getUserId(WebSession s) throws ParameterNotFoundException
     {
-        return getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
+        return getIntSessionAttribute(s, getLessonName() + "." + GoatHillsFinancial.USER_ID);
     }
 
     public String getUserName(WebSession s) throws ParameterNotFoundException
@@ -235,7 +234,7 @@ public abstract class DefaultLessonAction implements LessonAction
     public boolean isAuthorized(WebSession s, int employeeId, String functionId)
     {
         String employer_id = (String) s.getRequest().getSession()
-                .getAttribute(getLessonName() + "." + RoleBasedAccessControl.USER_ID);
+                .getAttribute(getLessonName() + "." + GoatHillsFinancial.USER_ID);
         // System.out.println("Authorizing " + employeeId + " for use of function: " + functionId +
         // " having USER_ID = "
         // + employer_id );

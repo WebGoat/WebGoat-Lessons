@@ -1,5 +1,5 @@
 
-package org.owasp.webgoat.plugin.RoleBasedAccessControl;
+package org.owasp.webgoat.plugin.rollbased;
 
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DefaultLessonAction;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
@@ -58,7 +58,6 @@ public class EditProfile extends DefaultLessonAction
         {
             int userId = getUserId(s);
             int employeeId = s.getParser().getIntParameter(RoleBasedAccessControl.EMPLOYEE_ID);
-
             Employee employee = getEmployeeProfile(s, userId, employeeId);
             setSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.EMPLOYEE_ATTRIBUTE_KEY, employee);
         }

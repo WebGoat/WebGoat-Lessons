@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" 
-	import="java.util.*, org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.sqlinjection.SQLInjection"
+	import="java.util.*, org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.rollbased.*"
 	errorPage="" %>
 <%
 	WebSession webSession = ((WebSession)session.getAttribute("websession"));
@@ -15,9 +15,9 @@
   <table width="60%" border="0" cellpadding="3">
     <tr>
       <td>  <label>
-  <select name="<%=SQLInjection.EMPLOYEE_ID%>" size="11">
+  <select name="<%=RoleBasedAccessControl.EMPLOYEE_ID%>" size="11">
 			      	<%
-			      	List employees = (List) session.getAttribute("SQLInjection." + SQLInjection.STAFF_ATTRIBUTE_KEY);
+			      	List employees = (List) session.getAttribute("RoleBasedAccessControl." + RoleBasedAccessControl.STAFF_ATTRIBUTE_KEY);
 			      	Iterator i = employees.iterator();
 			      	EmployeeStub stub = (EmployeeStub) i.next();%>
 			      	<option selected value="<%=Integer.toString(stub.getId())%>"><%=stub.getFirstName() + " " + stub.getLastName()+ " (" + stub.getRole() + ")"%></option><%
@@ -29,26 +29,26 @@
   </select>
   </label></td>
       <td>
-	        	<input type="submit" name="action" value="<%=SQLInjection.SEARCHSTAFF_ACTION%>"/><br>
-	        	<input type="submit" name="action" value="<%=SQLInjection.VIEWPROFILE_ACTION%>"/><br>
+	        	<input type="submit" name="action" value="<%=RoleBasedAccessControl.SEARCHSTAFF_ACTION%>"/><br>
+	        	<input type="submit" name="action" value="<%=RoleBasedAccessControl.VIEWPROFILE_ACTION%>"/><br>
             		<% 
-				if (webSession.isAuthorizedInLesson(myUserId, SQLInjection.CREATEPROFILE_ACTION))
+				if (webSession.isAuthorizedInLesson(myUserId, RoleBasedAccessControl.CREATEPROFILE_ACTION))
 				{
 				%>
-					<input type="submit" disabled name="action" value="<%=SQLInjection.CREATEPROFILE_ACTION%>"/><br>
+					<input type="submit" name="action" disabled value="<%=RoleBasedAccessControl.CREATEPROFILE_ACTION%>"/><br>
 				<% 
 				}
 				%>
             		<% 
-				if (webSession.isAuthorizedInLesson(myUserId, SQLInjection.DELETEPROFILE_ACTION))
+				if (webSession.isAuthorizedInLesson(myUserId, RoleBasedAccessControl.DELETEPROFILE_ACTION))
 				{
 				%>
-					<input type="submit" name="action" value="<%=SQLInjection.DELETEPROFILE_ACTION%>"/><br>
+					<input type="submit" name="action" value="<%=RoleBasedAccessControl.DELETEPROFILE_ACTION%>"/><br>
 				<% 
 				}
 				%>
 			<br>
-					<input type="submit" name="action" value="<%=SQLInjection.LOGOUT_ACTION%>"/>
+					<input type="submit" name="action" value="<%=RoleBasedAccessControl.LOGOUT_ACTION%>"/>
 	  </td>
     </tr>
   </table>

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
-<%@page import="org.owasp.webgoat.plugin.*" %>
+<%@page import="org.owasp.webgoat.plugin.sqlinjection.*" %>
 <%@ page import="org.owasp.webgoat.session.*" %>
 <style>
 <jsp:include page="SQLInjection.css" />

@@ -1,7 +1,6 @@
 package org.owasp.webgoat.converter;
 
 import com.google.common.base.Predicate;
-import com.google.common.base.Verify;
 import org.owasp.webgoat.plugins.PluginFileUtils;
 
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class HtmlLessonSolutionFinder {
     }
 
     //TODO some lessons have more solution files
-    public Path findHtmlSolutions() throws IOException {
+    public List<Path> findHtmlSolutions() throws IOException {
         final Path lessonDirectory = LessonConverterFileUtils.findSubDirectory(srcDir, NAME_LESSON_SOLUTION_DIR);
         Objects.requireNonNull(lessonDirectory, "Lesson solution directory not found check the source directory");
 
@@ -39,8 +38,7 @@ public class HtmlLessonSolutionFinder {
             }
         });
 
-        Verify.verify(files.size() == 1, "More html solutions for the lesson found");
-        return files.get(0);
+        return files;
     }
 
     public List<Path> findSolutionImages() throws IOException {

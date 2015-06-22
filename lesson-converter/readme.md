@@ -135,10 +135,6 @@ After the run you can compile the new project and place in the container as jar.
 
 ## Need work:
 
-- TraceXSS.java crashed while reading the Java file
-- SQLInjection consist of multiple stages need to call the parts separately
-- SameOriginPolicyProtection does not convert
-- Role based access control multiple stages convert manually
 - DBSQLInjection multiple stages convert manually
 - DBCrossSiteScripting same as above
 - CsrfPromptByPass needs CSRF class but leads to classloading issue: order should be checked

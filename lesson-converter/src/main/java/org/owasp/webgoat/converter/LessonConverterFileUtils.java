@@ -2,10 +2,15 @@ package org.owasp.webgoat.converter;
 
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 import org.owasp.webgoat.plugins.PluginFileUtils;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,4 +89,17 @@ public class LessonConverterFileUtils extends PluginFileUtils {
         return target;
     }
 
+    public static List<Path> copyTo(List<Path> sources, Path targetDirectory, StandardCopyOption... options) throws IOException {
+        List<Path> targetSources = Lists.newArrayList();
+        for(Path s : sources) {
+            targetSources.add(copyTo(s, targetDirectory, options));
+        }
+        return targetSources;
+    }
+
+    public static void replaceInFiles(String replace, String with, List<Path> files) throws IOException {
+        for(Path p : files) {
+            PluginFileUtils.replaceInFile(replace, with, p);
+        }
+    }
 }

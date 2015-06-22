@@ -1,12 +1,6 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -18,7 +12,15 @@ import org.apache.ecs.html.Input;
 import org.apache.ecs.html.Script;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.SequentialLessonAdapter;
-import org.owasp.webgoat.session.*;
+import org.owasp.webgoat.session.ECSFactory;
+import org.owasp.webgoat.session.WebSession;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DOMXSS extends SequentialLessonAdapter
@@ -140,7 +142,7 @@ public class DOMXSS extends SequentialLessonAdapter
          * 
          * 1. If the DOMXSS.js file contains the lines "escapeHTML(name)"
          */
-        String file = s.getWebResource("lessonJS/DOMXSS.js");
+        String file = s.getWebResource(buildJsPath(s,"js/DOMXSS.js"));
         String content = getFileContent(file);
 
         if (content.indexOf("escapeHTML(name)") != -1)
@@ -159,9 +161,9 @@ public class DOMXSS extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc("lessonJS/DOMXSS.js"));
+            ec.addElement(new Script().setSrc(buildJsPath(s, "DOMXSS.js")));
 
-            ec.addElement(new Script().setSrc("lessonJS/escape.js"));
+            ec.addElement(new Script().setSrc(buildJsPath(s, "escape.js")));
 
             ec.addElement(new H1().setID("greeting"));
 

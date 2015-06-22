@@ -6,7 +6,6 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Verify;
 import org.apache.commons.io.FileUtils;
-import org.owasp.webgoat.plugins.PluginFileUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -19,6 +18,7 @@ import java.util.Map;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static org.owasp.webgoat.converter.LessonConverterFileUtils.copyTo;
+import static org.owasp.webgoat.converter.LessonConverterFileUtils.replaceInFiles;
 import static org.owasp.webgoat.plugins.PluginFileUtils.createDirsIfNotExists;
 
 public class LessonCreator {
@@ -126,9 +126,9 @@ public class LessonCreator {
     public void copyLessonSolutions() throws IOException {
         Logger.start("Starting to copy the lesson solutions...");
         HtmlLessonSolutionFinder htmlLessonSolutionFinder = new HtmlLessonSolutionFinder(srcDir, lessonName);
-        Path targetSolutions = copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
-        PluginFileUtils.replaceInFile("lesson_solutions/", "", targetSolutions);
-        PluginFileUtils.replaceInFile("content=\"text/html; charset=windows-1252\"", "content=\"text/html; charset=UTF-8\"", targetSolutions);
+        List<Path> targetSolutions = copyTo(htmlLessonSolutionFinder.findHtmlSolutions(), lessonSolutionDirectory);
+        replaceInFiles("lesson_solutions/", "", targetSolutions);
+        replaceInFiles("content=\"text/html; charset=windows-1252\"", "content=\"text/html; charset=UTF-8\"", targetSolutions);
 
         List<Path> solutionImages = htmlLessonSolutionFinder.findSolutionImages();
         for (Path image : solutionImages) {

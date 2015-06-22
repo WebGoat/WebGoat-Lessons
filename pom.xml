@@ -42,6 +42,7 @@
         <module>reflected-xss</module>
         <module>remote-admin-flaw</module>
         <module>role-based-access-control</module>
+        <module>same-origin-policy-protection</module>
         <module>session-fixation</module>
         <module>silent-transactions</module>
         <module>soap-request</module>

@@ -271,19 +271,14 @@ public class GoatHillsFinancial extends RandomLessonAdapter
         return action.getUserName(s);
     }
 
-    protected String getJspPath()
-    {
-        return "/plugin_extracted/plugin/" + getLessonName() + "/jsp/";
-    }
-
     public String getTemplatePage(WebSession s)
     {
-        return getJspPath() + getLessonName() + ".jsp";
+        return buildJspPath(s, getLessonName() + ".jsp");
     }
 
     public String getPage(WebSession s)
     {
-        String page = getJspPath() + getCurrentAction(s) + ".jsp";
+        String page = buildJspPath(s, getCurrentAction(s) + ".jsp");
 
         return page;
     }

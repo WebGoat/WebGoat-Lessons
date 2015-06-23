@@ -1,26 +1,13 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.B;
-import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.HR;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.P;
 import org.apache.ecs.html.TD;
@@ -33,6 +20,12 @@ import org.owasp.webgoat.session.DatabaseUtilities;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.util.HtmlEncoder;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -78,8 +71,6 @@ public class CSRF extends LessonAdapter
     private final static int TITLE_COL = 2;
     private static int count = 1;
     private final static int USER_COL = 4; // Added by Chuck Willis - used to show user who posted
-    // message
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
     /**
      * Adds a feature to the Message attribute of the MessageBoardScreen object
      * 
@@ -374,11 +365,6 @@ public class CSRF extends LessonAdapter
             nameroot = nameroot.substring(0, nameroot.indexOf('-'));
         }
         return nameroot;
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
     }
 
 }

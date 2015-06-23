@@ -3,10 +3,8 @@ package org.owasp.webgoat.plugin;
 
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Div;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.P;
 import org.apache.ecs.html.Script;
@@ -14,7 +12,6 @@ import org.apache.ecs.html.Select;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
 import org.apache.ecs.html.Table;
-import org.apache.ecs.xhtml.style;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.SequentialLessonAdapter;
 import org.owasp.webgoat.session.ECSFactory;
@@ -33,11 +30,6 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
     private final static String ANSWER = "answer";
 
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
-
     protected Element createContent(WebSession s)
     {
         return super.createStagedContent(s);
@@ -50,22 +42,13 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc("lessonJS/clientSideFiltering.js"));
+            ec.addElement(new Script().setSrc(buildJsPath(s, "clientSideFiltering.js")));
 
             Input input = new Input(Input.HIDDEN, "userID", 102);
 
             input.setID("userID");
 
             ec.addElement(input);
-
-            style sty = new style();
-            sty.addElement("#lesson_wrapper {height: 435px;width: 500px;}"
-                    + "#lesson_header {background-image: url(lessons/Ajax/images/lesson1_header.jpg);"
-                    + "width: 490px;padding-right: 10px;padding-top: 60px;background-repeat: no-repeat;}"
-                    + ".lesson_workspace {background-image: url(lessons/Ajax/images/lesson1_workspace.jpg);"
-                    + "width: 489px;height: 325px;padding-left: 10px;padding-top: 10px;background-repeat: no-repeat;}");
-
-            ec.addElement(sty);
 
             Div wrapperDiv = new Div();
             wrapperDiv.setID("lesson_wrapper");
@@ -171,7 +154,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
          * 
          * 1. If the DOMXSS.js file contains the lines "escapeHTML(name)"
          */
-        String file = s.getWebResource("lessons/Ajax/clientSideFiltering.jsp");
+        String file = s.getWebResource("plugin/ClientSideFiltering/jsp/clientSideFiltering.jsp");
         String content = getFileContent(file);
 
         if (content.indexOf("[Managers/Manager/text()") != -1)
@@ -337,7 +320,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         hints.add("Stage 1: Look in the last row of the hidden table.");
 
         hints
-                .add("Stage 1: You can access the server directly <a href = \"/webgoat/lessons/Ajax/clientSideFiltering.jsp?userId=102\">here </a>"
+                .add("Stage 1: You can access the server directly <a href = " + buildJspPath(s, "clientSideFiltering.jsp?userId=102") + ">here </a>"
                         + "to see what results are being returned");
 
         hints.add("Stage 2: The server uses an XPath query agasinst an XML database.");
@@ -441,11 +424,6 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         }
 
         return sb.toString();
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
     }
 
 }

@@ -1,11 +1,6 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -18,6 +13,12 @@ import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.util.Exec;
 import org.owasp.webgoat.util.ExecResults;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 
 
 /***************************************************************************************************
@@ -184,7 +185,7 @@ public class CommandInjection extends LessonAdapter
 
         while (st.hasMoreTokens())
         {
-            String s = (String) st.nextToken().trim();
+            String s = st.nextToken().trim();
 
             if (s.length() > 0 && s.endsWith(".help"))
             {

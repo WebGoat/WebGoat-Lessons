@@ -62,8 +62,6 @@ public class BackDoors extends SequentialLessonAdapter
 
     private final static String SELECT_ST = "select userid, password, ssn, salary, email from employee where userid=";
 
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
-
     protected Element createContent(WebSession s)
     {
         return super.createStagedContent(s);

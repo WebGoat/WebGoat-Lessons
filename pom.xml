@@ -17,6 +17,7 @@
         <module>concurrency-cart</module>
         <module>csrf</module>
         <module>dangerous-eval-injection</module>
+        <module>db-cross-site-scripting</module>
         <module>db-sql-injection</module>
         <module>dist</module>
         <module>dom-injection</module>

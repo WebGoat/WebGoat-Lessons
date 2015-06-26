@@ -125,7 +125,7 @@ public class CommandInjection extends LessonAdapter
                     illegalCommand = false;
                 }
             }
-            File safeDir = new File(s.getContext().getRealPath("/lesson_plans/en"));
+            File safeDir = new File(this.getLessonDirectory(s), "resources");
 
             ec.addElement(new StringElement(getLabelManager().get("YouAreCurrentlyViewing")+"<b>"
                     + (helpFile.toString().length() == 0 ? "&lt;"+getLabelManager().get("SelectFileFromListBelow")+"&gt;" : helpFile.toString())
@@ -272,7 +272,7 @@ public class CommandInjection extends LessonAdapter
      */
     protected List<String> getHints(WebSession s)
     {
-        List<String> hints = new ArrayList<String>();
+        List<String> hints = new ArrayList();
         hints.add(getLabelManager().get("CommandInjectionHint1"));
         hints.add(getLabelManager().get("CommandInjectionHint2"));
         hints.add(getLabelManager().get("CommandInjectionHint3"));

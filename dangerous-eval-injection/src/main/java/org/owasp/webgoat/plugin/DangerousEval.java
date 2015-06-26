@@ -156,7 +156,7 @@ public class DangerousEval extends LessonAdapter
             Input b = new Input();
             b.setType(Input.BUTTON);
             b.setValue("Update Cart");
-            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp") + "');");
+            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp", true) + "');");
 
             tr.addElement(new TD().addElement(b));
             t.addElement(tr);
@@ -177,7 +177,7 @@ public class DangerousEval extends LessonAdapter
             b = new Input();
             b.setType(Input.BUTTON);
             b.setValue("Purchase");
-            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp") + "');");
+            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp", true) + "');");
 
             tr = new TR();
             tr.addElement(new TD().addElement(b).setColSpan(2).setAlign("right"));

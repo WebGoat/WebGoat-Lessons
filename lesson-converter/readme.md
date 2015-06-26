@@ -135,8 +135,6 @@ After the run you can compile the new project and place in the container as jar.
 
 ## Need work:
 
-- DBCrossSiteScripting same as above
-- CsrfPromptByPass needs CSRF class but leads to classloading issue: order should be checked
 - CsrfTokenByPass same as CsrfPromptByPass
 - CrossSiteScripting extends GoatHillsFinancial needs more work
 - Hints for Insecure Client Storage do not work correctly

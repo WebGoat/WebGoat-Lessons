@@ -15,6 +15,7 @@
         <module>client-side-validation</module>
         <module>command-injection</module>
         <module>concurrency-cart</module>
+        <module>csrf-prompt-by-pass</module>
         <module>csrf</module>
         <module>dangerous-eval-injection</module>
         <module>db-cross-site-scripting</module>

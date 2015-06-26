@@ -10,6 +10,7 @@
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
+        <module>blind-string-sql-injection</module>
         <module>challenge</module>
         <module>client-side-filtering</module>
         <module>client-side-validation</module>

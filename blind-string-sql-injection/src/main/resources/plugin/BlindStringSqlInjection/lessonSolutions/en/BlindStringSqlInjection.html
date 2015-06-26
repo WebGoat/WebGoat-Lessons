@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Solution: Blind String SQL Injection</title>
+<link rel="stylesheet" type="text/css" href="formate.css">
+</head>
+<body>
+<p><b>Lesson solution:</b> Blind String SQL Injection</p>
+
+<p>
+This lesson is conceptually very similar to the previous lesson. The big difference is we are searching for a string, not a number.<br/>
+We will attempt to figure out the name the same way, by injecting a boolean expression into the pre-scripted SQL query. It looks similar to the one from the previous lesson:<br/>
+<b>101 AND (SUBSTRING((SELECT name FROM pins WHERE cc_number='4321432143214321'), 1, 1) < 'H' );</b><br/><br/>
+We can compare characters the same way we can compare numbers. For example, N > M. However, without the SUBSTRING method, we are attempting to compare the entire string to one letter, which doesn't help us. The substring method has the following syntax:<br/>
+<b>SUBSTRING(STRING,START,LENGTH)</b><br/><br/>
+The expression above compares the first letter to H. It will return false and show invalid account number. Changing the boolean expression to <b>< 'L'</b> returns true, so we know the letter is between H and L. With a few more queries, we can determine the first letter is <b>J</b>. Note that capitalization matters, and it's right to assume the first letter is capitalized.<br/><br/>
+To determine the second letter, we have to change the SUBSTRING parameters to compare against the second letter. We can use this command:<br/>
+<b>101 AND (SUBSTRING((SELECT name FROM pins WHERE cc_number='4321432143214321'), <u>2</u>, 1) < '<u>h</u>' );</b><br/><br/>
+Using several more queries, we can determine the second letter is <b>i</b>. Note that we are comparing the second character to a lowercase h. Continue this process until you have the rest of the letters.
+The name is <b>Jill</b>. Enter this name to complete the lesson. Capitalization matters.
+</p>
+
+</body>
+</html>

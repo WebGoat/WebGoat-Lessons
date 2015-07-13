@@ -10,13 +10,19 @@
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
+        <module>blind-script</module>
+        <module>blind-string-sql-injection</module>
         <module>challenge</module>
         <module>client-side-filtering</module>
         <module>client-side-validation</module>
         <module>command-injection</module>
         <module>concurrency-cart</module>
+        <module>csrf-prompt-by-pass</module>
+        <module>csrf-token-by-pass</module>
         <module>csrf</module>
         <module>dangerous-eval-injection</module>
+        <module>db-cross-site-scripting</module>
+        <module>db-sql-injection</module>
         <module>dist</module>
         <module>dom-injection</module>
         <module>dom-xss</module>

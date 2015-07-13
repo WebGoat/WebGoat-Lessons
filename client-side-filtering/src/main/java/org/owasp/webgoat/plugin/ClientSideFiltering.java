@@ -154,7 +154,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
          * 
          * 1. If the DOMXSS.js file contains the lines "escapeHTML(name)"
          */
-        String file = s.getWebResource("plugin/ClientSideFiltering/jsp/clientSideFiltering.jsp");
+        String file = getLessonDirectory(s) + "jsp/clientSideFiltering.jsp";
         String content = getFileContent(file);
 
         if (content.indexOf("[Managers/Manager/text()") != -1)
@@ -320,7 +320,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         hints.add("Stage 1: Look in the last row of the hidden table.");
 
         hints
-                .add("Stage 1: You can access the server directly <a href = " + buildJspPath(s, "clientSideFiltering.jsp?userId=102") + ">here </a>"
+                .add("Stage 1: You can access the server directly <a href = " + s.getContext().getContextPath() + buildJspPath(s, "clientSideFiltering.jsp?userId=102", true) + ">here </a>"
                         + "to see what results are being returned");
 
         hints.add("Stage 2: The server uses an XPath query agasinst an XML database.");

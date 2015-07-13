@@ -1,17 +1,12 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Center;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.HR;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.Script;
 import org.apache.ecs.html.TD;
@@ -24,22 +19,13 @@ import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.util.HtmlEncoder;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ClientSideValidation extends SequentialLessonAdapter
 {
-
-    /**
-     * Description of the Method
-     * 
-     * @param s
-     *            Description of the Parameter
-     * @return Description of the Return Value
-     */
-
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
 
     private boolean stage1FirstVisit = true;
 
@@ -104,7 +90,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc("lessonJS/clientSideValidation.js"));
+            ec.addElement(new Script().setSrc(buildJsPath(s, "clientSideValidation.js")));
 
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement("Shopping Cart")));
@@ -131,7 +117,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc("lessonJS/clientSideValidation.js"));
+            ec.addElement(new Script().setSrc(buildJsPath(s, "clientSideValidation.js")));
 
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement("Shopping Cart")));
@@ -431,7 +417,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
 
     /**
      * Gets the title attribute of the AccessControlScreen object
-     * 
+     *
      * @return The title value
      */
     public String getTitle()
@@ -439,8 +425,4 @@ public class ClientSideValidation extends SequentialLessonAdapter
         return "Insecure Client Storage";
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
-    }
 }

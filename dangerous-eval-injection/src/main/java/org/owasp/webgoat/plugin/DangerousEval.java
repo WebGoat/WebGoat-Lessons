@@ -1,17 +1,12 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Center;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.HR;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TH;
@@ -20,6 +15,10 @@ import org.apache.ecs.html.Table;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.WebSession;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 
 /***************************************************************************************************
@@ -55,11 +54,6 @@ import org.owasp.webgoat.session.WebSession;
 
 public class DangerousEval extends LessonAdapter
 {
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
-
     public final static String PASSED = "__DANGEROUS_EVAL_PASS";
 
     /**
@@ -88,7 +82,7 @@ public class DangerousEval extends LessonAdapter
             float runningTotal = 0.0f;
 
             // FIXME: encode output of field2, then s.setMessage( field2 );
-            ec.addElement("<script src='lessonJS/eval.js'> </script>");
+            ec.addElement("<script src='" + buildJsPath(s, "eval.js") + "'> </script>");
             // <script src='javascript/sameOrigin.js' language='JavaScript'></script>
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement("Shopping Cart ")));
@@ -162,7 +156,7 @@ public class DangerousEval extends LessonAdapter
             Input b = new Input();
             b.setType(Input.BUTTON);
             b.setValue("Update Cart");
-            b.addAttribute("onclick", "purchase('lessons/Ajax/eval.jsp');");
+            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp", true) + "');");
 
             tr.addElement(new TD().addElement(b));
             t.addElement(tr);
@@ -183,7 +177,7 @@ public class DangerousEval extends LessonAdapter
             b = new Input();
             b.setType(Input.BUTTON);
             b.setValue("Purchase");
-            b.addAttribute("onclick", "purchase('lessons/Ajax/eval.jsp');");
+            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp", true) + "');");
 
             tr = new TR();
             tr.addElement(new TD().addElement(b).setColSpan(2).setAlign("right"));
@@ -228,10 +222,6 @@ public class DangerousEval extends LessonAdapter
         return hints;
     }
 
-
-    // <script type="text/javascript">if ( navigator.appName.indexOf("Microsoft") !=-1) 
-    // {var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");xmlHttp.open("TRACE", "./", false); 
-    // xmlHttp.send();str1=xmlHttp.responseText;document.write(str1);}</script>
     /**
      * Gets the instructions attribute of the WeakAccessControl object
      * 
@@ -258,11 +248,6 @@ public class DangerousEval extends LessonAdapter
     public String getTitle()
     {
         return "Dangerous Use of Eval";
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
     }
 
     /**

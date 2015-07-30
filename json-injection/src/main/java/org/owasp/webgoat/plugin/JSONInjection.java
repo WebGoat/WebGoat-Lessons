@@ -1,52 +1,53 @@
 
 package org.owasp.webgoat.plugin;
 
-import org.owasp.webgoat.lessons.Category;
-import org.owasp.webgoat.lessons.LessonAdapter;
-import org.owasp.webgoat.session.WebSession;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
-import org.apache.ecs.StringElement;
+import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Div;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.IMG;
-import org.apache.ecs.html.Table;
-import org.apache.ecs.html.TR;
-import org.apache.ecs.html.TD;
 import org.apache.ecs.html.Input;
-import org.apache.ecs.html.BR;
+import org.apache.ecs.html.Script;
+import org.apache.ecs.html.TD;
+import org.apache.ecs.html.TR;
+import org.apache.ecs.html.Table;
+import org.owasp.webgoat.lessons.Category;
+import org.owasp.webgoat.lessons.LessonAdapter;
+import org.owasp.webgoat.session.WebSession;
+
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
- * 
- * 
+ *
+ *
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
  * please see http://www.owasp.org/
- * 
+ *
  * Copyright (c) 2002 - 20014 Bruce Mayhew
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation; either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program; if
  * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
- * 
+ *
  * Getting Source ==============
- * 
+ *
  * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software
  * projects.
- * 
+ *
  * For details, please see http://webgoat.github.io
- * 
+ *
  * @author Sherif Koussa <a href="http://www.softwaresecured.com">Software Secured</a>
  * @created December 25, 2006
  */
@@ -98,119 +99,38 @@ public class JSONInjection extends LessonAdapter
 
     }
 
+    private String getXHRLink(WebSession webSession) {
+        StringBuffer link = new StringBuffer();
+        link.append(webSession.getRequest().getRequestURL().toString().replaceAll("#", ""));
+        link.append("?");
+        link.append("Screen");
+        link.append("=");
+        link.append(this.getScreenId());
+        link.append("&");
+        link.append("menu");
+        link.append("=");
+        link.append(this.getCategory().getRanking());
+        return link.toString();
+    }
+
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Current WebSession
      */
-
     protected Element createContent(WebSession s)
     {
         ElementContainer ec = new ElementContainer();
-        String lineSep = System.getProperty("line.separator"); 
-        String script = "<script>"
-                + lineSep
-                + "function getFlights() {"
-                + lineSep
-                + "var fromField = document.getElementById('"
-                + TRAVEL_FROM
-                + "');"
-                + lineSep
-                + "if (fromField.value.length < 3 || fromField.value!='BOS') { return; }"
-                + lineSep
-                + "var toField = document.getElementById('"
-                + TRAVEL_TO
-                + "');"
-                + lineSep
-                + "if (toField.value.length < 3 || toField.value!='SEA') { return; }"
-                + lineSep
-                + "var url = '"
-                + getLink()
-                + "&from=ajax&"
-                + TRAVEL_FROM
-                + "=' + encodeURIComponent(fromField.value) +"
-                + "'&"
-                + TRAVEL_TO
-                + "=' + encodeURIComponent(toField.value);"
-                + lineSep
-                + "if (typeof XMLHttpRequest != 'undefined') {"
-                + lineSep
-                + "req = new XMLHttpRequest();"
-                + lineSep
-                + "} else if (window.ActiveXObject) {"
-                + lineSep
-                + "req = new ActiveXObject('Microsoft.XMLHTTP');"
-                + lineSep
-                + "   }"
-                + lineSep
-                + "   req.open('GET', url, true);"
-                + lineSep
-                + "   req.onreadystatechange = callback;"
-                + lineSep
-                + "   req.send(null);"
-                + lineSep
-                + "}"
-                + lineSep
-                + "function callback() {"
-                + lineSep
-                + "    if (req.readyState == 4) { "
-                + lineSep
-                + "        if (req.status == 200) { "
-                + lineSep
-                + "                   var card = eval('(' + req.responseText + ')');"
-                + lineSep
-                + "          var flightsDiv = document.getElementById('flightsDiv');"
-                + lineSep
-                + "             flightsDiv.innerHTML = '';"
-                + lineSep
-                + "             var strHTML='';"
-                + lineSep
-                + "             strHTML = '<tr><td>&nbsp;</td><td>No of Stops</td>';"
-                + lineSep
-                + "             strHTML = strHTML + '<td>Stops</td><td>Prices</td></tr>';"
-                + lineSep
-                + "          for(var i=0; i<card.flights.length; i++){"
-                + lineSep
-                + "             var node = card.flights[i];"
-                + lineSep
-                + "             strHTML = strHTML + '<tr><td><input name=\"radio'+i+'\" type=\"radio\" id=\"radio'+i+'\"></td><td>';"
-                + lineSep
-                + "             strHTML = strHTML + card.flights[i].stops + '</td><td>';"
-                + lineSep
-                + "             strHTML = strHTML + card.flights[i].transit + '</td><td>';"
-                + lineSep
-                + "             strHTML = strHTML + '<div name=\"priceID'+i+'\" id=\"priceID'+i+'\">' + card.flights[i].price + '</div></td></tr>';"
-                + lineSep
-                + "          }"
-                + lineSep
-                + "             strHTML = '<table border=\"1\">' + strHTML + '</table>';"
-                + lineSep
-                + "               flightsDiv.innerHTML = strHTML;"
-                + lineSep
-                + "        }}}"
-                + lineSep
-                +
+        ec.addElement(new Script().setSrc(buildJsPath(s, "jsonInjection.js")));
 
-                "function check(){"
-                + lineSep
-                + " if ( document.getElementById('radio0') && document.getElementById('radio0').checked  )"
-                + lineSep
-                + " { document.getElementById('price2Submit').value = document.getElementById('priceID0').innerHTML; return true;}"
-                + lineSep
-                + " else if ( document.getElementById('radio1') && document.getElementById('radio1').checked  )"
-                + lineSep
-                + " { document.getElementById('price2Submit').value = document.getElementById('priceID1').innerHTML; return true;}"
-                + lineSep + " else " + lineSep + " { alert('Please choose one flight'); return false;}" + lineSep + "}"
-                + lineSep + "</script>" + lineSep;
-        ec.addElement(new StringElement(script));
         Table t1 = new Table().setCellSpacing(0).setCellPadding(0).setBorder(0).setWidth("90%").setAlign("center");
 
         TR tr = new TR();
 
         tr.addElement(new TD("From: "));
         Input in = new Input(Input.TEXT, TRAVEL_FROM, "");
-        in.addAttribute("onkeyup", "getFlights();");
+        in.addAttribute("onblur", "getFlights('" + getXHRLink(s) + "');");
         in.addAttribute("id", TRAVEL_FROM);
         tr.addElement(new TD(in));
 
@@ -219,7 +139,7 @@ public class JSONInjection extends LessonAdapter
         tr = new TR();
         tr.addElement(new TD("To: "));
         in = new Input(Input.TEXT, TRAVEL_TO, "");
-        in.addAttribute("onkeyup", "getFlights();");
+        in.addAttribute("onblur", "getFlights('" + getXHRLink(s) + "');");
         in.addAttribute("id", TRAVEL_TO);
         tr.addElement(new TD(in));
 
@@ -289,7 +209,7 @@ public class JSONInjection extends LessonAdapter
 
     /**
      * Gets the title attribute of the HelloScreen object
-     * 
+     *
      * @return The title value
      */
     public String getTitle()

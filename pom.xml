@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>goat-hills-financial</module>
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
@@ -17,6 +18,7 @@
         <module>client-side-validation</module>
         <module>command-injection</module>
         <module>concurrency-cart</module>
+        <module>cross-site-scripting</module>
         <module>csrf-prompt-by-pass</module>
         <module>csrf-token-by-pass</module>
         <module>csrf</module>
@@ -31,7 +33,6 @@
         <module>fail-open-authentication</module>
         <module>forced-browsing</module>
         <module>forgot-password</module>
-        <module>goat-hills-financial</module>
         <module>hidden-field-tampering</module>
         <module>how-to-work</module>
         <module>html-clues</module>

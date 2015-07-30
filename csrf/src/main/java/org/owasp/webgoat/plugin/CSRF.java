@@ -60,8 +60,9 @@ import java.util.List;
  */
 public class CSRF extends LessonAdapter
 {
-    protected static final String TRANSFER_FUNDS_PARAMETER = "transferFunds";
-    protected static final String TRANSFER_FUNDS_PAGE = "main";
+    private static final String TRANSFER_FUNDS_PARAMETER = "transferFunds";
+    private static final String TRANSFER_FUNDS_PAGE = "main";
+
     private final static String MESSAGE = "message";
     private final static int MESSAGE_COL = 3;
     private final static String NUMBER = "Num";

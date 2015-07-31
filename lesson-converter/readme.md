@@ -135,7 +135,5 @@ After the run you can compile the new project and place in the container as jar.
 
 ## Need work:
 
-- CrossSiteScripting extends GoatHillsFinancial needs more work
-
 
 

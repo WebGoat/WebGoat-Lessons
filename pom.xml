@@ -7,7 +7,6 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>goat-hills-financial</module>
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
@@ -33,6 +32,7 @@
         <module>fail-open-authentication</module>
         <module>forced-browsing</module>
         <module>forgot-password</module>
+        <module>goat-hills-financial</module>
         <module>hidden-field-tampering</module>
         <module>how-to-work</module>
         <module>html-clues</module>
@@ -67,6 +67,7 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
+        <module>zip-bomb</module>
         <!--
         -->
     </modules>

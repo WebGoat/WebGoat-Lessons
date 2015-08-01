@@ -15,6 +15,7 @@
         <module>blind-numeric-sql-injection</module>
         <module>blind-script</module>
         <module>blind-string-sql-injection</module>
+        <module>bypass-html-field-restrictions</module>
         <module>challenge</module>
         <module>client-side-filtering</module>
         <module>client-side-validation</module>

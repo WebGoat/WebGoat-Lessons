@@ -7,11 +7,12 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>goat-hills-financial</module>
         <module>common</module>
+        <module>goat-hills-financial</module>
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
+        <module>blind-numeric-sql-injection</module>
         <module>blind-script</module>
         <module>blind-string-sql-injection</module>
         <module>challenge</module>

@@ -7,8 +7,6 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>common</module>
-        <module>goat-hills-financial</module>
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
@@ -20,6 +18,7 @@
         <module>client-side-filtering</module>
         <module>client-side-validation</module>
         <module>command-injection</module>
+        <module>common</module>
         <module>concurrency-cart</module>
         <module>cross-site-scripting</module>
         <module>csrf-prompt-by-pass</module>
@@ -36,9 +35,11 @@
         <module>fail-open-authentication</module>
         <module>forced-browsing</module>
         <module>forgot-password</module>
+        <module>goat-hills-financial</module>
         <module>hidden-field-tampering</module>
         <module>how-to-work</module>
         <module>html-clues</module>
+        <module>http-basics</module>
         <module>insecure-login</module>
         <module>java-script-validation</module>
         <module>json-injection</module>
@@ -80,7 +81,6 @@
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
             <artifactId>webgoat-container</artifactId>
-            <version>6.1.0</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
@@ -92,6 +92,12 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.owasp.webgoat</groupId>
+                <artifactId>webgoat-container</artifactId>
+                <version>6.1.0</version>
+                <type>jar</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

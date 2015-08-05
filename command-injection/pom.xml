@@ -13,7 +13,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -29,7 +29,8 @@
                         <phase>install</phase>
                         <configuration>
                             <target>
-                                <copy todir="${project.basedir}/target/classes/plugin/CommandInjection/resources" flatten="true">
+                                <copy todir="${project.basedir}/target/classes/plugin/CommandInjection/resources"
+                                      flatten="true">
                                     <fileset dir="../">
                                         <include name="**/src/**/lessonPlans/en/*.html"/>
                                     </fileset>

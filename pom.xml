@@ -9,7 +9,6 @@
     <modules>
         <module>common</module>
         <module>goat-hills-financial</module>
-
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
@@ -53,6 +52,7 @@
         <module>multi-level-login2</module>
         <module>off-by-one</module>
         <module>password-strength</module>
+        <module>path-based-access-control</module>
         <module>phishing</module>
         <module>reflected-xss</module>
         <module>remote-admin-flaw</module>
@@ -76,6 +76,7 @@
         <module>xml-injection</module>
         <module>xpath-injection</module>
         <module>zip-bomb</module>
+
 
         <!--
         -->

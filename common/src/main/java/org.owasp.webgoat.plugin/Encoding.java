@@ -2,6 +2,8 @@
 package org.owasp.webgoat.plugin;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /***************************************************************************************************
  * 
@@ -74,4 +76,43 @@ public class Encoding {
 
         return (new String(b));
     }
+
+    /**
+     * Description of the Method
+     *
+     * @param str
+     *            Description of the Parameter
+     * @return Description of the Return Value
+     */
+
+    public static String urlDecode(String str)
+    {
+        try
+        {
+            return (URLDecoder.decode(str, "UTF-8"));
+        } catch (Exception e)
+        {
+            return ("Decoding error");
+        }
+    }
+
+    /**
+     * Description of the Method
+     *
+     * @param str
+     *            Description of the Parameter
+     * @return Description of the Return Value
+     */
+
+    public static String urlEncode(String str)
+    {
+        try
+        {
+            return (URLEncoder.encode(str, "UTF-8"));
+        } catch (Exception e)
+        {
+            return ("Encoding error");
+        }
+    }
+
 }

@@ -7,16 +7,21 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>common</module>
+        <module>goat-hills-financial</module>
         <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
+        <module>blind-numeric-sql-injection</module>
         <module>blind-script</module>
         <module>blind-string-sql-injection</module>
+        <module>bypass-html-field-restrictions</module>
         <module>challenge</module>
         <module>client-side-filtering</module>
         <module>client-side-validation</module>
         <module>command-injection</module>
         <module>concurrency-cart</module>
+        <module>cross-site-scripting</module>
         <module>csrf-prompt-by-pass</module>
         <module>csrf-token-by-pass</module>
         <module>csrf</module>
@@ -31,19 +36,23 @@
         <module>fail-open-authentication</module>
         <module>forced-browsing</module>
         <module>forgot-password</module>
-        <module>goat-hills-financial</module>
         <module>hidden-field-tampering</module>
         <module>how-to-work</module>
         <module>html-clues</module>
+        <module>http-basics</module>
+        <module>http-only</module>
         <module>insecure-login</module>
         <module>java-script-validation</module>
         <module>json-injection</module>
         <module>lesson-converter</module>
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
+        <module>malicious-file-execution</module>
         <module>multi-level-login1</module>
         <module>multi-level-login2</module>
         <module>off-by-one</module>
+        <module>password-strength</module>
+        <module>path-based-access-control</module>
         <module>phishing</module>
         <module>reflected-xss</module>
         <module>remote-admin-flaw</module>
@@ -66,6 +75,9 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
+        <module>zip-bomb</module>
+
+
         <!--
         -->
     </modules>
@@ -74,7 +86,6 @@
         <dependency>
             <groupId>org.owasp.webgoat</groupId>
             <artifactId>webgoat-container</artifactId>
-            <version>6.1.0</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
@@ -86,6 +97,12 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.owasp.webgoat</groupId>
+                <artifactId>webgoat-container</artifactId>
+                <version>6.1.0</version>
+                <type>jar</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

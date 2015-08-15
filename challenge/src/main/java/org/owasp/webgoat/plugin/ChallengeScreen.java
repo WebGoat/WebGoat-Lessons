@@ -28,7 +28,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -45,32 +44,32 @@ import java.util.Vector;
 
 
 /***************************************************************************************************
- * 
- * 
+ *
+ *
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
  * please see http://www.owasp.org/
- * 
+ *
  * Copyright (c) 2002 - 20014 Bruce Mayhew
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation; either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program; if
  * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
- * 
+ *
  * Getting Source ==============
- * 
+ *
  * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software
  * projects.
- * 
+ *
  * For details, please see http://webgoat.github.io
- * 
+ *
  * @author Bruce Mayhew <a href="http://code.google.com/p/webgoat">WebGoat</a>
  * @created October 28, 2003
  */
@@ -127,7 +126,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -139,7 +138,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Determine the username and password
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -158,7 +157,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
             s.setMessage("Welcome to stage 2 -- get credit card numbers!");
             setStage(s, 2);
 
-            return (doStage3(s));
+            return (doStage2(s));
         }
 
         s.setMessage("Invalid login");
@@ -171,7 +170,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
         Input input = new Input(Input.HIDDEN, USER, user);
         ec.addElement(input);
 
-        Cookie newCookie = new Cookie(USER_COOKIE, base64Encode(user));
+        Cookie newCookie = new Cookie(USER_COOKIE, Encoding.base64Encode(user));
         s.getResponse().addCookie(newCookie);
         phoneHome(s, "User: " + username + " --> " + "Pass: " + password);
         // <END_OMIT_SOURCE>
@@ -183,7 +182,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -194,7 +193,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
     {
         // <START_OMIT_SOURCE>
 
-        Cookie newCookie = new Cookie(USER_COOKIE, base64Encode(user));
+        Cookie newCookie = new Cookie(USER_COOKIE, Encoding.base64Encode(user));
         s.getResponse().addCookie(newCookie);
 
         ElementContainer ec = new ElementContainer();
@@ -215,12 +214,12 @@ public class ChallengeScreen extends SequentialLessonAdapter
         // pull the USER_COOKIE from the cookies
         String cookie = getCookie(s);
         if (null == cookie) {
-        	cookie = "";
+            cookie = "";
         } else {
-        	cookie = URLDecoder.decode(cookie,"utf-8");
+            cookie = URLDecoder.decode(cookie,"utf-8");
         }
-        
-        String user = base64Decode(cookie);
+
+        String user = Encoding.base64Decode(cookie);
         String query = "SELECT * FROM user_data WHERE last_name = '" + user + "'";
         Vector<String> v = new Vector<String>();
 
@@ -285,7 +284,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -402,7 +401,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
         ec.addElement(new H1().addElement("Defaced Website Text"));
         ec.addElement(new IFrame().setHeight("500").setWidth("100%").setSrc(
                 s.getRequest().getContextPath() + "/" + WEBGOAT_CHALLENGE + "_"
-                                                                                    + s.getUserName() + JSP));
+                        + s.getUserName() + JSP));
         ec.addElement(new HR());
 
         return ec;
@@ -436,7 +435,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -457,7 +456,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -474,7 +473,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -488,7 +487,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Gets the hints attribute of the ChallengeScreen object
-     * 
+     *
      * @return The hints value
      */
     protected List<String> getHints(WebSession s)
@@ -500,7 +499,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
         hints.add("Seriously, no more hints -- it's a CHALLENGE!");
         hints.add("Come on -- give it a rest!");
         if (getStage(s) != 1)
-        ;
+            ;
         {
             hints.add("Persistance is always rewarded");
         }
@@ -557,7 +556,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Gets the instructions attribute of the ChallengeScreen object
-     * 
+     *
      * @return The instructions value
      */
     public String getInstructions(WebSession s)
@@ -572,7 +571,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Gets the ranking attribute of the ChallengeScreen object
-     * 
+     *
      * @return The ranking value
      */
     protected Integer getDefaultRanking()
@@ -584,7 +583,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
      * This is a deliberate 'backdoor' that would send user name and password back to the remote
      * host. Obviously, sending the password back to the remote host isn't that useful but... you
      * get the idea
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @param message
@@ -609,7 +608,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Gets the title attribute of the ChallengeScreen object
-     * 
+     *
      * @return The title value
      */
     public String getTitle()
@@ -617,13 +616,6 @@ public class ChallengeScreen extends SequentialLessonAdapter
         return ("The CHALLENGE");
     }
 
-    /**
-     * Description of the Method
-     * 
-     * @param text
-     *            Description of the Parameter
-     * @return Description of the Return Value
-     */
     protected ElementContainer getNetstatResults(WebSession s)
     {
         // <START_OMIT_SOURCE>
@@ -649,8 +641,10 @@ public class ChallengeScreen extends SequentialLessonAdapter
         String protocol = s.getParser().getRawParameter(PROTOCOL, "tcp");
 
         String osName = System.getProperty("os.name");
+        boolean isWindows = (osName.indexOf("Windows") != -1)?true:false;
+
         ExecResults er = null;
-        if (osName.indexOf("Windows") != -1)
+        if (isWindows)
         {
             String cmd = "cmd.exe /c netstat -ant -p " + protocol;
             er = Exec.execSimple(cmd);
@@ -664,11 +658,16 @@ public class ChallengeScreen extends SequentialLessonAdapter
         String results = er.getOutput();
         StringTokenizer lines = new StringTokenizer(results, "\n");
         String line = lines.nextToken();
-        // System.out.println(line);
+        //System.out.println("line=" + line);
         int start = 0;
+        int loop = 0;
         while (start == 0 && lines.hasMoreTokens())
         {
-            if ((line.indexOf("Proto") != -1))
+            //Some Windows(non-English) does not display "Proto".
+            //Korean OS also use Korean characters.(Maybe japanese, chinese also - not tested)
+            //So nothing to display, impossible to process this lesson.
+            //but Windows netstat command always have 4 header line before body so...
+            if ((line.indexOf("Proto") != -1) || (isWindows && loop >= 3))
             {
                 start++;
             }
@@ -676,6 +675,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
             {
                 line = lines.nextToken();
             }
+            loop++;
         }
         while (start > 0 && lines.hasMoreTokens())
         {
@@ -701,7 +701,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return Description of the Return Value
@@ -718,7 +718,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Description of the Method
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @param message
@@ -791,7 +791,7 @@ public class ChallengeScreen extends SequentialLessonAdapter
 
     /**
      * Gets the cookie attribute of the CookieScreen object
-     * 
+     *
      * @param s
      *            Description of the Parameter
      * @return The cookie value
@@ -806,44 +806,5 @@ public class ChallengeScreen extends SequentialLessonAdapter
         }
 
         return (null);
-    }
-
-    // local encoders
-
-    private static sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
-
-    private static sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
-    /**
-     * Returns the base 64 encoding of a string.
-     *
-     * @param str
-     *            Description of the Parameter
-     * @return Description of the Return Value
-     */
-
-    public static String base64Encode(String str)
-    {
-
-        byte[] b = str.getBytes();
-
-        return (encoder.encode(b));
-    }
-
-    /**
-     * Returns the base 64 decoding of a string.
-     *
-     * @param str
-     *            Description of the Parameter
-     * @return Description of the Return Value
-     * @exception java.io.IOException
-     *                Description of the Exception
-     */
-
-    public static String base64Decode(String str) throws IOException
-    {
-
-        byte[] b = decoder.decodeBuffer(str);
-
-        return (new String(b));
     }
 }

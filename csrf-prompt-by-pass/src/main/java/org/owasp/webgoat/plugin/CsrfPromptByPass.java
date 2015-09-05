@@ -11,7 +11,6 @@ import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.Input;
 import org.owasp.webgoat.lessons.Category;
-import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.util.HtmlEncoder;
 
@@ -48,13 +47,13 @@ import java.util.List;
  * @author Contributed by <a href="http://www.partnet.com">PartNet.</a>
  * 
  */
-public class CsrfPromptByPass extends LessonAdapter
+public class CsrfPromptByPass extends CSRF
 {
-    protected static final String TRANSFER_FUNDS_PARAMETER = "transferFunds";
-    protected static final String TRANSFER_FUNDS_PAGE = "main";
-    protected static final String TRANSFER_FUND_AMOUNT_ATTRIBUTE = "transferFundAmount";
-    protected static final String CANCEL_TRANSFER = "CANCEL";
-    protected static final String CONFIRM_TRANFER = "CONFIRM";
+    private static final String TRANSFER_FUNDS_PARAMETER = "transferFunds";
+    private static final String TRANSFER_FUNDS_PAGE = "main";
+    private static final String TRANSFER_FUND_AMOUNT_ATTRIBUTE = "transferFundAmount";
+    private static final String CANCEL_TRANSFER = "CANCEL";
+    private static final String CONFIRM_TRANFER = "CONFIRM";
     
     /**
      * if TRANSFER_FUND_PARAMETER is a parameter, them doTransfer is invoked.  doTranser presents the 

@@ -46,9 +46,10 @@ import java.util.Random;
  * @author Contributed by <a href="http://www.partnet.com">PartNet.</a>
  * 
  */
-public class CsrfTokenByPass extends CsrfPromptByPass
+public class CsrfTokenByPass extends CSRF
 {
-    protected static final String TRANSFER_FUNDS_PARAMETER = "transferFunds";
+    private static final String TRANSFER_FUNDS_PAGE = "main";
+    private static final String TRANSFER_FUNDS_PARAMETER = "transferFunds";
     private static final String CSRFTOKEN = "CSRFToken";
     private static final int INVALID_TOKEN = 0;
     private final Random random;

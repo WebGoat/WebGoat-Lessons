@@ -17,7 +17,7 @@
         </dependency>
         <dependency>
             <groupId>org.owasp.webgoat.lesson</groupId>
-            <artifactId>csrf-prompt-by-pass</artifactId>
+            <artifactId>csrf</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

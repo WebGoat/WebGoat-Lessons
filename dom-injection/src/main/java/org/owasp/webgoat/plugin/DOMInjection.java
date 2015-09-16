@@ -1,9 +1,6 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -20,6 +17,10 @@ import org.apache.ecs.html.Table;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.WebSession;
+
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -57,7 +58,7 @@ public class DOMInjection extends LessonAdapter
 {
 
     private final static Integer DEFAULT_RANKING = new Integer(10);
-
+    private final static String ACTIVATE = "Activate!";
     private final static String KEY = "key";
 
     public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
@@ -98,33 +99,18 @@ public class DOMInjection extends LessonAdapter
 
         ElementContainer ec = new ElementContainer();
 
-        if (s.getRequest().getMethod().equalsIgnoreCase("POST"))
+        if (checkSuccess(s))
         {
             makeSuccess(s);
         }
 
-        String lineSep = System.getProperty("line.separator");
-        String script = "<script>" + lineSep + "function validate() {" + lineSep
-                + "var keyField = document.getElementById('key');" + lineSep + "var url = '" + getLink()
-                + "&from=ajax&key=' + encodeURIComponent(keyField.value);" + lineSep
-                + "if (typeof XMLHttpRequest != 'undefined') {" + lineSep + "req = new XMLHttpRequest();" + lineSep
-                + "} else if (window.ActiveXObject) {" + lineSep + "req = new ActiveXObject('Microsoft.XMLHTTP');"
-                + lineSep + "   }" + lineSep + "   req.open('GET', url, true);" + lineSep
-                + "   req.onreadystatechange = callback;" + lineSep + "   req.send(null);" + lineSep + "}" + lineSep
-                + "function callback() {" + lineSep + "    if (req.readyState == 4) { " + lineSep
-                + "        if (req.status == 200) { " + lineSep + "            var message = req.responseText;" + lineSep
-                + "    var messageDiv = document.getElementById('MessageDiv');" + lineSep + "  try {" + lineSep
-                + "          eval(message);" + lineSep + "    " + lineSep
-                + "        messageDiv.innerHTML = 'Correct licence Key.' " + lineSep + "      }" + lineSep
-                + "  catch(err)" + lineSep + "  { " + lineSep + "    messageDiv.innerHTML = 'Wrong license key.'"
-                + lineSep + "} " + lineSep + "    }}}" + lineSep + "</script>" + lineSep;
-
-        ec.addElement(new StringElement(script));
+        ec.addElement("<script src='" + buildJsPath(s, "dom_injection.js") + "'> </script>");
         ec.addElement(new BR().addElement(new H1().addElement("Welcome to WebGoat Registration Page:")));
         ec.addElement(new BR()
                 .addElement("Please enter the license key that was emailed to you to start using the application."));
         ec.addElement(new BR());
         ec.addElement(new BR());
+        Form form = new Form(getLink(), Form.POST);
         Table t1 = new Table().setCellSpacing(0).setCellPadding(0).setBorder(0).setWidth("70%").setAlign("center");
 
         TR tr = new TR();
@@ -132,7 +118,7 @@ public class DOMInjection extends LessonAdapter
 
         Input input1 = new Input(Input.TEXT, KEY, "");
         input1.setID(KEY);
-        input1.addAttribute("onkeyup", "validate();");
+        input1.addAttribute("onkeyup", "validate('" + getLink() + "');");
         tr.addElement(new TD(input1));
         t1.addElement(tr);
 
@@ -144,7 +130,7 @@ public class DOMInjection extends LessonAdapter
         tr = new TR();
         Input b = new Input();
         b.setType(Input.SUBMIT);
-        b.setValue("Activate!");
+        b.setValue(ACTIVATE);
         b.setName("SUBMIT");
         b.setID("SUBMIT");
         b.setDisabled(true);
@@ -152,13 +138,19 @@ public class DOMInjection extends LessonAdapter
         tr.addElement(new TD(b));
 
         t1.addElement(tr);
-        ec.addElement(t1);
+        form.addElement(t1);
+        ec.addElement(form);
         Div div = new Div();
         div.addAttribute("name", "MessageDiv");
         div.addAttribute("id", "MessageDiv");
         ec.addElement(div);
 
         return ec;
+    }
+
+    private boolean checkSuccess(WebSession s) {
+        String submit = s.getRequest().getParameter("SUBMIT");
+        return submit != null && submit.equals(ACTIVATE);
     }
 
     public Element getCredits()

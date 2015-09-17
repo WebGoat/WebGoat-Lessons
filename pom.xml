@@ -44,7 +44,7 @@
         <module>insecure-login</module>
         <module>java-script-validation</module>
         <module>json-injection</module>
-        <module>lesson-converter</module>
+        <!--<module>lesson-converter</module>-->
         <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
         <module>malicious-file-execution</module>

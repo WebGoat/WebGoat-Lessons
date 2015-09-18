@@ -56,11 +56,6 @@ import java.util.List;
  */
 public class HtmlClues extends LessonAdapter
 {
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
-
     /**
      * Description of the Field
      */
@@ -70,6 +65,11 @@ public class HtmlClues extends LessonAdapter
      * Description of the Field
      */
     protected final static String USERNAME = "Username";
+    
+    /**
+     * First time in
+     */
+    private static boolean FIRST_TIME = true;
 
     /**
      * Description of the Method
@@ -106,6 +106,7 @@ public class HtmlClues extends LessonAdapter
             // <END_OMIT_SOURCE>
             ec.addElement(new Comment("Use Admin to regenerate database"));
 
+            
             if (backdoor(s))
             {
                 makeSuccess(s);
@@ -115,6 +116,11 @@ public class HtmlClues extends LessonAdapter
             }
             else
             {
+            	if (!FIRST_TIME)
+            	{
+            		s.setMessage(getLabelManager().get("HtmlCluesLoginFailed"));
+            	}
+        		FIRST_TIME= false;
                 ec.addElement(makeLogin(s));
             }
         } catch (Exception e)
@@ -125,6 +131,13 @@ public class HtmlClues extends LessonAdapter
         return (ec);
     }
 
+    /**
+     * Initiates lesson restart functionality
+     */
+    public void restartLesson()
+    {
+    	FIRST_TIME=true;
+    }
     /**
      * Description of the Method
      * 

@@ -38,6 +38,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
     protected Element createMainContent(WebSession s)
     {
         ElementContainer ec = new ElementContainer();
+        ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + buildJspPath(s, "clientSideFiltering-stage1.css", true) + "\" />");
 
         try
         {

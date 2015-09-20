@@ -68,7 +68,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
             workspaceDiv.addElement(new BR());
             workspaceDiv.addElement(new BR());
 
-            workspaceDiv.addElement(new P().addElement("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select user:"));
+            workspaceDiv.addElement(new P().addElement(getLabelManager().get("ClientSideFilteringSelectUser")));
 
             workspaceDiv.addElement(createDropDown());
 
@@ -84,11 +84,11 @@ public class ClientSideFiltering extends SequentialLessonAdapter
             t = new Table().setCellSpacing(0).setCellPadding(2).setBorder(1).setWidth("90%").setAlign("center");
 
             TR tr = new TR();
-            tr.addElement(new TD().addElement("UserID"));
-            tr.addElement(new TD().addElement("First Name"));
-            tr.addElement(new TD().addElement("Last Name"));
-            tr.addElement(new TD().addElement("SSN"));
-            tr.addElement(new TD().addElement("Salary"));
+            tr.addElement(new TD().addElement(getLabelManager().get("ClientSideFilteringUserID")));
+            tr.addElement(new TD().addElement(getLabelManager().get("ClientSideFilteringFirstName")));
+            tr.addElement(new TD().addElement(getLabelManager().get("ClientSideFilteringLastName")));
+            tr.addElement(new TD().addElement(getLabelManager().get("ClientSideFilteringSSN")));
+            tr.addElement(new TD().addElement(getLabelManager().get("ClientSideFilteringSalary")));
             t.addElement(tr);
             tr = new TR();
             tr.setID("employeeRecord");
@@ -98,7 +98,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
         } catch (Exception e)
         {
-            s.setMessage("Error generating " + this.getClass().getName());
+            s.setMessage(getLabelManager().get("ClientSideFilteringErrorGenerating") + this.getClass().getName());
             e.printStackTrace();
         }
 
@@ -132,7 +132,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         {
 
             getLessonTracker(s).setStage(2);
-            s.setMessage("Stage 1 completed.");
+            s.setMessage(getLabelManager().get("ClientSideFilteringStage1Complete"));
 
             // Redirect user to Stage2 content.
             ec.addElement(doStage2(s));
@@ -153,7 +153,8 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         /**
          * They pass iff:
          * 
-         * 1. If the DOMXSS.js file contains the lines "escapeHTML(name)"
+         * 1. If clientSideFiltering.jsp has an XPath filter to
+         *    limit the data being returned.
          */
         String file = getLessonDirectory(s) + "jsp/clientSideFiltering.jsp";
         String content = getFileContent(file);
@@ -187,9 +188,9 @@ public class ClientSideFiltering extends SequentialLessonAdapter
             }
 
             TR tr = new TR();
-            tr.addElement(new TD().addElement("What is Neville Bartholomew's salary? "));
+            tr.addElement(new TD().addElement(getLabelManager().get("ClientSideFilteringStage1Question")));
             tr.addElement(new TD(new Input(Input.TEXT, ANSWER, "")));
-            Element b = ECSFactory.makeButton("Submit Answer");
+            Element b = ECSFactory.makeButton(getLabelManager().get("ClientSideFilteringStage1SubmitAnswer"));
             tr.addElement(new TD(b).setAlign("LEFT"));
             t1.addElement(tr);
 
@@ -197,7 +198,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
         } catch (Exception e)
         {
-            s.setMessage("Error generating " + this.getClass().getName());
+            s.setMessage(getLabelManager().get("ClientSideFilteringErrorGenerating") + this.getClass().getName());
             e.printStackTrace();
         }
 
@@ -227,7 +228,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
              * tr.addElement(new TD() .addElement("Press 'Submit' when you believe you have
              * completed the lesson."));
              */
-            Element b = ECSFactory.makeButton("Click here when you believe you have completed the lesson.");
+            Element b = ECSFactory.makeButton(getLabelManager().get("ClientSideFilteringStage2Finish"));
             tr.addElement(new TD(b).setAlign("CENTER"));
             t1.addElement(tr);
 
@@ -235,7 +236,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
         } catch (Exception e)
         {
-            s.setMessage("Error generating " + this.getClass().getName());
+            s.setMessage(getLabelManager().get("ClientSideFilteringErrorGenerating") + this.getClass().getName());
             e.printStackTrace();
         }
 
@@ -248,7 +249,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
         select.setID("UserSelect");
 
-        org.apache.ecs.html.Option option = new org.apache.ecs.html.Option("Choose Employee", "0", "Choose Employee");
+        org.apache.ecs.html.Option option = new org.apache.ecs.html.Option(getLabelManager().get("ClientSideFilteringChoose"), "0", getLabelManager().get("ClientSideFilteringChoose"));
 
         select.addElement(option);
 
@@ -310,31 +311,19 @@ public class ClientSideFiltering extends SequentialLessonAdapter
     {
         List<String> hints = new ArrayList<String>();
 
-        hints
-                .add("Stage 1: The information displayed when an employee is choosen from the drop down menu is stored on the client side.");
-
-        hints.add("Stage 1: Use Firebug to find where the information is stored on the client side.");
-
-        hints
-                .add("Stage 1: Examine the hidden table to see if there is anyone listed who is not in the drop down menu.");
-
-        hints.add("Stage 1: Look in the last row of the hidden table.");
-
-        hints
-                .add("Stage 1: You can access the server directly <a href = " + s.getContext().getContextPath() + buildJspPath(s, "clientSideFiltering.jsp?userId=102", true) + ">here </a>"
-                        + "to see what results are being returned");
-
-        hints.add("Stage 2: The server uses an XPath query agasinst an XML database.");
-
-        hints.add("Stage 2: The query currently returns all of the contents of the database.");
-
-        hints
-                .add("Stage 2: The query should only return the information of employees who are managed by Moe Stooge, whose userID is 102");
-
-        hints.add("Stage 2: Try using a filter operator.");
-
-        hints.add("Stage 2: Your filter operator should look something like: [Managers/Manager/text()=");
-
+        hints.add(getLabelManager().get("ClientSideFilteringHint1"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint2"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint3"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint4"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint5a") + " <a href = " 
+            + buildJspPath(s, "clientSideFiltering.jsp?userId=102", true) + ">" 
+            + getLabelManager().get("ClientSideFilteringHint5b") + "</a>"
+            + getLabelManager().get("ClientSideFilteringHint5c"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint6"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint7"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint8"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint9"));
+        hints.add(getLabelManager().get("ClientSideFilteringHint10"));
         return hints;
 
     }
@@ -345,16 +334,11 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
         if (getLessonTracker(s).getStage() == 1)
         {
-            instructions = "STAGE 1:\tYou are Moe Stooge, CSO of Goat Hills Financial. "
-                    + "You have access to everyone in the company's information, except the CEO, "
-                    + "Neville Bartholomew.  Or at least you shouldn't have access to the CEO's information."
-                    + "  For this exercise, "
-                    + "examine the contents of the page to see what extra information you can find.";
+            instructions = getLabelManager().get("ClientSideFilteringInstructions1");
         }
         else if (getLessonTracker(s).getStage() == 2)
         {
-            instructions = "STAGE 2:\tNow, fix the problem.  Modify the server to only return "
-                    + "results that Moe Stooge is allowed to see.";
+            instructions = getLabelManager().get("ClientSideFilteringInstructions2");
         }
         return (instructions);
     }

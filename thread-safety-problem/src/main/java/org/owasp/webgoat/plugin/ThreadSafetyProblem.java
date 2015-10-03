@@ -1,22 +1,23 @@
 
 package org.owasp.webgoat.plugin;
 
+import org.apache.ecs.Element;
+import org.apache.ecs.ElementContainer;
+import org.apache.ecs.StringElement;
+import org.apache.ecs.html.Input;
+import org.apache.ecs.html.P;
+import org.owasp.webgoat.lessons.Category;
+import org.owasp.webgoat.lessons.LessonAdapter;
+import org.owasp.webgoat.session.DatabaseUtilities;
+import org.owasp.webgoat.session.ECSFactory;
+import org.owasp.webgoat.session.WebSession;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.ecs.Element;
-import org.apache.ecs.ElementContainer;
-import org.apache.ecs.StringElement;
-import org.apache.ecs.html.IMG;
-import org.apache.ecs.html.Input;
-import org.apache.ecs.html.P;
-import org.apache.ecs.html.A;
-import org.owasp.webgoat.lessons.Category;
-import org.owasp.webgoat.lessons.LessonAdapter;
-import org.owasp.webgoat.session.*;
 
 
 /***************************************************************************************************
@@ -51,11 +52,6 @@ import org.owasp.webgoat.session.*;
  */
 public class ThreadSafetyProblem extends LessonAdapter
 {
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
-
     private final static String USER_NAME = "username";
 
     private static String currentUser;
@@ -196,8 +192,4 @@ public class ThreadSafetyProblem extends LessonAdapter
         }
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
-    }
 }

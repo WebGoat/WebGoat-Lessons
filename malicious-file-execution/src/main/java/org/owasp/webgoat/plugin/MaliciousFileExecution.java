@@ -1,30 +1,28 @@
 package org.owasp.webgoat.plugin;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.File;
-
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
+import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.P;
-import org.apache.ecs.html.A;
-import org.apache.ecs.html.IMG;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.DatabaseUtilities;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.servlet.*;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /*******************************************************************************
  * 
@@ -61,8 +59,6 @@ import org.apache.commons.fileupload.servlet.*;
 public class MaliciousFileExecution extends LessonAdapter
 {
 
-    private final static A MANDIANT_LOGO = new A().setHref("http://www.mandiant.com").addElement(new IMG("images/logos/mandiant.png").setAlt("MANDIANT").setBorder(0).setHspace(0).setVspace(0));
-    
     // the UPLOADS_DIRECTORY is where uploads are stored such that they can be references
     // in image tags as "uploads/filename.ext".  This directory string should not contain any path separators (/ or \)
     private String uploads_and_target_parent_directory = null; 
@@ -191,16 +187,6 @@ public class MaliciousFileExecution extends LessonAdapter
     protected Category getDefaultCategory()
     {
     return Category.MALICIOUS_EXECUTION;
-    }
-
-    /**
-     * Gets the credits attribute of the AbstractLesson object
-     * 
-     * @return The credits value
-     */
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Chuck Willis&nbsp;", MANDIANT_LOGO);
     }
 
     /**

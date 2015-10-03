@@ -4,13 +4,11 @@ package org.owasp.webgoat.plugin;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Div;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.H3;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
@@ -63,8 +61,6 @@ public class XMLInjection extends LessonAdapter
 
     public static HashMap<Integer, Reward> rewardsMap = new HashMap<Integer, Reward>();
 
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
-    
     protected static HashMap<Integer, Reward> init()
     {
         Reward r = new Reward();
@@ -267,11 +263,6 @@ public class XMLInjection extends LessonAdapter
         s.setMessage("Congratulations. You have successfully completed this lesson.");
 
         return (null);
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
     }
 
     protected Category getDefaultCategory()

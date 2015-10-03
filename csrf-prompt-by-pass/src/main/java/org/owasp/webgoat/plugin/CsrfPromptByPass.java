@@ -4,8 +4,6 @@ package org.owasp.webgoat.plugin;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
-import org.apache.ecs.html.B;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
@@ -171,17 +169,4 @@ public class CsrfPromptByPass extends CSRF
         return ("CSRF Prompt By-Pass");
     }
 
-    public Element getCredits()
-    {
-        A partnet = new A("http://www.partnet.com");
-        partnet.setPrettyPrint(false);
-        partnet.addElement(new StringElement("PART"));
-        partnet.addElement(new B().addElement(new StringElement("NET")).setPrettyPrint(false));
-        partnet.setStyle("background-color:midnightblue;color:white");
-        
-        ElementContainer credits = new ElementContainer();
-        credits.addElement(new StringElement("Contributed by "));
-        credits.addElement(partnet);
-        return credits;
-    }
 }

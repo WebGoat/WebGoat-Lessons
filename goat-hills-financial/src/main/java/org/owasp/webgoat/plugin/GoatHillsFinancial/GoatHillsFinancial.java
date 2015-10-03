@@ -1,10 +1,7 @@
 
 package org.owasp.webgoat.plugin.GoatHillsFinancial;
 
-import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
-import org.apache.ecs.html.A;
-import org.apache.ecs.html.IMG;
 import org.owasp.webgoat.lessons.RandomLessonAdapter;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
@@ -47,11 +44,6 @@ import java.util.Map;
  */
 public class GoatHillsFinancial extends RandomLessonAdapter
 {
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
-
     public final static String DESCRIPTION = "description";
 
     public final static String DISCIPLINARY_DATE = "disciplinaryDate";
@@ -305,11 +297,6 @@ public class GoatHillsFinancial extends RandomLessonAdapter
     protected boolean getDefaultHidden()
     {
         return getClass().equals(GoatHillsFinancial.class);
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("", ASPECT_LOGO);
     }
 
     @Override

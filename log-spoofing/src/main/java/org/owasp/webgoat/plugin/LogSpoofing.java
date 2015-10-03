@@ -5,8 +5,6 @@ import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.HtmlColor;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.PRE;
 import org.apache.ecs.html.TD;
@@ -62,8 +60,6 @@ public class LogSpoofing extends LessonAdapter
     private static final String PASSWORD = "password";
     
 
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
-    
     protected Element createContent(WebSession s)
     {
 

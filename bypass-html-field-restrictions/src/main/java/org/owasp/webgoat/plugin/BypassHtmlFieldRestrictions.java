@@ -1,15 +1,11 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Div;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.P;
 import org.owasp.webgoat.lessons.Category;
@@ -17,6 +13,9 @@ import org.owasp.webgoat.lessons.SequentialLessonAdapter;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.WebSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -52,8 +51,6 @@ import org.owasp.webgoat.session.WebSession;
  */
 public class BypassHtmlFieldRestrictions extends SequentialLessonAdapter
 {
-    public final static A MANDIANT_LOGO = new A().setHref("http://www.mandiant.com").addElement(new IMG("images/logos/mandiant.png").setAlt("MANDIANT").setBorder(0).setHspace(0).setVspace(0));
-    
     private final static String USERID = "userid";
 
     private String userid;
@@ -173,16 +170,6 @@ public class BypassHtmlFieldRestrictions extends SequentialLessonAdapter
         return Category.PARAMETER_TAMPERING;
     }
 
-    /**
-     * Gets the credits attribute of the AbstractLesson object
-     * 
-     * @return The credits value
-     */
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Chuck Willis&nbsp;", MANDIANT_LOGO);
-    }
-    
     /**
      * Gets the hints attribute of the DatabaseFieldScreen object
      * 

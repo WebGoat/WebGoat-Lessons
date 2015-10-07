@@ -1,19 +1,14 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Div;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.H3;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.PRE;
 import org.apache.ecs.html.TD;
@@ -22,6 +17,10 @@ import org.apache.ecs.html.Table;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.WebSession;
+
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -62,8 +61,6 @@ public class SilentTransactions extends LessonAdapter
 
     private final static Double CURRENT_BALANCE = 11987.09;
 
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
-    
     public void handleRequest(WebSession s)
     {
 
@@ -281,11 +278,6 @@ public class SilentTransactions extends LessonAdapter
     public String getTitle()
     {
         return ("Silent Transactions Attacks");
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
     }
 
 }

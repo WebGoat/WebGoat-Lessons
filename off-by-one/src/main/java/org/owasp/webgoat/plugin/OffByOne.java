@@ -1,13 +1,9 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
@@ -19,6 +15,9 @@ import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.ValidationException;
 import org.owasp.webgoat.session.WebSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -62,9 +61,6 @@ public class OffByOne extends LessonAdapter
     private final static String LAST_NAME = "last_name";    
     
     private final static String PRICE_PLAN = "price_plan";
-    
-    private final static IMG LOGO = new IMG("images/logos/seleucus.png").setAlt("Seleucus Ltd")
-    .setBorder(0).setHspace(0).setVspace(0);
     
     /**
      * <p>The main method for creating content, implemented
@@ -161,14 +157,6 @@ public class OffByOne extends LessonAdapter
         return ("Off-by-One Overflows");
     }
 
-    /**
-     * yada, yada...
-     */
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Yiannis Pavlosoglou ", LOGO);
-    }
-    
     /**
      * <p>Based on the parameters currently with values, this method
      * returns true if we are in the first step of this lesson.</p>

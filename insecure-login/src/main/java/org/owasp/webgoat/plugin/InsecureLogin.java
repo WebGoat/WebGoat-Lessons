@@ -489,9 +489,4 @@ public class InsecureLogin extends SequentialLessonAdapter
         return logoutDiv;
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by: Reto Lippuner, Marcel Wirth", new StringElement(""));
-    }
-
 }

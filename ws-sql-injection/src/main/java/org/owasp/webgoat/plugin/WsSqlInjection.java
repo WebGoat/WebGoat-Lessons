@@ -9,7 +9,6 @@ import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.P;
 import org.apache.ecs.html.PRE;
@@ -69,9 +68,6 @@ public class WsSqlInjection extends LessonAdapter
     private final static String ACCT_NUM = "account_number";
 
     private String accountNumber;
-
-    final static IMG CREDITS_LOGO = new IMG("images/logos/parasoft.jpg").setAlt("Parasoft").setBorder(0).setHspace(0)
-            .setVspace(0);
 
     /*
      * (non-Javadoc)
@@ -271,8 +267,4 @@ public class WsSqlInjection extends LessonAdapter
         return null;
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("By Alex Smolen", CREDITS_LOGO);
-    }
 }

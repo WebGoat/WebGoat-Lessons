@@ -12,7 +12,6 @@ import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.Option;
 import org.apache.ecs.html.P;
@@ -85,9 +84,6 @@ public class WSDLScanning extends LessonAdapter
     public final static String loginCount = "getLoginCount";
 
     public final static String ccNumber = "getCreditCard";
-
-    final static IMG CREDITS_LOGO = new IMG("images/logos/parasoft.jpg").setAlt("Parasoft").setBorder(0).setHspace(0)
-            .setVspace(0);
 
     private static WebgoatContext webgoatContext;
 
@@ -310,11 +306,6 @@ public class WSDLScanning extends LessonAdapter
         String result = getResults(id, "login_count");
         if (result != null) { return result; }
         return null;
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("By Alex Smolen", CREDITS_LOGO);
     }
 
 }

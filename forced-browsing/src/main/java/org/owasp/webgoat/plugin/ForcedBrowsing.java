@@ -1,15 +1,11 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.H1;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
@@ -18,6 +14,9 @@ import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -55,8 +54,6 @@ public class ForcedBrowsing extends LessonAdapter
 
     private final static String SUCCEEDED = "succeeded";
 
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
-    
     /**
      * Description of the Method
      * 
@@ -145,8 +142,4 @@ public class ForcedBrowsing extends LessonAdapter
         return ("Forced Browsing");
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
-    }
 }

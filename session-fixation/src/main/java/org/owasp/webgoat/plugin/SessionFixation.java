@@ -1,12 +1,6 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -25,6 +19,13 @@ import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.SequentialLessonAdapter;
 import org.owasp.webgoat.session.DatabaseUtilities;
 import org.owasp.webgoat.session.WebSession;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 /***************************************************************************************************
@@ -798,11 +799,6 @@ public class SessionFixation extends SequentialLessonAdapter
 
         sid = String.valueOf(Math.abs(random.nextInt() % 100000));
         return sid;
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by: Reto Lippuner, Marcel Wirth", new StringElement(""));
     }
 
 }

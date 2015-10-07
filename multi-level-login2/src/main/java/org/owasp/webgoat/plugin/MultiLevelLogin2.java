@@ -1,11 +1,6 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -23,6 +18,12 @@ import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.DatabaseUtilities;
 import org.owasp.webgoat.session.WebSession;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***************************************************************************************************
@@ -807,11 +808,6 @@ public class MultiLevelLogin2 extends LessonAdapter
     public String getTitle()
     {
         return ("Multi Level Login 2");
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by: Reto Lippuner, Marcel Wirth", new StringElement(""));
     }
 
 }

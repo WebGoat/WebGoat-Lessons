@@ -1,14 +1,6 @@
 
 package org.owasp.webgoat.plugin;
 
-import java.util.ArrayList; 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.Map.Entry;
-
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -25,6 +17,12 @@ import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.WebSession;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 
 /***************************************************************************************************
@@ -207,8 +205,4 @@ public class PasswordStrength extends LessonAdapter
         return ("Password Strength");
     }
 
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by: Reto Lippuner, Marcel Wirth", new StringElement(""));
-    }
 }

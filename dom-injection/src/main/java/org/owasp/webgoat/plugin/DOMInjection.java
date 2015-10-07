@@ -4,12 +4,10 @@ package org.owasp.webgoat.plugin;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.BR;
 import org.apache.ecs.html.Div;
 import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
@@ -61,8 +59,6 @@ public class DOMInjection extends LessonAdapter
     private final static String ACTIVATE = "Activate!";
     private final static String KEY = "key";
 
-    public final static A MAC_LOGO = new A().setHref("http://www.softwaresecured.com").addElement(new IMG("images/logos/softwaresecured.gif").setAlt("Software Secured").setBorder(0).setHspace(0).setVspace(0));
-    
     private final static String key = "K1JFWP8BSO8HI52LNPQS8F5L01N";
 
     public void handleRequest(WebSession s)
@@ -151,11 +147,6 @@ public class DOMInjection extends LessonAdapter
     private boolean checkSuccess(WebSession s) {
         String submit = s.getRequest().getParameter("SUBMIT");
         return submit != null && submit.equals(ACTIVATE);
-    }
-
-    public Element getCredits()
-    {
-        return super.getCustomCredits("Created by Sherif Koussa&nbsp;", MAC_LOGO);
     }
 
     protected Category getDefaultCategory()

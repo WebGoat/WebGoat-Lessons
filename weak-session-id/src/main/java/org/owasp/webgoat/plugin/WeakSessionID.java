@@ -4,10 +4,8 @@ package org.owasp.webgoat.plugin;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
-import org.apache.ecs.html.A;
 import org.apache.ecs.html.B;
 import org.apache.ecs.html.H1;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TH;
@@ -56,10 +54,6 @@ import java.util.List;
  */
 public class WeakSessionID extends LessonAdapter
 {
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                        new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                                .setVspace(0));
     /**
      * Description of the Field
      */
@@ -80,16 +74,6 @@ public class WeakSessionID extends LessonAdapter
     protected static long seq = Math.round(Math.random() * 10240) + 10000;
 
     protected static long lastTime = System.currentTimeMillis();
-
-    /**
-     * Gets the credits attribute of the AbstractLesson object
-     * 
-     * @return The credits value
-     */
-    public Element getCredits()
-    {
-        return super.getCustomCredits("By Rogan Dawes of ", ASPECT_LOGO);
-    }
 
     protected String newCookie(WebSession s)
     {

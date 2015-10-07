@@ -7,7 +7,6 @@ import org.apache.ecs.html.A;
 import org.apache.ecs.html.B;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.HR;
-import org.apache.ecs.html.IMG;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.P;
 import org.apache.ecs.html.TD;
@@ -62,11 +61,6 @@ import java.util.List;
  * @created October 28, 2003
  */
 public class StoredXss extends LessonAdapter {
-
-    public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
-            .addElement(
-                    new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
-                    .setVspace(0));
 
     private final static String MESSAGE = "message";
 
@@ -334,7 +328,4 @@ public class StoredXss extends LessonAdapter {
         return nameroot;
     }
 
-    public Element getCredits() {
-        return super.getCustomCredits("", ASPECT_LOGO);
-    }
 }

@@ -234,7 +234,7 @@ public class CSRF extends LessonAdapter
 
                 for (int i = 0; results.next(); i++)
                 {
-                    String link = "<a href='" + getLink() + "&" + NUMBER + "=" + results.getInt(NUM_COL)
+                    String link = "<a href='" + getLink() + "//" + results.getInt(NUM_COL)
                             + "' style='cursor:hand'>" + results.getString(TITLE_COL) + "</a>";
                     TD td = new TD().addElement(link);
                     TR tr = new TR().addElement(td);
@@ -340,10 +340,10 @@ public class CSRF extends LessonAdapter
     {
         List<String> hints = new ArrayList<String>();
         hints.add("Enter some text and try to include an image in there.");
-        hints.add("In order to make the picture almost invisible try to add width=\"1\" and height=\"1\".");
-        hints.add("The format of an image in html is <pre>&lt;img src=\"[URL]\" width=\"1\" height=\"1\" /&gt;</pre>");
-        hints.add("Include this URL in the message <pre>&lt;img src='" + getLink()
-                + "&transferFunds=5000' width=\"1\" height=\"1\" /&gt;</pre>");
+        hints.add("In order to make the picture almost invisible try to add width='1' and height='1'.");
+        hints.add("The format of the image link in HTML is <pre>&lt;img src='[URL]'&gt;</pre>");
+        hints.add("Include the img tag in the message: <pre>&lt;img src='" + getServletLink()
+                + "&transferFunds=5000'&gt;</pre>");
 
         return hints;
     }

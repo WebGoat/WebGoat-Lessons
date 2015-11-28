@@ -21,7 +21,6 @@ import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.util.HtmlEncoder;
-import org.owasp.esapi.ESAPI;
 
 
 /***************************************************************************************************

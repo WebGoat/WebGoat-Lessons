@@ -659,9 +659,9 @@ page that contains img links like the one below: <o:p></o:p></span></p>
 <p class=MsoNormal style='text-align:justify'><span lang=NL-BE
 style='font-family:"Arial","sans-serif";mso-ansi-language:NL-BE'>&lt;img
 src=&quot;</span><span style='font-family:"Arial","sans-serif"'><a
-href="http://www.mybank.com/transferFunds.do?acctId=123456"
-title="http://www.mybank.com/transferFunds.do?acctId=123456"><span lang=NL-BE
-style='mso-ansi-language:NL-BE'>http://www.mybank.com/sendFunds.do?acctId=123456</span></a></span><span
+href="https://www.mybank.com/me?transferFunds=5000&to=123456"
+title="https://www.mybank.com/me?transferFunds=5000&to=123456"><span lang=NL-BE
+style='mso-ansi-language:NL-BE'>https://www.mybank.com/me?transferFunds=5000&to=123456</span></a></span><span
 lang=NL-BE style='font-family:"Arial","sans-serif";mso-ansi-language:NL-BE'>&quot;/&gt;</span><span
 lang=NL-BE style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-ansi-language:
 NL-BE'><o:p></o:p></span></p>
@@ -685,13 +685,11 @@ Goal(s):</span></b><span style='font-family:"Arial","sans-serif"'> <o:p></o:p></
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif"'><!-- Start Instructions -->Your
 goal is to send an email to a newsgroup that contains an image whose URL is
 pointing to a malicious request. Try to include a 1x1 pixel image that includes
-a URL. The URL should point to the CSRF lesson with an extra parameter
-&quot;transferFunds=4000&quot;. In order to get the URL of the current lesson you need a local proxy like OWASP ZAP to
- intercept the HTTP request.
+a URL. The URL should point to the "attack" servlet that will represent the attacker's victim service.  The servlet expects parameters &quot;Screen&quot;, &quot;menu&quot; identifying this CSRF lesson and a funds trunsfer parameter with an arbitrary numeric value,
+&quot;transferFunds=4000&quot;.  The screen and menu numbers of this lesson appear in the Parameters block on the right.
 Whoever receives this email and happens to be authenticated at that time will
-have his funds transferred. When you think the attack is successful, refresh
-the page and you will find the green check on the left hand side menu.<br/>
-<b>Note that the "Screen" and "menu" GET variables will vary between WebGoat builds. Copying the menu link on the left will give you the current values.</b><o:p></o:p></span></p>
+have his funds transferred.  Clicking the message header shown below the text area simulates this part of the attack scenario.  When the attack is successful, a green check appears against the lesson's title in the menu on the left.<br/>
+<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
 
@@ -743,24 +741,22 @@ server instead.<o:p></o:p></span></p>
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif"'>The
-format of an image in html is &lt;img src=&quot;[URL]&quot; width=&quot;1&quot;
-height=&quot;1&quot; /&gt;<o:p></o:p></span></p>
+format of an image link in HTML is &lt;img src=&quot;[URL]&quot;&gt;<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif";
 mso-fareast-language:JA'>The transaction can be triggered by an URL to the
-current lesson and an extra parameter "transferFunds" and the amount. The
-width=1 and height=1 will not show the image.<o:p></o:p></span></p>
+current lesson and an extra parameter "transferFunds" and the amount. Attributes
+width=1 and height=1 can hide the "broken image" icon.<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif";
 mso-fareast-language:JA'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif";
-mso-fareast-language:JA'>This payload will work:<o:p></o:p></span></p>
+mso-fareast-language:JA'>The following shows a sample image source:<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif";
 mso-fareast-language:JA'>&lt;img
-src="http://localhostattack?Screen=81&amp;menu=210&amp;transferFunds=5000"
-width=&quot;1&quot; height=&quot;1&quot; /&gt;<o:p></o:p></span></p>
+src="attack?Screen=XXX&amp;menu=YYY&amp;transferFunds=5000"&gt;<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif";
 mso-fareast-language:JA'><o:p>&nbsp;</o:p></span></p>
@@ -812,8 +808,7 @@ style='mso-fareast-language:JA'><o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif"'>Click
 on the message test. This will download the message and display the contents as
-HTML, executing the payload. Examine the HTTP Request in WebScarab that is
-generated when the browers tries to render the image tag.<o:p></o:p></span></p>
+HTML, executing the payload.  The browser's console will show the attack HTTP request generated when the brower tries to render the image tag.<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-align:justify'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
 
@@ -858,7 +853,7 @@ style='mso-element:field-end'></span><![endif]--> Lesson completed</p>
 <table align='RIGHT' cellspacing='0' width='90%' border='0' cellpadding='0'>
 	<tr>
 		<td valign='MIDDLE' width='100%' align='RIGHT class=MsoNormal' style='font-family:"Arial","sans-serif"'>
-			Solution by Erwin Geirnaert 
+			Solution by Erwin Geirnaert et al.
 		</td>
 		<td valign='MIDDLE' align='RIGHT'><img hspace='0' vspace='0' border='0' alt='ZION SECURITY' src='images/logos/zionsecurity.gif'></td>
 	</tr>

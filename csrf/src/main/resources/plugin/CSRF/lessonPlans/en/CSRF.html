@@ -1,26 +1,25 @@
-<div align="Center"> 
-<p><b>Lesson Plan Title:</b> How to Perform Cross Site Request Forgery. </p>
- </div>
- 
-<p><b>Concept / Topic To Teach:</b> </p>
+<div align="Center">How to Perform Cross Site Request Forgery</div>
+<p>
+<p>
+<b>Concept</b>
  This lesson teaches how to perform Cross Site Request Forgery (CSRF) attacks.
  <br> 
-<div align="Left"> 
 <p>
-<b>How the attacks works:</b>
-</p>
-Cross-Site Request Forgery (CSRF/XSRF) is an attack that tricks the victim into loading a page that contains img links like the one below: 
+<p>
+<b>How the attack works</b>
+Cross-Site Request Forgery (CSRF/XSRF) is an attack that tricks the victim into loading a page that contains a form, a Javascript request or an embedded image such as the one below:
 
-<pre>&lt;img src="<a href="http://www.mybank.com/transferFunds.do?acctId=123456" class='external free' title="http://www.mybank.com/transferFunds.do?acctId=123456" rel="nofollow">http://www.mybank.com/sendFunds.do?acctId=123456</a>"/&gt;</pre>
+<pre>&lt;img src="<a href="https://www.mybank.com/me?transferFunds=5000&to=123456">https://www.mybank.com/me?transferFunds=5000&to=123456</a>"/&gt;</pre>
 
-When the victim's browser attempts to render this page, it will issue a request to www.mybank.com to the transferFunds.do page with the specified parameters. The browser will think the link is to get an image, even though it actually is a funds transfer function. 
+When the victim's browser attempts to render this page, it will issue a request to the "me" end-point at www.mybank.com with the specified parameters. The browser will request the link expecting to get an image, even though it actually is a funds transfer function. 
 
-The request will include any cookies associated with the site. Therefore, if the user has authenticated to the site, and has either a permanent cookie or even a current session cookie, the site will have no way to distinguish this from a legitimate user request. 
+The browser will add all cookies associated with the site when submitting the request.  Therefore, if the user has authenticated to the site, and has either a permanent or a current session cookie, the site will have no way to distinguish this from a legitimate user request. 
 
-In this way, the attacker can make the victim perform actions that they didn't intend to, such as logout, purchase item, or any other function provided by the vulnerable website
-</div>
-<p><b>General Goal(s):</b> </p>
+In this way, the attacker can make the victim perform actions that they didn't intend to, such as "purchase an item", or any other function provided by the vulnerable website.
+<p>
+<p>
+<b>Goal</b>
 <!-- Start Instructions -->
-Your goal is to send an email to a newsgroup that contains an image whose URL is pointing to a malicious request. Try to include a 1x1 pixel image that includes a URL. The URL should point to the CSRF lesson with an extra parameter "transferFunds=4000". You can copy the shortcut from the left hand menu by right clicking on the left hand menu and choosing copy shortcut. Whoever receives this email and happens to be authenticated at that time will have his funds transferred. When you think the attack is successful, refresh the page and you will find the green check on the left hand side menu.<br/><b>Note that the "Screen" and "menu" GET variables will vary between WebGoat builds. Copying the menu link on the left will give you the current values.</b>
+Your goal is to send an email to a newsgroup.  The email contains an image whose URL is pointing to a malicious request. In this lesson the URL should point to the "attack" servlet with the lesson's "Screen" and "menu" parameters and an extra parameter "transferFunds" having an arbitrary numeric value such as 5000.  You can construct the link by finding the "Screen" and "menu" values in the Parameters inset on the right.  Recipients of CSRF emails that happen to be authenticated at that time will have their funds transferred.  When this lesson's attack succeeds, a green checkmark appears beside the lesson name in the menu on the left.
 <!-- Stop Instructions -->
 

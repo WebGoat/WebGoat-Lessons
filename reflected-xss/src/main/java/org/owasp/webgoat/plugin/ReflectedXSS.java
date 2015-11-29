@@ -89,10 +89,9 @@ public class ReflectedXSS extends LessonAdapter
                     makeSuccess(s);
                 }
 
-                s.setMessage(getLabelManager().get("ReflectedXSSWhoops1")+ param1 + getLabelManager().get("ReflectedXSSWhoops2"));
+                //TODO: encode the param1 in the output. ESAPI was not working for some reason
+               s.setMessage(getLabelManager().get("ReflectedXSSWhoops1") + param1  + getLabelManager().get("ReflectedXSSWhoops2"));
             }
-
-            // FIXME: encode output of field2, then s.setMessage( field2 );
 
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement(getLabelManager().get("ShoppingCart"))));

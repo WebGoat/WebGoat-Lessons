@@ -100,7 +100,7 @@ public class DOMInjection extends LessonAdapter
             makeSuccess(s);
         }
 
-        ec.addElement("<script src='" + buildJsPath(s, "dom_injection.js") + "'> </script>");
+        ec.addElement("<script src='" + LessonUtil.buildJsPath(s, this, "dom_injection.js") + "'> </script>");
         ec.addElement(new BR().addElement(new H1().addElement("Welcome to WebGoat Registration Page:")));
         ec.addElement(new BR()
                 .addElement("Please enter the license key that was emailed to you to start using the application."));

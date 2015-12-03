@@ -135,7 +135,7 @@ public class DOMXSS extends SequentialLessonAdapter
          * 
          * 1. If the DOMXSS.js file contains the lines "escapeHTML(name)"
          */
-        String file = s.getWebResource(buildJsPath(s,"js/DOMXSS.js"));
+        String file = s.getWebResource(LessonUtil.buildJsPath(s, this, "js/DOMXSS.js"));
         String content = getFileContent(file);
 
         if (content.indexOf("escapeHTML(name)") != -1)
@@ -154,9 +154,9 @@ public class DOMXSS extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc(buildJsPath(s, "DOMXSS.js")));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "DOMXSS.js")));
 
-            ec.addElement(new Script().setSrc(buildJsPath(s, "escape.js")));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "escape.js")));
 
             ec.addElement(new H1().setID("greeting"));
 

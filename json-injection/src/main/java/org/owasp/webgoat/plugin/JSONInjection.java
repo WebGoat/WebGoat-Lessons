@@ -95,20 +95,6 @@ public class JSONInjection extends LessonAdapter
 
     }
 
-    private String getXHRLink(WebSession webSession) {
-        StringBuffer link = new StringBuffer();
-        link.append(webSession.getRequest().getRequestURL().toString().replaceAll("#", ""));
-        link.append("?");
-        link.append("Screen");
-        link.append("=");
-        link.append(this.getScreenId());
-        link.append("&");
-        link.append("menu");
-        link.append("=");
-        link.append(this.getCategory().getRanking());
-        return link.toString();
-    }
-
     /**
      * Description of the Method
      *
@@ -118,7 +104,7 @@ public class JSONInjection extends LessonAdapter
     protected Element createContent(WebSession s)
     {
         ElementContainer ec = new ElementContainer();
-        ec.addElement(new Script().setSrc(buildJsPath(s, "jsonInjection.js")));
+        ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "jsonInjection.js")));
 
         Table t1 = new Table().setCellSpacing(0).setCellPadding(0).setBorder(0).setWidth("90%").setAlign("center");
 
@@ -126,7 +112,7 @@ public class JSONInjection extends LessonAdapter
 
         tr.addElement(new TD("From: "));
         Input in = new Input(Input.TEXT, TRAVEL_FROM, "");
-        in.addAttribute("onblur", "getFlights('" + getXHRLink(s) + "');");
+        in.addAttribute("onblur", "getFlights('" + LessonUtil.getXHRLink(s, this) + "');");
         in.addAttribute("id", TRAVEL_FROM);
         tr.addElement(new TD(in));
 
@@ -135,7 +121,7 @@ public class JSONInjection extends LessonAdapter
         tr = new TR();
         tr.addElement(new TD("To: "));
         in = new Input(Input.TEXT, TRAVEL_TO, "");
-        in.addAttribute("onblur", "getFlights('" + getXHRLink(s) + "');");
+        in.addAttribute("onblur", "getFlights('" + LessonUtil.getXHRLink(s, this) + "');");
         in.addAttribute("id", TRAVEL_TO);
         tr.addElement(new TD(in));
 

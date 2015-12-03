@@ -90,7 +90,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc(buildJsPath(s, "clientSideValidation.js")));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "clientSideValidation.js")));
 
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement("Shopping Cart")));
@@ -117,7 +117,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
         try
         {
 
-            ec.addElement(new Script().setSrc(buildJsPath(s, "clientSideValidation.js")));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "clientSideValidation.js")));
 
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement("Shopping Cart")));

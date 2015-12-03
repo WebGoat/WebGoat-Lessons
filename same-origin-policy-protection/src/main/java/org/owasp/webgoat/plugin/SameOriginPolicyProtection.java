@@ -34,7 +34,7 @@ public class SameOriginPolicyProtection extends LessonAdapter
 
         try
         {
-            ec.addElement(new Script().setSrc(buildJsPath(s, "sameOrigin.js")));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "sameOrigin.js")));
 
             Input testedURL = new Input(Input.HIDDEN, "testedURL", "");
             testedURL.setID("testedURL");
@@ -73,7 +73,7 @@ public class SameOriginPolicyProtection extends LessonAdapter
             ec.addElement(ta);
             ec.addElement(new BR());
 
-            String webGoatURL = buildJspPath(s, "sameOrigin.jsp", true);
+            String webGoatURL = LessonUtil.buildJspPath(s, this, "sameOrigin.jsp", true);
             String googleURL = "http://www.google.com/search?q=aspect+security";
 
             ec.addElement(new BR());

@@ -3,6 +3,7 @@ package org.owasp.webgoat.plugin.GoatHillsFinancial;
 
 import org.apache.ecs.ElementContainer;
 import org.owasp.webgoat.lessons.RandomLessonAdapter;
+import org.owasp.webgoat.plugin.LessonUtil;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;
@@ -265,12 +266,12 @@ public class GoatHillsFinancial extends RandomLessonAdapter
 
     public String getTemplatePage(WebSession s)
     {
-        return buildJspPath(s, getLessonName() + ".jsp", false);
+        return LessonUtil.buildJspPath(s, this, getLessonName() + ".jsp", false);
     }
 
     public String getPage(WebSession s)
     {
-        String page = buildJspPath(s, getCurrentAction(s) + ".jsp", false);
+        String page = LessonUtil.buildJspPath(s, this, getCurrentAction(s) + ".jsp", false);
 
         return page;
     }
@@ -300,7 +301,7 @@ public class GoatHillsFinancial extends RandomLessonAdapter
     }
 
     @Override
-    protected String getLessonName()
+    public String getLessonName()
     {
         String className = getClass().getName();
         int index = className.lastIndexOf('.');

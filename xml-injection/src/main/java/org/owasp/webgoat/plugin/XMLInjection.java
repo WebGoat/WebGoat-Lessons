@@ -10,6 +10,7 @@ import org.apache.ecs.html.Form;
 import org.apache.ecs.html.H1;
 import org.apache.ecs.html.H3;
 import org.apache.ecs.html.Input;
+import org.apache.ecs.html.Script;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
 import org.apache.ecs.html.Table;
@@ -137,46 +138,10 @@ public class XMLInjection extends LessonAdapter
         {
             isDone = true;
         }
-        String lineSep = System.getProperty("line.separator");
-        String script = "<script>" + lineSep + "function getRewards() {" + lineSep
-                + "var accountIDField = document.getElementById('" + ACCOUNTID + "');" + lineSep
-                + "if (accountIDField.value.length < 6 ) { return; }" + lineSep + "var url = '" + getLink()
-                + "&from=ajax&" + ACCOUNTID + "=' + encodeURIComponent(accountIDField.value);" + lineSep
-                + "if (typeof XMLHttpRequest != 'undefined') {" + lineSep + "req = new XMLHttpRequest();" + lineSep
-                + "} else if (window.ActiveXObject) {" + lineSep + "req = new ActiveXObject('Microsoft.XMLHTTP');"
-                + lineSep + "   }" + lineSep + "   req.open('GET', url, true);" + lineSep
-                + "   req.onreadystatechange = callback;" + lineSep + "   req.send(null);" + lineSep + "}"
-                + lineSep
-                + "function callback() {"
-                + lineSep
-                + "    if (req.readyState == 4) { "
-                + lineSep
-                + "        if (req.status == 200) { "
-                + lineSep
-                + "            var rewards = req.responseXML.getElementsByTagName('reward');"
-                + lineSep
-                + "          var rewardsDiv = document.getElementById('rewardsDiv');"
-                + lineSep
-                + "             rewardsDiv.innerHTML = '';"
-                + lineSep
-                + "             var strHTML='';"
-                + lineSep
-                + "             strHTML = '<tr><td>&nbsp;</td><td><b>Rewards</b></td></tr>';"
-                + lineSep
-                + "          for(var i=0; i< rewards.length; i++){"
-                // + lineSep
-                // + " var node = rewards.childNodes[i+1];"
-                + lineSep
-                + "             strHTML = strHTML + '<tr><td><input name=\"check' + (i+1001) +'\" type=\"checkbox\"></td><td>';"
-                + lineSep + "               strHTML = strHTML + rewards[i].firstChild.nodeValue + '</td></tr>';" + lineSep
-                + "          }" + lineSep + "               strHTML = '<table>' + strHTML + '</table>';" + lineSep
-                + "             strHTML = 'Your account balance is now 100 points<br><br>' + strHTML;" + lineSep
-                + "               rewardsDiv.innerHTML = strHTML;" + lineSep + "        }}}" + lineSep + "</script>"
-                + lineSep;
 
         if (!isDone)
         {
-            ec.addElement(new StringElement(script));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "xmlInjection.js")));
         }
         ec.addElement(new BR().addElement(new H1().addElement("Welcome to WebGoat-Miles Reward Miles Program.")));
         ec.addElement(new BR());
@@ -189,7 +154,7 @@ public class XMLInjection extends LessonAdapter
         for (int i = 1001; i < 1001 + rewardsMap.size(); i++)
         {
             trRewards = new TR();
-            Reward r = (Reward) rewardsMap.get(i);
+            Reward r = rewardsMap.get(i);
             trRewards.addElement(new TD("-" + r.getName()));
             trRewards.addElement(new TD(r.getPoints() + " Pts"));
             t2.addElement(trRewards);
@@ -209,7 +174,7 @@ public class XMLInjection extends LessonAdapter
         tr.addElement(new TD("Please enter your account ID:"));
 
         Input input1 = new Input(Input.TEXT, ACCOUNTID, "");
-        input1.addAttribute("onkeyup", "getRewards();");
+        input1.addAttribute("onblur", "getRewards('" + LessonUtil.getXHRLink(s, this) + "');");
         input1.addAttribute("id", ACCOUNTID);
         tr.addElement(new TD(input1));
         t1.addElement(tr);
@@ -244,7 +209,7 @@ public class XMLInjection extends LessonAdapter
 
                     if (s.getParser().getRawParameter("check" + i, "") != "")
                     {
-                        shipment.append(((Reward) rewardsMap.get(i)).getName() + "<br>");
+                        shipment.append(rewardsMap.get(i).getName() + "<br>");
                     }
                 }
                 shipment.insert(0, "<br><br><b>The following items will be shipped to your address:</b><br>");

@@ -103,6 +103,7 @@
                 <artifactId>webgoat-container</artifactId>
                 <version>7.0-SNAPSHOT</version>
                 <type>jar</type>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -82,7 +82,7 @@ public class DangerousEval extends LessonAdapter
             float runningTotal = 0.0f;
 
             // FIXME: encode output of field2, then s.setMessage( field2 );
-            ec.addElement("<script src='" + buildJsPath(s, "eval.js") + "'> </script>");
+            ec.addElement("<script src='" + LessonUtil.buildJsPath(s, this, "eval.js") + "'> </script>");
             // <script src='javascript/sameOrigin.js' language='JavaScript'></script>
             ec.addElement(new HR().setWidth("90%"));
             ec.addElement(new Center().addElement(new H1().addElement("Shopping Cart ")));
@@ -156,7 +156,7 @@ public class DangerousEval extends LessonAdapter
             Input b = new Input();
             b.setType(Input.BUTTON);
             b.setValue("Update Cart");
-            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp", true) + "');");
+            b.addAttribute("onclick", "purchase('" + LessonUtil.buildJspPath(s, this, "eval.jsp", true) + "');");
 
             tr.addElement(new TD().addElement(b));
             t.addElement(tr);
@@ -177,7 +177,7 @@ public class DangerousEval extends LessonAdapter
             b = new Input();
             b.setType(Input.BUTTON);
             b.setValue("Purchase");
-            b.addAttribute("onclick", "purchase('" + buildJspPath(s, "eval.jsp", true) + "');");
+            b.addAttribute("onclick", "purchase('" + LessonUtil.buildJspPath(s, this, "eval.jsp", true) + "');");
 
             tr = new TR();
             tr.addElement(new TD().addElement(b).setColSpan(2).setAlign("right"));

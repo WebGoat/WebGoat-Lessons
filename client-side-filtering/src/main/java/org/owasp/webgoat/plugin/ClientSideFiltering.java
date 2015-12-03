@@ -38,12 +38,12 @@ public class ClientSideFiltering extends SequentialLessonAdapter
     protected Element createMainContent(WebSession s)
     {
         ElementContainer ec = new ElementContainer();
-        ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + buildJspPath(s, "clientSideFiltering-stage1.css", true) + "\" />");
+        ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, "clientSideFiltering-stage1.css", true) + "\" />");
 
         try
         {
 
-            ec.addElement(new Script().setSrc(buildJsPath(s, "clientSideFiltering.js")));
+            ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "clientSideFiltering.js")));
 
             Input input = new Input(Input.HIDDEN, "userID", 102);
 
@@ -156,7 +156,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
          * 1. If clientSideFiltering.jsp has an XPath filter to
          *    limit the data being returned.
          */
-        String file = getLessonDirectory(s) + "jsp/clientSideFiltering.jsp";
+        String file = LessonUtil.getLessonDirectory(s, this) + "jsp/clientSideFiltering.jsp";
         String content = getFileContent(file);
 
         if (content.indexOf("[Managers/Manager/text()") != -1)
@@ -316,7 +316,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
         hints.add(getLabelManager().get("ClientSideFilteringHint3"));
         hints.add(getLabelManager().get("ClientSideFilteringHint4"));
         hints.add(getLabelManager().get("ClientSideFilteringHint5a") + " <a href = " 
-            + buildJspPath(s, "clientSideFiltering.jsp?userId=102", true) + ">" 
+            + LessonUtil.buildJspPath(s, this, "clientSideFiltering.jsp?userId=102", true) + ">"
             + getLabelManager().get("ClientSideFilteringHint5b") + "</a>"
             + getLabelManager().get("ClientSideFilteringHint5c"));
         hints.add(getLabelManager().get("ClientSideFilteringHint6"));

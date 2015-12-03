@@ -84,7 +84,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 
         try
         {
-            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + buildJspPath(s, "insecureLogin.css",
+            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, "insecureLogin.css",
                     true) + "\" />");
 
             Div wrapperDiv = new Div();

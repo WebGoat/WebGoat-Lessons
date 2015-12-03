@@ -125,7 +125,7 @@ public class CommandInjection extends LessonAdapter
                     illegalCommand = false;
                 }
             }
-            File safeDir = new File(this.getLessonDirectory(s), "resources");
+            File safeDir = new File(LessonUtil.getLessonDirectory(s, this), "resources");
 
             ec.addElement(new StringElement(getLabelManager().get("YouAreCurrentlyViewing")+"<b>"
                     + (helpFile.toString().length() == 0 ? "&lt;"+getLabelManager().get("SelectFileFromListBelow")+"&gt;" : helpFile.toString())

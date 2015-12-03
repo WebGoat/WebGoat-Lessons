@@ -77,7 +77,7 @@ public class PathBasedAccessControl extends LessonAdapter {
             if (s.isColor()) {
                 t.setBorder(1);
             }
-            List<File> htmlFiles = findHtmlFiles(getLessonDirectory(s).getParentFile());
+            List<File> htmlFiles = findHtmlFiles(LessonUtil.getLessonDirectory(s, this).getParentFile());
             List<String> htmlFilenames = Lists.newArrayList(
                     Iterables.transform(htmlFiles, new Function<File, String>() {
                         @Override
@@ -130,7 +130,7 @@ public class PathBasedAccessControl extends LessonAdapter {
 	            File allowedFile = guideTheAtack(s, file, htmlFiles);
 	            
 	            if (!illegalCommand) {
-            		File attemptedFile = new File(getLessonDirectory(s) + "/lessonPlans/en/" + file);
+            		File attemptedFile = new File(LessonUtil.getLessonDirectory(s, this) + "/lessonPlans/en/" + file);
 	            	if ( allowedFile == null)
 	            	{
 	            		// We have a potential attack
@@ -212,7 +212,7 @@ public class PathBasedAccessControl extends LessonAdapter {
         {
         	lessonDir = lessonDir.substring(0, lessonDir.length() - ".html".length());
         }
-        String attemptedFileName =  getLessonDirectory(s).getParent() + "/" + lessonDir + "/lessonPlans/en/" + fileName;
+        String attemptedFileName =  LessonUtil.getLessonDirectory(s, this).getParent() + "/" + lessonDir + "/lessonPlans/en/" + fileName;
         File attemptedFile = new File(attemptedFileName);
        
     	// Check access to an allowed file.  if allowedFile != null, access is allowed

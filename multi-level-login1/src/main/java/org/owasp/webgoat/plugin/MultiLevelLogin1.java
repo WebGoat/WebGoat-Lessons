@@ -13,7 +13,6 @@ import org.apache.ecs.html.Input;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
 import org.apache.ecs.html.Table;
-import org.apache.ecs.xhtml.style;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.SequentialLessonAdapter;
 import org.owasp.webgoat.session.DatabaseUtilities;
@@ -131,6 +130,13 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
         }
     }
 
+    public String getPage(WebSession s)
+    {
+        String page = LessonUtil.buildJspPath(s, this, getCurrentAction(s) + ".jsp", false);
+
+        return page;
+    }
+
     /**
      * Creation of the main content
      * 
@@ -143,30 +149,9 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
         try
         {
-            style sty = new style();
+            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, this.getClass().getSimpleName() + ".css",
+                    true) + "\" />");
 
-            sty
-                    .addElement("#lesson_wrapper {height: 435px;width: "
-                            + "500px;}#lesson_header {background-image: "
-                            + "url(lessons/DBSQLInjection/images/lesson1_header.jpg);width:"
-                            + " 490px;padding-right: 10px;padding-top: 60px;background-repeat: no-repeat;}.lesson_workspace "
-                            + "{background-image: url(lessons/DBSQLInjection/images/lesson1_workspace.jpg);width: 489px;height: "
-                            + "325px;padding-left: 10px;padding-top: 10px;background-repeat: no-repeat;}        "
-                            + ".lesson_text {height: 240px;width: 460px;padding-top: 5px;}          "
-                            + "#lesson_buttons_bottom {height: 20px;width: 460px;}          "
-                            + "#lesson_b_b_left {width: 300px;float: left;}         "
-                            + "#lesson_b_b_right input {width: 100px;float: right;}         "
-                            + ".lesson_title_box {height: 20px;width: 420px;padding-left: 30px;}            "
-                            + ".lesson_workspace { }            "
-                            + ".lesson_txt_10 {font-family: Arial, Helvetica, sans-serif;font-size: 10px;}          "
-                            + ".lesson_text_db {color: #0066FF}         "
-                            + "#lesson_login {background-image: url(lessons/DBSQLInjection/images/lesson1_loginWindow.jpg);height: "
-                            + "124px;width: 311px;background-repeat: no-repeat;padding-top: 30px;margin-left: 80px;margin-top:"
-                            + " 50px;text-align: center;}           #lesson_login_txt {font-family: Arial, Helvetica, sans-serif;font-size: "
-                            + "12px;text-align: center;}            #lesson_search {background-image: "
-                            + "url(lessons/DBSQLInjection/images/lesson1_SearchWindow.jpg);height: 124px;width: 311px;background-repeat: "
-                            + "no-repeat;padding-top: 30px;margin-left: 80px;margin-top: 50px;text-align: center;}");
-            ec.addElement(sty);
 
             Div wrapperDiv = new Div();
             wrapperDiv.setID("lesson_wrapper");
@@ -210,6 +195,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
         String hiddenTan = s.getParser().getStringParameter(HIDDEN_TAN, "");
 
         ElementContainer ec = new ElementContainer();
+
 
         // verify that tan is correct and user is logged in
         if (loggedIn(s) && correctTan(getLoggedInUser(s), tan, hiddenTan, s))
@@ -305,6 +291,8 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
     {
         Div loginDiv = new Div();
         loginDiv.setID("lesson_login");
+        loginDiv.addElement(new BR());
+        loginDiv.addElement(new BR());
 
         Table table = new Table();
         table.addAttribute("align='center'", 0);

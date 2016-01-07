@@ -2,8 +2,8 @@
 package org.owasp.webgoat.plugin.sqlinjection;
 
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DefaultLessonAction;
+import org.owasp.webgoat.plugin.GoatHillsFinancial.EmployeeStub;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
-import org.owasp.webgoat.session.EmployeeStub;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;

@@ -2,9 +2,9 @@
 package org.owasp.webgoat.plugin.crosssitescripting;
 
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DefaultLessonAction;
+import org.owasp.webgoat.plugin.GoatHillsFinancial.Employee;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.LessonAction;
-import org.owasp.webgoat.session.Employee;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.ParameterParser;
 import org.owasp.webgoat.session.UnauthenticatedException;

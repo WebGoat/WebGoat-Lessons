@@ -11,8 +11,6 @@ import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.lessons.LessonAdapter;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
-import org.owasp.webgoat.util.Exec;
-import org.owasp.webgoat.util.ExecResults;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -31,12 +31,12 @@
                 <version>1.8</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>compile</phase>
                         <configuration>
                             <target>
                                 <copy todir="${project.basedir}/target/classes/plugin/CommandInjection/resources"
                                       flatten="true">
-                                    <fileset dir="../">
+                                    <fileset dir="${project.basedir}/../">
                                         <include name="**/src/**/lessonPlans/en/*.html"/>
                                     </fileset>
                                 </copy>

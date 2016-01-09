@@ -1,7 +1,6 @@
 
 package org.owasp.webgoat.plugin.GoatHillsFinancial;
 
-import org.owasp.webgoat.session.Employee;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;

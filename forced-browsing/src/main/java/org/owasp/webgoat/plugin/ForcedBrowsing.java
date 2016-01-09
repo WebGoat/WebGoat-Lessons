@@ -20,54 +20,48 @@ import java.util.List;
 
 
 /***************************************************************************************************
- * 
- * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
  * please see http://www.owasp.org/
- * 
+ * <p>
  * Copyright (c) 2002 - 20014 Bruce Mayhew
- * 
+ * <p>
  * This program is free software; you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation; either version 2 of the
  * License, or (at your option) any later version.
- * 
+ * <p>
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License along with this program; if
  * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
- * 
+ * <p>
  * Getting Source ==============
- * 
+ * <p>
  * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software
  * projects.
- * 
+ * <p>
  * For details, please see http://webgoat.github.io
- * 
+ *
  * @author Sherif Koussa <a href="http://www.softwaresecured.com">Software Secured</a>
  * @created November 02, 2006
  */
-public class ForcedBrowsing extends LessonAdapter
-{
+public class ForcedBrowsing extends LessonAdapter {
 
     private final static String SUCCEEDED = "succeeded";
 
     /**
      * Description of the Method
-     * 
-     * @param s
-     *            Description of the Parameter
+     *
+     * @param s Description of the Parameter
      * @return Description of the Return Value
      */
-    protected Element createContent(WebSession s)
-    {
+    protected Element createContent(WebSession s) {
         ElementContainer ec = new ElementContainer();
         String success = new String(s.getParser().getStringParameter(SUCCEEDED, ""));
 
-        if (success.length() != 0 && success.equals("yes"))
-        {
+        if (success.length() != 0 && success.equals("yes")) {
             ec.addElement(new BR().addElement(new H1().addElement("Welcome to WebGoat Configuration Page")));
             ec.addElement(new BR());
             Table t1 = new Table().setCellSpacing(0).setCellPadding(0).setBorder(0).setWidth("90%").setAlign("center");
@@ -91,32 +85,29 @@ public class ForcedBrowsing extends LessonAdapter
             ec.addElement(t1);
 
             makeSuccess(s);
-        }
-        else
-        {
+        } else {
             ec
-                    .addElement("Can you try to force browse to the config page which should only be accessed by maintenance personnel.");
+                    .addElement(
+                            "Can you try to force browse to the config page which should only be accessed by maintenance personnel.");
         }
         return ec;
     }
 
     /**
      * Gets the category attribute of the ForgotPassword object
-     * 
+     *
      * @return The category value
      */
-    protected Category getDefaultCategory()
-    {
+    protected Category getDefaultCategory() {
         return Category.INSECURE_CONFIGURATION;
     }
 
     /**
      * Gets the hints attribute of the HelloScreen object
-     * 
+     *
      * @return The hints value
      */
-    public List<String> getHints(WebSession s)
-    {
+    public List<String> getHints(WebSession s) {
         List<String> hints = new ArrayList<String>();
         hints.add("Try to guess the URL for the config page");
         hints.add("The config page is guessable and hackable");
@@ -127,18 +118,16 @@ public class ForcedBrowsing extends LessonAdapter
 
     private final static Integer DEFAULT_RANKING = new Integer(15);
 
-    protected Integer getDefaultRanking()
-    {
+    protected Integer getDefaultRanking() {
         return DEFAULT_RANKING;
     }
 
     /**
      * Gets the title attribute of the HelloScreen object
-     * 
+     *
      * @return The title value
      */
-    public String getTitle()
-    {
+    public String getTitle() {
         return ("Forced Browsing");
     }
 

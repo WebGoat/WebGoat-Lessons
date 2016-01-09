@@ -20,8 +20,6 @@ import org.owasp.webgoat.lessons.SequentialLessonAdapter;
 import org.owasp.webgoat.session.DatabaseUtilities;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
-import org.owasp.webgoat.util.Exec;
-import org.owasp.webgoat.util.ExecResults;
 
 import javax.servlet.http.Cookie;
 import java.io.BufferedReader;

@@ -256,6 +256,9 @@ public class MaliciousFileExecution extends LessonAdapter
     return hints;
     }
 
+    public String getSubmitMethod(){
+        return "POST";
+    }
     // this is a custom method for this lesson to restart.  It is called in WebSession.restartLesson
     // in a currently somewhat "hacked up" manner that is specific to this lesson.  There probably
     // should be an abstract type for lessons that need custom "restarting" code.

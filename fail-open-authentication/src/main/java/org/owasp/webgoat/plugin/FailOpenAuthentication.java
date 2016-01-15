@@ -166,7 +166,7 @@ public class FailOpenAuthentication extends LessonAdapter
         hints.add("You can force errors during the authentication process.");
         hints.add("You can change length, existance, or values of authentication parameters.");
         hints
-                .add("Try removing a parameter ENTIRELY with <A href=\"http://www.owasp.org/index.php/Category:OWASP_WebScarab_Project\">OWASP ZAP</A>.");
+                .add("Try removing a parameter ENTIRELY with <A href=\"https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project\">OWASP ZAP</A>.");
 
         return hints;
     }

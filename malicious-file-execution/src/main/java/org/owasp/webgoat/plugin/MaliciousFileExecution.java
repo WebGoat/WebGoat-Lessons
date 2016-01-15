@@ -208,7 +208,9 @@ public class MaliciousFileExecution extends LessonAdapter
     List<String> hints = new ArrayList<String>();
 
         hints.add("Where are uploaded images stored?  Can you browse to them directly?");
-        
+
+        hints.add("NOTE: To see completion of the lesson, you will need to eventually open the uploaded file (separate tab will make life easier) and navigate back to this page and reload it.");
+
         hints.add("What type of file can you upload to a J2EE server that will be executed when you browse to it?");
         
         hints.add("You want to upload a .jsp file that creates an instance of the class java.io.File " +
@@ -351,7 +353,7 @@ public class MaliciousFileExecution extends LessonAdapter
         
     String instructions = "The form below allows you to upload an image which will be displayed on this page.  " 
         + "Features like this are often found on web based discussion boards and social networking sites.  " 
-        + "This feature is vulnerable to Malicious File Execution."
+        + "This feature is vulnerable to Malicious File ntExecution."
         + "<br><br>In order to pass this lesson, upload and run a malicious file.  In order to prove that your file can execute,"
         + " it should create another file named:<br><br> "
         + uploads_and_target_parent_directory

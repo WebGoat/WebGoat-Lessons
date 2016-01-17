@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" 
-	import="java.util.*, org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.sqlinjection.SQLInjection"
+	import="org.owasp.webgoat.plugin.GoatHillsFinancial.EmployeeStub, org.owasp.webgoat.plugin.sqlinjection.SQLInjection, org.owasp.webgoat.session.WebSession"
 	errorPage="" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.List" %>
 <%
 	WebSession webSession = ((WebSession)session.getAttribute("websession"));
 	int myUserId = webSession.getUserIdInLesson();

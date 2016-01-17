@@ -1,8 +1,9 @@
 <!--
 STAGE 4 FIXES Look for the <-- STAGE 4 - FIX
 -->
-<%@ page contentType="text/html; charset=ISO-8859-1" language="java" 
-	import="org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.crosssitescripting.*" errorPage="" %>
+<%@ page contentType="text/html; charset=ISO-8859-1" language="java"
+		 import="org.owasp.webgoat.plugin.GoatHillsFinancial.Employee, org.owasp.webgoat.plugin.crosssitescripting.CrossSiteScripting" errorPage="" %>
+<%@ page import="org.owasp.webgoat.session.WebSession" %>
 <%
 WebSession webSession = ((WebSession)session.getAttribute("websession"));
 	Employee employee = (Employee) session.getAttribute("CrossSiteScripting." + CrossSiteScripting.EMPLOYEE_ATTRIBUTE_KEY);

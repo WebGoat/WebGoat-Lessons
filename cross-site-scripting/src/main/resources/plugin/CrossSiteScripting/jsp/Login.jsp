@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" 
-	import="java.util.*, org.owasp.webgoat.session.*, org.owasp.webgoat.plugin.crosssitescripting.CrossSiteScripting"
+	import="org.owasp.webgoat.plugin.GoatHillsFinancial.EmployeeStub, org.owasp.webgoat.plugin.crosssitescripting.CrossSiteScripting, org.owasp.webgoat.session.WebSession"
 	errorPage="" %>
-	<div id="lesson_login">
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.List" %>
+<div id="lesson_login">
 		<div id="lesson_login_txt">
 			<% 
 			WebSession webSession = ((WebSession)session.getAttribute("websession"));

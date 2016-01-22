@@ -222,7 +222,7 @@ public class StoredXss extends LessonAdapter {
                 ec.addElement(t);
 
                 // Some sanity checks that the script may be correct
-                if (messageData.toLowerCase().indexOf("<script>") != -1
+                if (messageData.toLowerCase().indexOf("<script") != -1
                         && messageData.toLowerCase().indexOf("</script>") != -1
                         && messageData.toLowerCase().indexOf("alert") != -1) {
                     makeSuccess(s);

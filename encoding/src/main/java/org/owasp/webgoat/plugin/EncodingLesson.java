@@ -65,7 +65,7 @@ import java.util.List;
  * @created October 28, 2003
  */
 
-public class Encoding extends LessonAdapter
+public class EncodingLesson extends LessonAdapter
 {
     private final static String INPUT = "input";
 

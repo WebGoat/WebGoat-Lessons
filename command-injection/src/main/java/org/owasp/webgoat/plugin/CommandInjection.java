@@ -5,6 +5,7 @@ import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
 import org.apache.ecs.html.BR;
+import org.apache.ecs.html.Form;
 import org.apache.ecs.html.HR;
 import org.apache.ecs.html.P;
 import org.owasp.webgoat.lessons.Category;
@@ -54,6 +55,18 @@ public class CommandInjection extends LessonAdapter
     private final static String HELP_FILE = "HelpFile";
 
     private String osName = System.getProperty("os.name");
+
+    @Override
+    public void handleRequest(WebSession s)
+    {
+        Form form = new Form();
+        form.addElement(createContent(s));
+        form.setAction(getFormAction());
+        form.setMethod(Form.POST);
+        form.setName("form");
+        form.setEncType("");
+        setContent(form);
+    }
 
     /**
      * Description of the Method

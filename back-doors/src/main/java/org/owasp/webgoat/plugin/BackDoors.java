@@ -223,16 +223,16 @@ public class BackDoors extends SequentialLessonAdapter
     {
         ElementContainer ec = new ElementContainer();
         StringBuffer script = new StringBuffer();
-        script.append("<STYLE TYPE=\"text/css\"> ");
-        script.append(".blocklabel { margin-top: 8pt; }");
-        script.append(".myClass     { color:red;");
+        script.append("<style type=\"text/css\"> ");
+        script.append("#lessonContent .blocklabel { margin-top: 8pt; }");
+        script.append("#lessonContent .myClass     { color:red;");
         script.append(" font-weight: bold;");
         script.append("padding-left: 1px;");
         script.append("padding-right: 1px;");
         script.append("background: #DDDDDD;");
         script.append("border: thin black solid; }");
-        script.append("LI   { margin-top: 10pt; }");
-        script.append("</STYLE>");
+        script.append("#lessonContent li   { margin-top: 10pt; }");
+        script.append("</style>");
         ec.addElement(new StringElement(script.toString()));
 
         ec.addElement(new StringElement("User ID: "));

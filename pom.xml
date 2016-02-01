@@ -28,7 +28,6 @@
         <module>dangerous-eval-injection</module>
         <module>db-cross-site-scripting</module>
         <module>db-sql-injection</module>
-        <module>dist</module>
         <module>dom-injection</module>
         <module>dom-xss</module>
         <module>dos-login</module>
@@ -77,9 +76,8 @@
         <module>xpath-injection</module>
         <module>zip-bomb</module>
 
-
-        <!--
-        -->
+        <!--Should be defined as the last module -->
+        <module>dist</module>
     </modules>
 
     <dependencies>

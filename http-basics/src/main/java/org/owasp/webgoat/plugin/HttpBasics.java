@@ -49,6 +49,7 @@ import java.util.List;
 public class HttpBasics extends LessonAdapter {
 
     private final static String PERSON = "person";
+    private int requestsSinceLastComplete = 0;
 
     /**
      * Description of the Method
@@ -57,6 +58,7 @@ public class HttpBasics extends LessonAdapter {
      * @return Description of the Return Value
      */
     protected Element createContent(WebSession s) {
+        requestsSinceLastComplete++;
         ElementContainer ec = new ElementContainer();
 
         StringBuffer person = null;
@@ -77,11 +79,16 @@ public class HttpBasics extends LessonAdapter {
             e.printStackTrace();
         }
 
-        if (!person.toString().equals("") && getLessonTracker(s).getNumVisits() > 3) {
+        if (!person.toString().equals("") && approvedNumberOfAttempts()) {
             makeSuccess(s);
+            requestsSinceLastComplete = 0;
         }
 
         return (ec);
+    }
+
+    private boolean approvedNumberOfAttempts() {
+        return requestsSinceLastComplete > 2;
     }
 
     /**
@@ -93,11 +100,19 @@ public class HttpBasics extends LessonAdapter {
         List<String> hints = new ArrayList<String>();
         hints.add("Type in your name and press 'go'");
         hints.add("Turn on Show Parameters or other features");
-        hints.add("Try to intercept the request with OWASP ZAP");
+        hints.add("Try to intercept the request with <a href='https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project' title='Link to ZAP'>OWASP ZAP</a>");
         hints.add("Press the Show Lesson Plan button to view a lesson summary");
         hints.add("Press the Show Solution button to view a lesson solution");
 
         return hints;
+    }
+
+    /**
+     * Resets the request counter when the lesson is restarted
+     */
+    @Override
+    public void restartLesson() {
+        requestsSinceLastComplete = 0;
     }
 
     /**

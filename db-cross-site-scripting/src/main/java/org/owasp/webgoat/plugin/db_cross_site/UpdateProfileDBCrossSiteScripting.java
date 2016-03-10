@@ -46,12 +46,12 @@ import java.sql.Statement;
  * 
  * For details, please see http://webgoat.github.io
  */
-public class UpdateProfile extends DefaultLessonAction
+public class UpdateProfileDBCrossSiteScripting extends DefaultLessonAction
 {
 
     private LessonAction chainedAction;
 
-    public UpdateProfile(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
+    public UpdateProfileDBCrossSiteScripting(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
     {
         super(lesson, lessonName, actionName);
         this.chainedAction = chainedAction;

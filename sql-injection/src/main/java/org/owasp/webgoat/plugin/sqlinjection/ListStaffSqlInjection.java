@@ -43,10 +43,10 @@ import java.util.Vector;
  * 
  * For details, please see http://webgoat.github.io
  */
-public class ListStaff extends DefaultLessonAction
+public class ListStaffSqlInjection extends DefaultLessonAction
 {
 
-    public ListStaff(GoatHillsFinancial lesson, String lessonName, String actionName)
+    public ListStaffSqlInjection(GoatHillsFinancial lesson, String lessonName, String actionName)
     {
         super(lesson, lessonName, actionName);
     }

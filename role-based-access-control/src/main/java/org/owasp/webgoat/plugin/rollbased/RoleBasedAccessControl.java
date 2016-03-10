@@ -67,18 +67,18 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
     {
         registerAction(new ListStaff(this, className, LISTSTAFF_ACTION));
         registerAction(new SearchStaff(this, className, SEARCHSTAFF_ACTION));
-        registerAction(new ViewProfile(this, className, VIEWPROFILE_ACTION));
-        registerAction(new EditProfile(this, className, EDITPROFILE_ACTION));
+        registerAction(new ViewProfileRoleBasedAccessControl(this, className, VIEWPROFILE_ACTION));
+        registerAction(new EditProfileRoleBasedAccessControl(this, className, EDITPROFILE_ACTION));
         
         // This action has not yet been implemented. None of the lessons require it.
-        registerAction(new EditProfile(this, className, CREATEPROFILE_ACTION));
+        registerAction(new EditProfileRoleBasedAccessControl(this, className, CREATEPROFILE_ACTION));
 
         // These actions are special in that they chain to other actions.
         registerAction(new Login(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
         registerAction(new Logout(this, className, LOGOUT_ACTION, getAction(LOGIN_ACTION)));
         registerAction(new FindProfile(this, className, FINDPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
-        registerAction(new UpdateProfile(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
-        registerAction(new DeleteProfile(this, className, DELETEPROFILE_ACTION, getAction(LISTSTAFF_ACTION)));
+        registerAction(new UpdateProfileRoleBasedAccessControl(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
+        registerAction(new DeleteProfileRoleBasedAccessControl(this, className, DELETEPROFILE_ACTION, getAction(LISTSTAFF_ACTION)));
     }
 
     /**

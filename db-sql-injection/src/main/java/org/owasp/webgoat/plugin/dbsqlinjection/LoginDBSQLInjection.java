@@ -47,12 +47,12 @@ import java.util.Vector;
  * 
  * For details, please see http://webgoat.github.io
  */
-public class Login extends DefaultLessonAction
+public class LoginDBSQLInjection extends DefaultLessonAction
 {
 
     private LessonAction chainedAction;
 
-    public Login(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
+    public LoginDBSQLInjection(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
     {
         super(lesson, lessonName, actionName);
         this.chainedAction = chainedAction;

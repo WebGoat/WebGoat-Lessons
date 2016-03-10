@@ -42,12 +42,12 @@ import java.sql.Statement;
  * 
  * For details, please see http://webgoat.github.io
  */
-public class DeleteProfile extends DefaultLessonAction
+public class DeleteProfileRoleBasedAccessControl extends DefaultLessonAction
 {
 
     private LessonAction chainedAction;
 
-    public DeleteProfile(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
+    public DeleteProfileRoleBasedAccessControl(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
     {
         super(lesson, lessonName, actionName);
         this.chainedAction = chainedAction;

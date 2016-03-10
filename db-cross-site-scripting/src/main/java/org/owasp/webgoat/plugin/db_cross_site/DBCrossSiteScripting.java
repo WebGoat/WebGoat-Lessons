@@ -12,7 +12,6 @@ import org.owasp.webgoat.plugin.GoatHillsFinancial.ListStaff;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.Login;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.Logout;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.SearchStaff;
-import org.owasp.webgoat.plugin.GoatHillsFinancial.UpdateProfile;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.ViewProfile;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
@@ -73,7 +72,7 @@ public class DBCrossSiteScripting extends GoatHillsFinancial
         registerAction(new Login(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
         registerAction(new Logout(this, className, LOGOUT_ACTION, getAction(LOGIN_ACTION)));
         registerAction(new FindProfile(this, className, FINDPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
-        registerAction(new UpdateProfile(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
+        registerAction(new UpdateProfileDBCrossSiteScripting(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
         registerAction(new DeleteProfile(this, className, DELETEPROFILE_ACTION, getAction(LISTSTAFF_ACTION)));
     }
 

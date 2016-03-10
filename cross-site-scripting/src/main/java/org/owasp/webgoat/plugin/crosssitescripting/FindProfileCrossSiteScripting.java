@@ -47,12 +47,12 @@ import java.util.regex.Pattern;
  * 
  * For details, please see http://webgoat.github.io
  */
-public class FindProfile extends DefaultLessonAction
+public class FindProfileCrossSiteScripting extends DefaultLessonAction
 {
 
     private LessonAction chainedAction;
 
-    public FindProfile(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
+    public FindProfileCrossSiteScripting(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)
     {
         super(lesson, lessonName, actionName);
         this.chainedAction = chainedAction;

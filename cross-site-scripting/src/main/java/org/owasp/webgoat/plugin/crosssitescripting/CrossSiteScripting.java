@@ -4,16 +4,12 @@ package org.owasp.webgoat.plugin.crosssitescripting;
 import org.apache.ecs.ElementContainer;
 import org.owasp.webgoat.lessons.Category;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.DeleteProfile;
-import org.owasp.webgoat.plugin.GoatHillsFinancial.EditProfile;
-import org.owasp.webgoat.plugin.GoatHillsFinancial.FindProfile;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.LessonAction;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.ListStaff;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.Login;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.Logout;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.SearchStaff;
-import org.owasp.webgoat.plugin.GoatHillsFinancial.UpdateProfile;
-import org.owasp.webgoat.plugin.GoatHillsFinancial.ViewProfile;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;
@@ -77,15 +73,15 @@ public class CrossSiteScripting extends GoatHillsFinancial
     {
         registerAction(new ListStaff(this, className, LISTSTAFF_ACTION));
         registerAction(new SearchStaff(this, className, SEARCHSTAFF_ACTION));
-        registerAction(new ViewProfile(this, className, VIEWPROFILE_ACTION));
-        registerAction(new EditProfile(this, className, EDITPROFILE_ACTION));
-        registerAction(new EditProfile(this, className, CREATEPROFILE_ACTION));
+        registerAction(new ViewProfileCrossSiteScripting(this, className, VIEWPROFILE_ACTION));
+        registerAction(new EditProfileCrossSiteScripting(this, className, EDITPROFILE_ACTION));
+        registerAction(new EditProfileCrossSiteScripting(this, className, CREATEPROFILE_ACTION));
 
         // These actions are special in that they chain to other actions.
         registerAction(new Login(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
         registerAction(new Logout(this, className, LOGOUT_ACTION, getAction(LOGIN_ACTION)));
-        registerAction(new FindProfile(this, className, FINDPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
-        registerAction(new UpdateProfile(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
+        registerAction(new FindProfileCrossSiteScripting(this, className, FINDPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
+        registerAction(new UpdateProfileCrossSiteScripting(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
         registerAction(new DeleteProfile(this, className, DELETEPROFILE_ACTION, getAction(LISTSTAFF_ACTION)));
     }
 

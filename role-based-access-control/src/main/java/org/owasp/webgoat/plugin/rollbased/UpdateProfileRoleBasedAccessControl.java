@@ -45,11 +45,11 @@ import java.sql.Statement;
  * <p/>
  * For details, please see http://webgoat.github.io
  */
-public class UpdateProfile extends DefaultLessonAction {
+public class UpdateProfileRoleBasedAccessControl extends DefaultLessonAction {
 
     private LessonAction chainedAction;
 
-    public UpdateProfile(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction) {
+    public UpdateProfileRoleBasedAccessControl(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction) {
         super(lesson, lessonName, actionName);
         this.chainedAction = chainedAction;
     }

@@ -9,9 +9,9 @@ import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;
 import org.owasp.webgoat.session.WebSession;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 /***************************************************************************************************
@@ -41,10 +41,10 @@ import java.sql.Statement;
  * 
  * For details, please see http://webgoat.github.io
  */
-public class ViewProfile extends DefaultLessonAction
+public class EditProfileRoleBasedAccessControl extends DefaultLessonAction
 {
 
-    public ViewProfile(GoatHillsFinancial lesson, String lessonName, String actionName)
+    public EditProfileRoleBasedAccessControl(GoatHillsFinancial lesson, String lessonName, String actionName)
     {
         super(lesson, lessonName, actionName);
     }
@@ -56,50 +56,18 @@ public class ViewProfile extends DefaultLessonAction
 
         if (isAuthenticated(s))
         {
-            int userId = getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
-            int employeeId = -1;
-            try
-            {
-                // User selected employee
-                employeeId = s.getParser().getIntParameter(
-                        RoleBasedAccessControl.EMPLOYEE_ID);
-            } catch (ParameterNotFoundException e)
-            {
-                // May be an internally selected employee
-                employeeId = getIntRequestAttribute(s, getLessonName() + "." + RoleBasedAccessControl.EMPLOYEE_ID);
-            }
-
+            int userId = getUserId(s);
+            int employeeId = s.getParser().getIntParameter(RoleBasedAccessControl.EMPLOYEE_ID);
             Employee employee = getEmployeeProfile(s, userId, employeeId);
             setSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.EMPLOYEE_ATTRIBUTE_KEY, employee);
         }
         else
             throw new UnauthenticatedException();
-
-        updateLessonStatus(s);
-    }
-
-    private void updateLessonStatus(WebSession s)
-    {
-        // If the logged in user is not authorized to see the given employee's data, stage is
-        // complete.
-        try
-        {
-            int userId = getIntSessionAttribute(s, getLessonName() + "." + RoleBasedAccessControl.USER_ID);
-            int employeeId = s.getParser().getIntParameter(
-                    RoleBasedAccessControl.EMPLOYEE_ID);
-
-            if (RoleBasedAccessControl.STAGE3.equals(getStage(s)) && !isAuthorizedForEmployee(s, userId, employeeId))
-            {
-                setStageComplete(s, RoleBasedAccessControl.STAGE3);
-            }
-        } catch (ParameterNotFoundException e)
-        {
-        }
     }
 
     public String getNextPage(WebSession s)
     {
-        return RoleBasedAccessControl.VIEWPROFILE_ACTION;
+        return RoleBasedAccessControl.EDITPROFILE_ACTION;
     }
 
     public Employee getEmployeeProfile(WebSession s, int userId, int subjectUserId) throws UnauthorizedException
@@ -109,13 +77,14 @@ public class ViewProfile extends DefaultLessonAction
         // Query the database for the profile data of the given employee
         try
         {
-            String query = "SELECT * FROM employee WHERE userid = " + subjectUserId;
+            String query = "SELECT * FROM employee WHERE userid = ?";
 
             try
             {
-                Statement answer_statement = WebSession.getConnection(s)
-                        .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet answer_results = answer_statement.executeQuery(query);
+                PreparedStatement answer_statement = WebSession.getConnection(s)
+                        .prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                answer_statement.setInt(1, subjectUserId);
+                ResultSet answer_results = answer_statement.executeQuery();
                 if (answer_results.next())
                 {
                     // Note: Do NOT get the password field.
@@ -147,21 +116,23 @@ public class ViewProfile extends DefaultLessonAction
 
     public Employee getEmployeeProfile_BACKUP(WebSession s, int userId, int subjectUserId) throws UnauthorizedException
     {
-        // Query the database to determine if the given employee is owned by the given user
-        // Query the database for the profile data of the given employee
+        // Query the database to determine if this employee has access to this function
+        // Query the database for the profile data of the given employee if "owned" by the given
+        // user
 
         Employee profile = null;
 
         // Query the database for the profile data of the given employee
         try
         {
-            String query = "SELECT * FROM employee WHERE userid = " + subjectUserId;
+            String query = "SELECT * FROM employee WHERE userid = ?";
 
             try
             {
-                Statement answer_statement = WebSession.getConnection(s)
-                        .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet answer_results = answer_statement.executeQuery(query);
+                PreparedStatement answer_statement = WebSession.getConnection(s)
+                        .prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                answer_statement.setInt(1, subjectUserId);
+                ResultSet answer_results = answer_statement.executeQuery();
                 if (answer_results.next())
                 {
                     // Note: Do NOT get the password field.
@@ -190,4 +161,5 @@ public class ViewProfile extends DefaultLessonAction
 
         return profile;
     }
+
 }

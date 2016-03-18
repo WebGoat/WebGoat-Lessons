@@ -71,7 +71,7 @@ public class DBSQLInjection extends GoatHillsFinancial
         registerAction(new EditProfile(this, className, CREATEPROFILE_ACTION));
 
         // These actions are special in that they chain to other actions.
-        registerAction(new Login(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
+        registerAction(new LoginDBSQLInjection(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
         registerAction(new Logout(this, className, LOGOUT_ACTION, getAction(LOGIN_ACTION)));
         registerAction(new FindProfile(this, className, FINDPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
         registerAction(new UpdateProfile(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));

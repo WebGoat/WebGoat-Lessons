@@ -69,14 +69,14 @@ public class SQLInjection extends GoatHillsFinancial
 
     public void registerActions(String className)
     {
-        registerAction(new ListStaff(this, className, LISTSTAFF_ACTION));
+        registerAction(new ListStaffSqlInjection(this, className, LISTSTAFF_ACTION));
         registerAction(new SearchStaff(this, className, SEARCHSTAFF_ACTION));
-        registerAction(new ViewProfile(this, className, VIEWPROFILE_ACTION));
+        registerAction(new ViewProfileSqlInjection(this, className, VIEWPROFILE_ACTION));
         registerAction(new EditProfile(this, className, EDITPROFILE_ACTION));
         registerAction(new EditProfile(this, className, CREATEPROFILE_ACTION));
 
         // These actions are special in that they chain to other actions.
-        registerAction(new Login(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
+        registerAction(new LoginSqlInjection(this, className, LOGIN_ACTION, getAction(LISTSTAFF_ACTION)));
         registerAction(new Logout(this, className, LOGOUT_ACTION, getAction(LOGIN_ACTION)));
         registerAction(new FindProfile(this, className, FINDPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));
         registerAction(new UpdateProfile(this, className, UPDATEPROFILE_ACTION, getAction(VIEWPROFILE_ACTION)));

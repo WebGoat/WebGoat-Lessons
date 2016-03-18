@@ -10,7 +10,6 @@ import org.owasp.webgoat.plugin.GoatHillsFinancial.LessonAction;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.ListStaff;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.Login;
 import org.owasp.webgoat.plugin.GoatHillsFinancial.Logout;
-import org.owasp.webgoat.plugin.GoatHillsFinancial.SearchStaff;
 import org.owasp.webgoat.session.ParameterNotFoundException;
 import org.owasp.webgoat.session.UnauthenticatedException;
 import org.owasp.webgoat.session.UnauthorizedException;
@@ -66,7 +65,6 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
     protected void registerActions(String className)
     {
         registerAction(new ListStaff(this, className, LISTSTAFF_ACTION));
-        registerAction(new SearchStaff(this, className, SEARCHSTAFF_ACTION));
         registerAction(new ViewProfileRoleBasedAccessControl(this, className, VIEWPROFILE_ACTION));
         registerAction(new EditProfileRoleBasedAccessControl(this, className, EDITPROFILE_ACTION));
         
@@ -204,7 +202,9 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
         // It would be a good place verify authorization to use an action.
 
         // System.out.println("RoleBasedAccessControl.handleRequest()");
-        if (s.getLessonSession(this) == null) s.openLessonSession(this);
+        if (s.getLessonSession(this) == null) {
+            s.openLessonSession(this);
+        }
 
         String requestedActionName = null;
         try
@@ -243,7 +243,9 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
                 }
             }
             else
+            {                
                 setCurrentAction(s, ERROR_ACTION);
+            }
         } catch (ParameterNotFoundException pnfe)
         {
             // System.out.println("Missing parameter");

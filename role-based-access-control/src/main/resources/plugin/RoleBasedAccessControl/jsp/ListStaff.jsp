@@ -30,10 +30,10 @@
 					}%>
   </select>
   </label></td>
-      <td>
-	        	<input type="submit" name="action" value="<%=RoleBasedAccessControl.SEARCHSTAFF_ACTION%>"/><br>
+      <td>                
 	        	<input type="submit" name="action" value="<%=RoleBasedAccessControl.VIEWPROFILE_ACTION%>"/><br>
-            		<% 
+            	
+            	<% 
 				if (webSession.isAuthorizedInLesson(myUserId, RoleBasedAccessControl.CREATEPROFILE_ACTION))
 				{
 				%>

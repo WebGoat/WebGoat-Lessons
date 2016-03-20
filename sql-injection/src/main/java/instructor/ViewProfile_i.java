@@ -4,20 +4,20 @@ package instructor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.owasp.webgoat.lessons.GoatHillsFinancial.GoatHillsFinancial;
-import org.owasp.webgoat.lessons.SQLInjection.ViewProfile;
-import org.owasp.webgoat.session.Employee;
+
+import org.owasp.webgoat.plugin.GoatHillsFinancial.Employee;
+import org.owasp.webgoat.plugin.GoatHillsFinancial.GoatHillsFinancial;
+import org.owasp.webgoat.plugin.GoatHillsFinancial.ViewProfile;
 import org.owasp.webgoat.session.UnauthorizedException;
 import org.owasp.webgoat.session.WebSession;
-import org.owasp.webgoat.util.HtmlEncoder;
 
 /*
-Solution Summary: Edit ViewProfile.java and change getEmployeeProfile().  
+Solution Summary: Edit ViewProfile.java and change getEmployeeProfile().
                   Modify getEmployeeProfile() with lines denoted by // STAGE 4 - FIX.
 
 Solution Steps:
 1. Change dynamic query to parameterized query.
-   a. Replace the dynamic variables with the "?" 
+   a. Replace the dynamic variables with the "?"
 	Old: String query = "SELECT employee.* " +
 		"FROM employee,ownership WHERE employee.userid = ownership.employee_id and " +
 		"ownership.employer_id = " + userId + " and ownership.employee_id = " + subjectUserId;
@@ -25,15 +25,15 @@ Solution Steps:
 	New: String query = "SELECT employee.* " +
 		  "FROM employee,ownership WHERE employee.userid = ownership.employee_id and " +
 		  "ownership.employer_id = ? and ownership.employee_id = ?";
-   			
+
    b. Create a preparedStatement using the new query
-   		PreparedStatement answer_statement = SQLInjection.getConnection(s).prepareStatement( 
-   				query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY ); 
+   		PreparedStatement answer_statement = SQLInjection.getConnection(s).prepareStatement(
+   				query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
 
    c. Set the values of the parameterized query
 		answer_statement.setInt(1, Integer.parseInt(userId)); // STAGE 4 - FIX
 		answer_statement.setInt(2, Integer.parseInt(subjectUserId)); // STAGE 4 - FIX
-   		
+
    d. Execute the preparedStatement
    		ResultSet answer_results = answer_statement.executeQuery();
 */
@@ -62,8 +62,8 @@ public class ViewProfile_i extends ViewProfile
 			try
 			{
 				// STAGE 4 - FIX
-				PreparedStatement answer_statement = WebSession.getConnection(s).prepareStatement( query, 
-						ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY ); 
+				PreparedStatement answer_statement = WebSession.getConnection(s).prepareStatement( query,
+						ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
 				answer_statement.setInt(1, Integer.parseInt(userId)); // STAGE 4 - FIX
 				answer_statement.setInt(2, Integer.parseInt(subjectUserId)); // STAGE 4 - FIX
 				ResultSet answer_results = answer_statement.executeQuery(); // STAGE 4 - FIX
@@ -87,8 +87,8 @@ public class ViewProfile_i extends ViewProfile
 							answer_results.getString("disciplined_date"),
 							answer_results.getString("disciplined_notes"),
 							answer_results.getString("personal_description"));
-/*					System.out.println("Retrieved employee from db: " + 
-							profile.getFirstName() + " " + profile.getLastName() + 
+/*					System.out.println("Retrieved employee from db: " +
+							profile.getFirstName() + " " + profile.getLastName() +
 							" (" + profile.getId() + ")");
 */				}
 			}

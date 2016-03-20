@@ -82,7 +82,6 @@ public class CommandInjection extends LessonAdapter {
     protected Element createContent(WebSession s) {
         ElementContainer ec = new ElementContainer();
         boolean illegalCommand = false;
-        String hint = "";
         try {
             String helpFile = s.getParser().getRawParameter(HELP_FILE, "BasicAuthentication.help");
             if (helpFile.indexOf('&') != -1 || helpFile.indexOf(';') != -1) {
@@ -102,14 +101,9 @@ public class CommandInjection extends LessonAdapter {
 
             if (helpFile.indexOf('&') == -1 && helpFile.indexOf(';') == -1) {
                 if (helpFile.length() > 0) {
-                    if (upDirCount(helpFile) <= 3) {
-                        illegalCommand = false;
-                    } else {
+                    if (upDirCount(helpFile) >= 1) {
                         s.setMessage(getLabelManager().get("CommandInjectionRightTrack2"));
                     }
-                } else {
-                    // No Command entered.
-                    illegalCommand = false;
                 }
             }
             File safeDir = new File(LessonUtil.getLessonDirectory(s, this), "resources");

@@ -132,7 +132,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
     public String getPage(WebSession s)
     {
-        String page = LessonUtil.buildJspPath(s, this, getCurrentAction(s) + ".jsp", false);
+        String page = LessonUtil.buildJspPath(s, this, getCurrentAction(s) + ".jsp");
 
         return page;
     }
@@ -149,8 +149,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
         try
         {
-            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, this.getClass().getSimpleName() + ".css",
-                    true) + "\" />");
+            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, this.getClass().getSimpleName() + ".css") + "\" />");
 
 
             Div wrapperDiv = new Div();

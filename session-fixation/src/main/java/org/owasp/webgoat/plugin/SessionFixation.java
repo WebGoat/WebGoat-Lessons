@@ -335,8 +335,7 @@ public class SessionFixation extends SequentialLessonAdapter
         ElementContainer ec = new ElementContainer();
         try
         {
-            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, this.getClass().getSimpleName() + ".css",
-                    true) + "\" />");
+            ec.addElement("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + LessonUtil.buildJspPath(s, this, this.getClass().getSimpleName() + ".css") + "\" />");
             Div wrapperDiv = new Div();
             wrapperDiv.setID("lesson_wrapper");
 

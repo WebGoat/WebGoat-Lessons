@@ -70,7 +70,7 @@ public class LessonUtil {
      */
     public static String buildImagePath(WebSession w, AbstractLesson lesson, String imgResourceName) {
         return w.getRequest()
-                .getContextPath() + "/plugin_extracted/plugin/" + lesson.getLessonName() + "/images/" + imgResourceName;
+                .getContextPath() + "/plugin_lessons/plugin/" + lesson.getLessonName() + "/images/" + imgResourceName;
     }
 
     /**
@@ -79,13 +79,11 @@ public class LessonUtil {
      * @param w                  a {@link org.owasp.webgoat.session.WebSession} object.
      * @param lesson             a {@link org.owasp.webgoat.lessons.AbstractLesson} object
      * @param jspResourceName    a {@link java.lang.String} object.
-     * @param includeContextPath a boolean.
      * @return a {@link java.lang.String} object.
      */
-    public static String buildJspPath(WebSession w, AbstractLesson lesson, String jspResourceName,
-                                        boolean includeContextPath) {
-        String path = includeContextPath ? w.getContext().getContextPath() : "";
-        return path + "/plugin_extracted/plugin/" + lesson.getLessonName() + "/jsp/" + jspResourceName;
+    public static String buildJspPath(WebSession w, AbstractLesson lesson, String jspResourceName) {
+        String path = w.getContext().getContextPath();
+        return path + "/plugin_lessons/plugin/" + lesson.getLessonName() + "/jsp/" + jspResourceName;
     }
 
     /**
@@ -94,27 +92,12 @@ public class LessonUtil {
      * @param w                  a {@link org.owasp.webgoat.session.WebSession} object.
      * @param lesson             a {@link org.owasp.webgoat.lessons.AbstractLesson} object
      * @param jsResourceName     a {@link java.lang.String} object.
-     * @param includeContextPath a boolean.
-     * @return a {@link java.lang.String} object.
-     */
-    public static String buildJsPath(WebSession w, AbstractLesson lesson, String jsResourceName, boolean includeContextPath) {
-        String path = includeContextPath ? w.getContext().getContextPath() : "";
-        return path + "/plugin_extracted/plugin/" + lesson.getLessonName() + "/js/" + jsResourceName;
-    }
-
-
-    /**
-     * <p>buildJsPath.</p>
-     *
-     * @param w              a {@link org.owasp.webgoat.session.WebSession} object.
-     * @param lesson         a {@link org.owasp.webgoat.lessons.AbstractLesson} object
-     * @param jsResourceName a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String buildJsPath(WebSession w, AbstractLesson lesson, String jsResourceName) {
-        return buildJsPath(w, lesson, jsResourceName, true);
+        String path = w.getContext().getContextPath();
+        return path + "/plugin_lessons/plugin/" + lesson.getLessonName() + "/js/" + jsResourceName;
     }
-
 
     /**
      * <p>buildJsFileSystemPath.</p>
@@ -125,7 +108,7 @@ public class LessonUtil {
      * @return a {@link java.lang.String} object.
      */
     public static String buildJsFileSystemPath(WebSession w, AbstractLesson lesson, String jsResourceName) {
-        return buildJsPath(w, lesson, jsResourceName, false);
+        return buildJsPath(w, lesson, jsResourceName);
     }
 
 

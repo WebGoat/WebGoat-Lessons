@@ -1,4 +1,5 @@
 var dataFetched = false;
+var json;
 
 function selectUser(){
 
@@ -100,6 +101,6 @@ function ajaxFunction(userId)
         	container.appendChild(newdiv);     
         }
       }
-    xmlHttp.open("GET","plugin/ClientSideFiltering/jsp/clientSideFiltering.jsp?userId=" + userId,true);
+    xmlHttp.open("GET","/WebGoat/clientSideFiltering/salaries?userId=" + userId,true);
     xmlHttp.send(null);
   }

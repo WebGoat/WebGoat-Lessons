@@ -1,0 +1,26 @@
+== Lesson Plan Title: Using an Access Control Matrix
+
+
+== Concept / Topic To Teach:
+
+In a role-based access control scheme, a role represents a set of access permissions and privileges. A user can be assigned one or more roles. A
+role-based access control scheme normally consists of two parts: role permission management and role assignment. A broken role-based access control
+scheme might allow a user to perform accesses that are not allowed by his/her assigned roles, or somehow allow privilege escalation to an unauthorized
+role.
+
+
+== General Goal(s):
+
+Each user is a member of a role that is allowed to access only certain resources. Your goal is to explore the access control rules that govern this
+site. Only the [Admin] group should have access to the 'Account Manager' resource.
+
+
+== Solution:
+
+
+This exercise is straightforward. You need to find a user where you can access a resource that you shouldn't be able to access.
+After a few attempts you will learn that Larry can access resources of the role Account Manager.
+
+
+image::image001.png[Lesson]
+image::image003.png[Lesson completed]

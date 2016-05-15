@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="doc:AccessControlMatrix_plan.adoc"></div>
+
+<br/>
+
+<div>
+    <form accept-charset='UNKNOWN' method='POST' name='form' action='#attack/18/200' enctype=''>
+        <table align='center' cellspacing='0' width='90%' border='0' cellpadding='2'>
+            <tr>
+                <td>Change user:</td>
+                <td><select name='User' size='1'>
+                    <option value='Moe' label='Moe'>Moe</option>
+                    <option value='Larry' label='Larry'>Larry</option>
+                    <option value='Curly' label='Curly'>Curly</option>
+                    <option value='Shemp' label='Shemp'>Shemp</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Select resource:</td>
+                <td><select name='Resource' size='1'>
+                    <option value='Public Share' label='Public Share'>Public Share</option>
+                    <option value='Time Card Entry' label='Time Card Entry'>Time Card Entry</option>
+                    <option value='Performance Review' label='Performance Review'>Performance Review</option>
+                    <option value='Time Card Approval' label='Time Card Approval'>Time Card Approval</option>
+                    <option value='Site Manager' label='Site Manager'>Site Manager</option>
+                    <option value='Account Manager' label='Account Manager'>Account Manager</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td colspan='2' align='center'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan='2' align='center'><input name='SUBMIT' type='SUBMIT' value='Check Access'/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</html>

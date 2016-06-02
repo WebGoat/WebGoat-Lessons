@@ -1,0 +1,9 @@
+lesson:
+  name: Access Control Matrix
+  title: Using an Access Control Matrix
+  category: ACCESS_CONTROL
+  ranking: 10
+  hints:
+    - Many sites attempt to restrict access to resources by role.
+    - Developers frequently make mistakes implementing this scheme.
+    - Attempt combinations of users, roles, and resources.

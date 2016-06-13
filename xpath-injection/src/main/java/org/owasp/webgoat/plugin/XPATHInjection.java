@@ -134,7 +134,7 @@ public class XPATHInjection extends LessonAdapter
                 return ec;
             }
 
-            String dir = LessonUtil.getLessonDirectory(s, this) + "/xml/" + "/EmployeesData.xml";
+            String dir = LessonUtil.getLessonDirectory(s, this) + "/xml/" + "EmployeesData.xml";
             File d = new File(dir);
             XPathFactory factory = XPathFactory.newInstance();
             XPath xPath = factory.newXPath();

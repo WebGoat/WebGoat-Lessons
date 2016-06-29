@@ -1,7 +1,7 @@
 lesson:
-  name: Access Control Matrix
+  html: AccessControlMatrix
   title: Using an Access Control Matrix
-  category: ACCESS_CONTROL
+  category: Access Control Flaws
   ranking: 10
   hints:
     - Many sites attempt to restrict access to resources by role.

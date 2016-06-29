@@ -1,4 +1,4 @@
-== Using an Access Control Matrix
+=== Using an Access Control Matrix
 
 In a role-based access control scheme, a role represents a set of access permissions and privileges. A user can be assigned one
 or more roles. A role-based access control scheme normally consists of two parts: role permission management and role assignment.

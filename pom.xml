@@ -6,6 +6,11 @@
     <artifactId>webgoat-plugins-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+
+    <properties>
+        <webgoat.container.version>7.1-SNAPSHOT</webgoat.container.version>
+    </properties>
+
     <modules>
         <module>common</module>
         <module>goat-hills-financial</module>
@@ -99,9 +104,8 @@
             <dependency>
                 <groupId>org.owasp.webgoat</groupId>
                 <artifactId>webgoat-container</artifactId>
-                <version>7.0.1</version>
+                <version>${webgoat.container.version}</version>
                 <type>jar</type>
-                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

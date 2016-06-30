@@ -106,7 +106,7 @@ public class CommandInjection extends LessonAdapter {
                     }
                 }
             }
-            File safeDir = new File(LessonUtil.getLessonDirectory(s, this), "resources");
+            File safeDir = new File(LessonUtil.getLessonDirectory(s, this), "/resources");
             ec.addElement(new BR());
             ec.addElement(new BR());
             ec.addElement(new StringElement(getLabelManager().get("YouAreCurrentlyViewing") + "<b>"

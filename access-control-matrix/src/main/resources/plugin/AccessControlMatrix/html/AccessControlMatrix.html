@@ -2,41 +2,86 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="doc:AccessControlMatrix_plan.adoc"></div>
+    <div th:replace="doc:AccessControlMatrix_plan.adoc"></div>
 
-<br/>
+    <br/>
 
-<div>
-    <form accept-charset='UNKNOWN' method='POST' name='form' action='#attack/18/200' enctype=''>
-        <table align='center' cellspacing='0' width='90%' border='0' cellpadding='2'>
-            <tr>
-                <td>Change user:</td>
-                <td><select name='User' size='1'>
-                    <option value='Moe' label='Moe'>Moe</option>
-                    <option value='Larry' label='Larry'>Larry</option>
-                    <option value='Curly' label='Curly'>Curly</option>
-                    <option value='Shemp' label='Shemp'>Shemp</option>
-                </select></td>
-            </tr>
-            <tr>
-                <td>Select resource:</td>
-                <td><select name='Resource' size='1'>
-                    <option value='Public Share' label='Public Share'>Public Share</option>
-                    <option value='Time Card Entry' label='Time Card Entry'>Time Card Entry</option>
-                    <option value='Performance Review' label='Performance Review'>Performance Review</option>
-                    <option value='Time Card Approval' label='Time Card Approval'>Time Card Approval</option>
-                    <option value='Site Manager' label='Site Manager'>Site Manager</option>
-                    <option value='Account Manager' label='Account Manager'>Account Manager</option>
-                </select></td>
-            </tr>
-            <tr>
-                <td colspan='2' align='center'>&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan='2' align='center'><input name='SUBMIT' type='SUBMIT' value='Check Access'/></td>
-            </tr>
-        </table>
-    </form>
-</div>
+<!-- OPTIONAL -->
+<!-- attack content goes below here if you would like to implement an attack -->
+    <div class="modal" id="attack-container" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                   <!-- Header :: Change only the text between the h3 tags-->
+                    <h3 class="modal-title" id="myModalLabel">Access Control Matrix Security</h3>
+                </div>
+                <div class="modal-body modal-scroll">
 
+                        <!-- Thymeleaf substitution for hints controls. NOTE: don't remove this unless you want to break hints -->
+                        <!--<div th:replace="helps :: helps" class = "attack-helps-container"></div>-->
+                        <!-- //TODO replace with template fragment -->
+                        <div class="attack-helps-container">
+                            <div id="attack-help-controls">
+                                <!--<button class="btn btn-primary btn-xs btn-danger help-button" id="show-solution-button">-->
+                                <!--Show Solution-->
+                                <!--</button>-->
+                                <button class="btn btn-primary btn-xs btn-danger help-button" id="show-hints-button">Show Hints
+                                </button>
+                            </div>
+
+                            <div class="lesson-hint" id="lesson-hint-container">
+                                <div class="panel">
+                                    <div class="panel-body" id="lesson-hint">
+                                <span class="glyphicon-class glyphicon glyphicon-circle-arrow-left"
+                                      id="show-prev-hint"></span>
+                                <span class="glyphicon-class glyphicon glyphicon-circle-arrow-right"
+                                      id="show-next-hint"></span>
+                                        <br/>
+                                        <span id="lesson-hint-content"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr width="95%" />
+                        <!-- *** put your content below here, inside of this div, sample form below *** -->
+                        <!-- ... the class 'attack-form' below will allow your request to be ajaxified and keep WebGoat working neatly -->
+                        <!-- ... If you remove the class, your request will be standard req/resp round-trip and take you to a fairly sparse page -->
+                        <form class="attack-form" accept-charset="UNKNOWN" method="ENDPOINT_METHOD" name="attack" action="access-control/test" enctype="">
+                            <table align="center" cellspacing="0" width="90%" border="0" cellpadding="2">
+                                <tr>
+                                    <td>Change user:</td>
+                                    <td><select name="User" size="1">
+                                        <option value="Moe" label="Moe">Moe</option>
+                                        <option value="Larry" label="Larry">Larry</option>
+                                        <option value="Curly" label="Curly">Curly</option>
+                                        <option value="Shemp" label="Shemp">Shemp</option>
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <td>Select resource:</td>
+                                    <td><select name="Resource" size="1">
+                                        <option value="Public Share" label="Public Share">Public Share</option>
+                                        <option value="Time Card Entry" label="Time Card Entry">Time Card Entry</option>
+                                        <option value="Performance Review" label="Performance Review">Performance Review</option>
+                                        <option value="Time Card Approval" label="Time Card Approval">Time Card Approval</option>
+                                        <option value="Site Manager" label="Site Manager">Site Manager</option>
+                                        <option value="Account Manager" label="Account Manager">Account Manager</option>
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input name="SUBMIT" type="SUBMIT" value="Check Access"/></td>
+                                </tr>
+                            </table>
+                        </form>
+                </div>
+
+    <!-- </div> -->
+                <div id="feeback"></div>
+            </div>
+        </div>
+    </div>
 </html>

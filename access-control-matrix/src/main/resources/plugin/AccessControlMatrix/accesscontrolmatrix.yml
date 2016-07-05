@@ -1,5 +1,5 @@
 lesson:
-  html: AccessControlMatrix
+  id: AccessControlMatrix
   title: Using an Access Control Matrix
   category: Access Control Flaws
   ranking: 10

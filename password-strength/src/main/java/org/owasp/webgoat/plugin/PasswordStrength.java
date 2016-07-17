@@ -60,20 +60,20 @@ import java.util.TreeMap;
 public class PasswordStrength extends LessonAdapter
 {
     private Map<String, Password> passwords = new TreeMap<String, Password>() {{
-        put("pass1", new Password("123456", "seconds", "0", "dictionary based, in top 10 most used passwords"));
-        put("pass2", new Password("abzfezd", "seconds", "2", "26 chars on 7 positions, 8 billion possible combinations"));
-        put("pass3", new Password("a9z1ezd", "seconds", "19", "26 + 10 chars on 7 positions = 78 billion possible combinations"));
-        put("pass4", new Password("aB8fEzDq", "hours", "15", "26 + 26 + 10 chars on 8 positions = 218 trillion possible combinations"));
-        put("pass5", new Password("z8!E?7D$", "days", "20", "96 chars on 8 positions = 66 quintillion possible combinations"));
-        put("pass6", new Password("My1stPassword!:Redd", "quintillion years", "364", "96 chars on 19 positions = 46 undecillion possible combinations"));
+        put("pass1", new Password("123456", "seconds", "0", "Common password: In the top 5 most used passwords"));
+        put("pass2", new Password("abzfezd", "seconds", "0.2", "Possible a word"));
+        put("pass3", new Password("a9z1ezd", "seconds", "2", "Length short"));
+        put("pass4", new Password("aB8fEzDq", "hours", "2", "Length short"));
+        put("pass5", new Password("z8!E?7D$", "days", "2", "Length short"));
+        put("pass6", new Password("My1stPassword!:Redd", "quintillion years", "36", "Length long"));
     }};
     
     private class Password {
-        
+
         String password;
         String timeUnit;
         String answer;
-        private String explanation;
+        String explanation;
         
         public Password(String password, String timeUnit, String answer, String explanation) {
             this.password = password;

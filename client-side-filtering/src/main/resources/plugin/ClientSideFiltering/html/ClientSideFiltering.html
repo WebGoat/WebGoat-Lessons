@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<input type="hidden" id="user_id" value="102"/>
+
+<div th:replace="doc:ClientSideFiltering_plan.adoc"></div>
+
+<br/>
+
 
 <div>
-    <form accept-charset="UNKNOWN" method="POST" name="form" action="#attack/15/400" enctype="">
+    <input type="hidden" id="user_id" value="102"/>
+    <form class="attack-form" accept-charset="UNKNOWN" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack1/" enctype="application/json;charset=UTF-8">
         <link rel="stylesheet" type="text/css"
               th:href="@{/plugin_lessons/plugin/ClientSideFiltering/html/clientSideFiltering-stage1.css}"/>
         <script th:src="@{/plugin_lessons/plugin/ClientSideFiltering/js/clientSideFiltering.js}"
@@ -50,7 +55,65 @@
             <tbody>
             <tr>
                 <td>What is Neville Bartholomew's salary?</td>
-                <td><input name="answer" value="" type="TEXT"/></td>
+                <td><input id="answer" name="answer" value="" type="TEXT"/></td>
+                <td align="LEFT"><input name="SUBMIT" value="Submit Answer" type="SUBMIT"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div th:replace="doc:ClientSideFiltering_plan.adoc"></div>
+
+
+<div>
+    <form class="attack-form" accept-charset="UNKNOWN" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack2/" enctype="application/json;charset=UTF-8">
+        <link rel="stylesheet" type="text/css"
+              th:href="@{/plugin_lessons/plugin/ClientSideFiltering/html/clientSideFiltering-stage1.css}"/>
+        <script th:src="@{/plugin_lessons/plugin/ClientSideFiltering/js/clientSideFiltering.js}"
+                language="JavaScript"></script>
+        <input id="userID2" value="102" name="userID" type="HIDDEN"/>
+        <div id="lesson_wrapper2">
+            <div id="lesson_header2"></div>
+            <div class="lesson_workspace"><br/><br/>
+                <p>Select user: <select id="UserSelect2" onfocus="fetchUserData()" name="UserSelect"
+                                        onchange="selectUser()">
+                    <option value="0" label="Choose Employee">Choose Employee</option>
+                    <option value="101" label="Larry Stooge">Larry Stooge</option>
+                    <option value="103" label="Curly Stooge">Curly Stooge</option>
+                    <option value="104" label="Eric Walker">Eric Walker</option>
+                    <option value="105" label="Tom Cat">Tom Cat</option>
+                    <option value="106" label="Jerry Mouse">Jerry Mouse</option>
+                    <option value="107" label="David Giambi">David Giambi</option>
+                    <option value="108" label="Bruce McGuirre">Bruce McGuirre</option>
+                    <option value="109" label="Sean Livingston">Sean Livingston</option>
+                    <option value="110" label="Joanne McDougal">Joanne McDougal</option>
+                </select></p>
+                <p></p>
+                <table style="display: none" id="hiddenEmployeeRecords2" align="center" border="1" cellpadding="2"
+                       cellspacing="0" width="90%">
+                    <div>
+                    </div>
+                </table>
+                <table align="center" border="1" cellpadding="2" cellspacing="0" width="90%">
+                    <tbody>
+                    <tr>
+                        <td>User ID</td>
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>SSN</td>
+                        <td>Salary</td>
+                    </tr>
+                    <tr id="employeeRecord2"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <table cellpadding="2" cellspacing="0">
+            <tbody>
+            <tr>
+                <td>What is Neville Bartholomew's salary?</td>
+                <td><input id="answer2" name="answer" value="" type="TEXT"/></td>
                 <td align="LEFT"><input name="SUBMIT" value="Submit Answer" type="SUBMIT"/></td>
             </tr>
             </tbody>

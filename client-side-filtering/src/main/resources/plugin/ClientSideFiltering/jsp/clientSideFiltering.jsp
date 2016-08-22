@@ -23,14 +23,12 @@
 	InputSource inputSource = new InputSource(new FileInputStream(d));
 
 	StringBuffer sb = new StringBuffer();
-
-	sb.append("/Employees/Employee/UserID | ");
-	sb.append("/Employees/Employee/FirstName | ");
-	sb.append("/Employees/Employee/LastName | ");
-	sb.append("/Employees/Employee/SSN | ");
-	sb.append("/Employees/Employee/Salary ");
-
-	String expression = sb.toString();
+	sb.append("/Employees/Employee[Managers/Manager/text() = " + userId + "]/UserID | ");
+	sb.append("/Employees/Employee[Managers/Manager/text() = " + userId + "]/FirstName | ");
+	sb.append("/Employees/Employee[Managers/Manager/text() = " + userId + "]/LastName | ");
+	sb.append("/Employees/Employee[Managers/Manager/text() = " + userId + "]/SSN | ");
+	sb.append("/Employees/Employee[Managers/Manager/text() = " + userId + "]/Salary ");
+String expression = sb.toString();`
 
 	System.out.print("expression:" + expression);
 

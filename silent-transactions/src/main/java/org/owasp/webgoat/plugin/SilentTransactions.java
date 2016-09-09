@@ -11,6 +11,7 @@ import org.apache.ecs.html.H1;
 import org.apache.ecs.html.H3;
 import org.apache.ecs.html.Input;
 import org.apache.ecs.html.PRE;
+import org.apache.ecs.html.Script;
 import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
 import org.apache.ecs.html.Table;
@@ -125,77 +126,13 @@ public class SilentTransactions extends LessonAdapter
     protected Element createContent(WebSession s)
     {
         ElementContainer ec = new ElementContainer();
-        String lineSep = System.getProperty("line.separator");
-        String script = "<script>"
-                + lineSep
-                + "function processData(){"
-                + lineSep
-                + " var accountNo = document.getElementById('newAccount').value;"
-                + lineSep
-                + " var amount = document.getElementById('amount').value;"
-                + lineSep
-                + " if ( accountNo == ''){"
-                + lineSep
-                + " alert('Please enter a valid account number to transfer to.')"
-                + lineSep
-                + " return;"
-                + lineSep
-                + "}"
-                + lineSep
-                + " else if ( amount == ''){"
-                + lineSep
-                + " alert('Please enter a valid amount to transfer.')"
-                + lineSep
-                + " return;"
-                + lineSep
-                + "}"
-                + lineSep
-                + " var balanceValue = document.getElementById('balanceID').innerHTML;"
-                + lineSep
-                + " balanceValue = balanceValue.replace( new RegExp('$') , '');"
-                + lineSep
-                + " if ( parseFloat(amount) > parseFloat(balanceValue) ) {"
-                + lineSep
-                + " alert('You can not transfer more funds than what is available in your balance.')"
-                + lineSep
-                + " return;"
-                + lineSep
-                + "}"
-                + lineSep
-                + " document.getElementById('confirm').value  = 'Transferring'"
-                + lineSep
-                + "submitData(accountNo, amount);"
-                + lineSep
-                + " document.getElementById('confirm').value  = 'Confirm'"
-                + lineSep
-                + "balanceValue = parseFloat(balanceValue) - parseFloat(amount);"
-                + lineSep
-                + "balanceValue = balanceValue.toFixed(2);"
-                + lineSep
-                + "document.getElementById('balanceID').innerHTML = balanceValue + '$';"
-                + lineSep
-                + "}"
-                + lineSep
-                + "function submitData(accountNo, balance) {"
-                + lineSep
-                + "var url = '"
-                + getLink()
-                + "&from=ajax&newAccount='+ accountNo+ '&amount=' + balance +'&confirm=' + document.getElementById('confirm').value; "
-                + lineSep + "if (typeof XMLHttpRequest != 'undefined') {" + lineSep + "req = new XMLHttpRequest();"
-                + lineSep + "} else if (window.ActiveXObject) {" + lineSep
-                + "req = new ActiveXObject('Microsoft.XMLHTTP');" + lineSep + "   }" + lineSep
-                + "   req.open('GET', url, true);" + lineSep + "   req.onreadystatechange = callback;" + lineSep
-                + "   req.send(null);" + lineSep + "}" + lineSep + "function callback() {" + lineSep
-                + "    if (req.readyState == 4) { " + lineSep + "        if (req.status == 200) { " + lineSep
-                + "                   var result =  req.responseText ;" + lineSep
-                + "          var resultsDiv = document.getElementById('resultsDiv');" + lineSep
-                + "             resultsDiv.innerHTML = '';" + lineSep + "               resultsDiv.innerHTML = result;" + lineSep
-                + "        }}}" + lineSep + "</script>" + lineSep;
-
-        ec.addElement(new StringElement(script));
+        ec.addElement(new Script().setSrc(LessonUtil.buildJsPath(s, this, "silentTransaction.js")));
         ec.addElement(new H1("Welcome to WebGoat Banking System"));
         ec.addElement(new BR());
         ec.addElement(new H3("Account Summary:"));
+        Input url = new Input(Input.HIDDEN, "url", LessonUtil.getXHRLink(s, this));
+        url.setID("url");
+        ec.addElement(url);
 
         Table t1 = new Table().setCellSpacing(0).setCellPadding(0).setBorder(1).setWidth("70%").setAlign("left");
         ec.addElement(new BR());
@@ -234,7 +171,7 @@ public class SilentTransactions extends LessonAdapter
         b.setName("confirm");
         b.addAttribute("id", "confirm");
         b.setValue("Confirm");
-        b.setOnClick("processData();");
+        b.setOnClick("processData('" + LessonUtil.getXHRLink(s, this) + "');");
         ec.addElement(b);
 
         ec.addElement(new BR());

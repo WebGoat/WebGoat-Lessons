@@ -156,7 +156,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
          * 1. If clientSideFiltering.jsp has an XPath filter to
          *    limit the data being returned.
          */
-        String file = LessonUtil.getLessonDirectory(s, this) + "jsp/clientSideFiltering.jsp";
+        String file = LessonUtil.getLessonDirectory(s, this) + "/jsp/clientSideFiltering.jsp";
         String content = getFileContent(file);
 
         if (content.indexOf("[Managers/Manager/text()") != -1)

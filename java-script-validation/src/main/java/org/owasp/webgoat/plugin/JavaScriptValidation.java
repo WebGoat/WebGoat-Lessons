@@ -117,8 +117,9 @@ public class JavaScriptValidation extends LessonAdapter
             TextArea input7 = new TextArea("field7", 1, 25).addElement(param7);
 
             Input b = new Input();
-            b.setType(Input.BUTTON);
+            b.setType(Input.SUBMIT);
             b.setValue("Submit");
+            b.setID("submit_btn");
             b.addAttribute("onclick", "validate();");
             ec.addElement(new Div().addElement(new StringElement(getLabelManager().get("3LowerCase")+"("
                     + regex1 + ")")));

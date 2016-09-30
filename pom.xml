@@ -79,6 +79,7 @@
         <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
+        <module>xxe</module>
         <module>zip-bomb</module>
 
         <!--Should be defined as the last module -->

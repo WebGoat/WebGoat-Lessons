@@ -50,14 +50,6 @@ function fetchUserData() {
    }
 }
 
-function submitAnswer() {
-   xmlHttp = new XMLHttpRequest();
-   var salary = document.getElementById("answer").value;
-   xmlHttp.open("GET", "/WebGoat/clientSideFiltering/success?salary=" + salary, true);
-   xmlHttp.send(null);
-}
-
-
 function ajaxFunction(userId) {
 
    var xmlHttp;

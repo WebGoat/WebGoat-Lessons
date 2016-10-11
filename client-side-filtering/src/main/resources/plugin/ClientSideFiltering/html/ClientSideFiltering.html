@@ -11,7 +11,7 @@
         <div class="attack-container">
             <input type="hidden" id="user_id" value="102"/>
             <!-- using attack-form class on your form, will allow your request to be ajaxified and stay within the display framework for webgoat -->
-            <form class="attack-form" accept-charset="UNKNOWN" prepareData="something" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack1" enctype="application/json;charset=UTF-8">
+            <form class="attack-form" accept-charset="UNKNOWN" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack1">
                 <link rel="stylesheet" type="text/css"
                       th:href="@{/plugin_lessons/plugin/ClientSideFiltering/html/clientSideFiltering-stage1.css}"/>
                 <script th:src="@{/plugin_lessons/plugin/ClientSideFiltering/js/clientSideFiltering.js}"
@@ -70,12 +70,13 @@
         <!-- ... of course, you can move them if you want to, but that will not look consistent to other lessons -->
     </div>
 
+    <!-- TODO remove lesson only contains 1 attack -->
     <div class="lesson-page-wrapper">
         <div class="adoc-content" th:replace="doc:ClientSideFiltering_plan.adoc"></div>
 
 
         <div class="attack-container">
-            <form class="attack-form" accept-charset="UNKNOWN" prepareData="soemthingElse" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack2" enctype="application/json;charset=UTF-8">
+            <form class="attack-form" accept-charset="UNKNOWN" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack2" enctype="application/json;charset=UTF-8">
                 <link rel="stylesheet" type="text/css"
                       th:href="@{/plugin_lessons/plugin/ClientSideFiltering/html/clientSideFiltering-stage1.css}"/>
                 <script th:src="@{/plugin_lessons/plugin/ClientSideFiltering/js/clientSideFiltering.js}"
@@ -121,7 +122,7 @@
                     <tbody>
                     <tr>
                         <td>What is your quest?</td>
-                        <td><input id="answer2" name="answer" value="" type="TEXT"/></td>
+                        <td><input id="answer2" name="answer2" value="" type="TEXT"/></td>
                         <td align="LEFT"><input name="SUBMIT" value="Submit Answer" type="SUBMIT"/></td>
                     </tr>
                     </tbody>

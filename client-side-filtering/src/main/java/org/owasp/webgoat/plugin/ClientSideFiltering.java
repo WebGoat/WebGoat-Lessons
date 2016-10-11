@@ -5,9 +5,11 @@ import org.owasp.webgoat.lessons.LessonEndpointMapping;
 import org.owasp.webgoat.lessons.model.AttackResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * ************************************************************************************************
@@ -42,9 +44,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ClientSideFiltering extends LessonEndpoint {
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody AttackResult completed(HttpServletRequest request) {
-        System.out.println("Invoking attack1");
-        return AttackResult.success();
+    public @ResponseBody AttackResult completed(@RequestParam String answer, HttpServletRequest request) throws IOException {
+        if ("450000".equals(answer)) {
+            return AttackResult.success();
+        } else {
+            return AttackResult.failed("You are close, try again");
+        }
     }
 
     @Override

@@ -14,7 +14,9 @@
     <modules>
         <module>common</module>
         <module>goat-hills-financial</module>
+<!--
         <module>access-control-matrix</module>
+-->
         <module>back-doors</module>
         <module>basic-authentication</module>
         <module>blind-numeric-sql-injection</module>

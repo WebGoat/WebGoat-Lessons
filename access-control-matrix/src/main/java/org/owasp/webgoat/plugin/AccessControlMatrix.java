@@ -2,6 +2,7 @@
 package org.owasp.webgoat.plugin;
 
 import org.owasp.webgoat.lessons.Attack;
+import org.owasp.webgoat.lessons.model.AttackResult;
 
 
 /***************************************************************************************************
@@ -38,7 +39,7 @@ public class AccessControlMatrix implements Attack
 {
 
     @Override
-    public boolean attack() {
-        return true;
+    public AttackResult attack() {
+        return AttackResult.success();
     }
 }

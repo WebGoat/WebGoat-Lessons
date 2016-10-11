@@ -41,8 +41,8 @@ import javax.servlet.http.HttpServletRequest;
 @LessonEndpointMapping
 public class ClientSideFiltering extends LessonEndpoint {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody  AttackResult completed(HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody AttackResult completed(HttpServletRequest request) {
         System.out.println("Invoking attack1");
         return AttackResult.success();
     }

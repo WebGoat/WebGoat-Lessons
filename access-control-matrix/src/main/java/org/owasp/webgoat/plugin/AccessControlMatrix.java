@@ -1,6 +1,7 @@
 
 package org.owasp.webgoat.plugin;
 
+
 import org.owasp.webgoat.lessons.Attack;
 import org.owasp.webgoat.lessons.model.AttackResult;
 

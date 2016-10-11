@@ -1,14 +1,9 @@
 
 package org.owasp.webgoat.plugin;
 
-import org.owasp.webgoat.lessons.LessonEndpoint;
+
+import org.owasp.webgoat.lessons.Attack;
 import org.owasp.webgoat.lessons.model.AttackResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /***************************************************************************************************
@@ -41,39 +36,11 @@ import javax.servlet.http.HttpServletRequest;
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @created October 28, 2003
  */
-public class AccessControlMatrix extends LessonEndpoint
+public class AccessControlMatrix implements Attack
 {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody
-    AttackResult completed(HttpServletRequest request) {
-        System.out.println("Invoking attack1");
+    @Override
+    public AttackResult attack() {
         return AttackResult.success();
     }
-
-    @Override
-    public String getPath() {
-        return "/access-control-matrix/attack1";
-    }
-
-//    @Override
-//    public JSONObject attackResponse(Map<String, String[]> requestParams) {
-//        // determine if attack was successful and generate response
-//        // this is where custom logic goes and build a response object like ...
-//        //  {
-//        //      attackStatus:(successful|partial|failed),
-//        //      feedback: "try this or try that ... or leave it blank if you want"
-//        //      html: "html to output if you want to simulate, pass-through attack output
-//        //  }
-//
-//        JSONObject responseObject = new JSONObject(requestParams);
-//        return responseObject;
-//
-//    }
-//
-//    @Override
-//    public boolean attack() {
-//        //FIXME: write some actual code
-//        return true;
-//    }
 }

@@ -10,7 +10,8 @@
 
         <div class="attack-container">
             <input type="hidden" id="user_id" value="102"/>
-            <form class="attack-form" accept-charset="UNKNOWN" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack1/" enctype="application/json;charset=UTF-8">
+            <!-- using attack-form class on your form, will allow your request to be ajaxified and stay within the display framework for webgoat -->
+            <form class="attack-form" accept-charset="UNKNOWN" prepareData="something" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack1" enctype="application/json;charset=UTF-8">
                 <link rel="stylesheet" type="text/css"
                       th:href="@{/plugin_lessons/plugin/ClientSideFiltering/html/clientSideFiltering-stage1.css}"/>
                 <script th:src="@{/plugin_lessons/plugin/ClientSideFiltering/js/clientSideFiltering.js}"
@@ -70,7 +71,7 @@
 
 
         <div class="attack-container">
-            <form class="attack-form" accept-charset="UNKNOWN" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack2/" enctype="application/json;charset=UTF-8">
+            <form class="attack-form" accept-charset="UNKNOWN" prepareData="soemthingElse" method="POST" name="form" action="/WebGoat/clientSideFiltering/attack2" enctype="application/json;charset=UTF-8">
                 <link rel="stylesheet" type="text/css"
                       th:href="@{/plugin_lessons/plugin/ClientSideFiltering/html/clientSideFiltering-stage1.css}"/>
                 <script th:src="@{/plugin_lessons/plugin/ClientSideFiltering/js/clientSideFiltering.js}"

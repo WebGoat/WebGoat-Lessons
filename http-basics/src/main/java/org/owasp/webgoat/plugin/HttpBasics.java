@@ -58,8 +58,6 @@ public class HttpBasics extends LessonEndpoint {
 	    }
 	}
 
-
-
     @Override
     public String getPath() {
         return "/HttpBasics/attack1";

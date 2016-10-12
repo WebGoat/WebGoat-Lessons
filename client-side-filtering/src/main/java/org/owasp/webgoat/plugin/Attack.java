@@ -1,11 +1,14 @@
 package org.owasp.webgoat.plugin;
 
-import com.google.common.collect.Lists;
-import org.owasp.webgoat.lessons.Category;
-import org.owasp.webgoat.lessons.NewLesson;
-import org.owasp.webgoat.session.WebSession;
+import org.owasp.webgoat.lessons.LessonEndpoint;
+import org.owasp.webgoat.lessons.LessonEndpointMapping;
+import org.owasp.webgoat.lessons.model.AttackResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import java.io.IOException;
 
 /**
  * ************************************************************************************************
@@ -34,34 +37,22 @@ import java.util.List;
  *
  * @author WebGoat
  * @version $Id: $Id
- * @since October 12, 2016
+ * @since August 11, 2016
  */
-public class ClientSideFiltering extends NewLesson {
+@LessonEndpointMapping
+public class Attack extends LessonEndpoint {
 
-    @Override
-    public Category getDefaultCategory() {
-        return Category.ACCESS_CONTROL;
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody AttackResult completed(@RequestParam String answer) throws IOException {
+        if ("450000".equals(answer)) {
+            return trackProgress(AttackResult.success());
+        } else {
+            return trackProgress(AttackResult.failed("You are close, try again"));
+        }
     }
 
     @Override
-    public List<String> getHints(WebSession webSession) {
-        return Lists.newArrayList("Many sites attempt to restrict access to resources by role.",
-                "Developers frequently make mistakes implementing this scheme.",
-                "Attempt combinations of users, roles, and resources.");
-    }
-
-    @Override
-    public Integer getDefaultRanking() {
-        return 10;
-    }
-
-    @Override
-    public String getTitle() {
-        return "Client side filtering";
-    }
-
-    @Override
-    public String getId() {
-        return "ClientSideFiltering";
+    public String getPath() {
+        return "/clientSideFiltering/attack1";
     }
 }

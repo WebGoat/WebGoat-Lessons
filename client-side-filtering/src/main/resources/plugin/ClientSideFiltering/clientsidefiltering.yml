@@ -1,9 +1,0 @@
-lesson:
-  id: ClientSideFiltering
-  title: Client side filtering
-  category: Access Control Flaws
-  ranking: 10
-  hints:
-    - Many sites attempt to restrict access to resources by role.
-    - Developers frequently make mistakes implementing this scheme.
-    - Attempt combinations of users, roles, and resources.

@@ -47,12 +47,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @LessonEndpointMapping
-public class HttpBasics extends LessonEndpoint {
+public class HttpBasicsQuiz extends LessonEndpoint {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody AttackResult completed(@RequestParam String person, HttpServletRequest request) throws IOException {
-	    if (!person.toString().equals("")) {
-	        return AttackResult.success("The server has reversed your name: " + new StringBuffer(person).reverse().toString());
+	public @ResponseBody AttackResult completed(@RequestParam String answer, HttpServletRequest request) throws IOException {
+	    if ("POST".equals(answer.toUpperCase())) {
+	        return AttackResult.success();
 	    } else {
 	        return AttackResult.failed("You are close, try again");
 	    }
@@ -62,7 +62,7 @@ public class HttpBasics extends LessonEndpoint {
 
     @Override
     public String getPath() {
-        return "/HttpBasics/attack1";
+        return "/HttpBasics/attack2";
     }
 
 }

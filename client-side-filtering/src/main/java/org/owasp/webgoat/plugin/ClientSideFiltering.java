@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -44,11 +43,11 @@ import java.io.IOException;
 public class ClientSideFiltering extends LessonEndpoint {
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody AttackResult completed(@RequestParam String answer, HttpServletRequest request) throws IOException {
+    public @ResponseBody AttackResult completed(@RequestParam String answer) throws IOException {
         if ("450000".equals(answer)) {
-            return AttackResult.success();
+            return trackProgress(AttackResult.success());
         } else {
-            return AttackResult.failed("You are close, try again");
+            return trackProgress(AttackResult.failed("You are close, try again"));
         }
     }
 

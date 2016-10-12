@@ -1,66 +1,69 @@
 package org.owasp.webgoat.plugin;
 
-import java.io.IOException;
+import com.beust.jcommander.internal.Lists;
+import org.owasp.webgoat.lessons.Category;
+import org.owasp.webgoat.lessons.NewLesson;
+import org.owasp.webgoat.session.WebSession;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.owasp.webgoat.lessons.LessonEndpoint;
-import org.owasp.webgoat.lessons.LessonEndpointMapping;
-import org.owasp.webgoat.lessons.model.AttackResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.List;
 
 /**
- * *************************************************************************************************
- *
- *
- * This file is part of WebGoat, an Open Web Application Security Project
- * utility. For details, please see http://www.owasp.org/
- *
+ * ************************************************************************************************
+ * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
+ * please see http://www.owasp.org/
+ * <p>
  * Copyright (c) 2002 - 20014 Bruce Mayhew
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place - Suite 330, Boston, MA 02111-1307, USA.
- *
+ * <p>
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ * <p>
  * Getting Source ==============
+ * <p>
+ * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software
+ * projects.
+ * <p>
  *
- * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository
- * for free software projects.
- *
- * For details, please see http://webgoat.github.io
- *
- * @author Bruce Mayhew <a href="http://code.google.com/p/webgoat">WebGoat</a>
- * @created October 28, 2003
+ * @author WebGoat
+ * @version $Id: $Id
+ * @since October 12, 2016
  */
-
-@LessonEndpointMapping
-public class HttpBasics extends LessonEndpoint {
-
-	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody AttackResult completed(@RequestParam String person, HttpServletRequest request) throws IOException {
-	    if (!person.toString().equals("")) {
-	        return AttackResult.success("The server has reversed your name: " + new StringBuffer(person).reverse().toString());
-	    } else {
-	        return AttackResult.failed("You are close, try again");
-	    }
-	}
-
+public class HttpBasics extends NewLesson {
     @Override
-    public String getPath() {
-        return "/HttpBasics/attack1";
+    public Category getDefaultCategory() {
+        return Category.GENERAL;
     }
 
+    @Override
+    public List<String> getHints(WebSession webSession) {
+        return Lists.newArrayList("Type in your name and press 'go'",
+                "Turn on Show Parameters or other features",
+                "Try to intercept the request with <a href='https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project' title='Link to ZAP'>OWASP ZAP</a>",
+                "Press the Show Lesson Plan button to view a lesson summary",
+                "Press the Show Solution button to view a lesson solution",
+                "Use OWASP ZAP to intercept the request and see the type of HTTP command");
+    }
+
+    @Override
+    public Integer getDefaultRanking() {
+        return 1;
+    }
+
+    @Override
+    public String getTitle() {
+        return "HTTP Basics";
+    }
+
+    @Override
+    public String getId() {
+        return "HttpBasics";
+    }
 }

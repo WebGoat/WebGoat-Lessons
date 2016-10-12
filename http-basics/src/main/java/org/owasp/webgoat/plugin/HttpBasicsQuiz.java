@@ -54,7 +54,14 @@ public class HttpBasicsQuiz extends LessonEndpoint {
 	    if ("POST".equals(answer.toUpperCase()) && magic_answer.equals(magic_num)) {
 	        return AttackResult.success();
 	    } else {
-	        return AttackResult.failed("You are close, try again");
+	    	StringBuffer message = new StringBuffer();
+	    	if (!"POST".equals(answer.toUpperCase())) {
+	    		message.append("The HTTP Command is incorrect.  ");
+ 			}
+	    	if (!magic_answer.equals(magic_num)){
+	    		message.append("The magic number is incorrect.  ");
+	    	}
+	        return AttackResult.failed("You are close, try again.  " + message.toString());
 	    }
 	}
 

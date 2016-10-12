@@ -15,7 +15,6 @@
 		<!-- include content here ... will be first page/tab  multiple -->
 		<div class="adoc-content" th:replace="doc:HttpBasics_content1.adoc"></div>
 		<div class="attack-container">
-			<input type="hidden" id="user_id" value="102"/>
 			<!-- using attack-form class on your form, will allow your request to be ajaxified and stay within the display framework for webgoat -->
 			<form class="attack-form" accept-charset="UNKNOWN"
 				prepareData="something" method="POST" name="form"
@@ -51,7 +50,7 @@
 							var x = Math.floor((Math.random() * 100) + 1);
 							document.getElementById("magic_num").value = x;
 						</script>
-					<input type="hidden" id="magic_num" value="foo" />
+					<input type="hidden" name="magic_num" id="magic_num" value="foo" />
 					<table>
 						<tr>
 							<td>Was the HTTP command a POST or a GET:</td>

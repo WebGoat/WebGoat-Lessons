@@ -41,26 +41,36 @@
 		<!-- include content here ... will be first page/tab  multiple -->
 		<div class="adoc-content" th:replace="doc:HttpBasics_content2.adoc"></div>
 		<div class="attack-container">
-			<input type="hidden" id="user_id" value="102"/>
 			<!-- using attack-form class on your form, will allow your request to be ajaxified and stay within the display framework for webgoat -->
-			<form class="attack-form" accept-charset="UNKNOWN"
-				prepareData="something" method="POST" name="form"
-				action="/WebGoat/HttpBasics/attack2"
-				enctype="application/json;charset=UTF-8">
-	
-				<div id="lessonContent">
-					<form accept-charset="UNKNOWN" method="POST" name="form"
-						action="#attack/307/100" enctype="">
-						Was the HTTP command a POST or a GET: <input name="answer" value="" type="TEXT"/><input
-							name="SUBMIT" value="Go!" type="SUBMIT"/>
-					</form>
-				</div>
-			</form>
+			<div id="lessonContent">
+				<form class="attack-form" accept-charset="UNKNOWN" 
+					prepareData="something" method="POST" name="form"
+					action="/WebGoat/HttpBasics/attack2"
+					enctype="application/json;charset=UTF-8">
+					<script>
+							var x = Math.floor((Math.random() * 100) + 1);
+							document.getElementById("magic_num").value = x;
+						</script>
+					<input type="hidden" id="magic_num" value="foo" />
+					<table>
+						<tr>
+							<td>Was the HTTP command a POST or a GET:</td>
+							<td><input name="answer" value="" type="TEXT" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>What is the magic number:</td>
+							<td><input name="magic_answer" value="" type="TEXT" /><input
+								name="SUBMIT" value="Go!" type="SUBMIT" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<!-- do not remove the two following div's, this is where your feedback/output will land -->
+			<div class="attack-feedback"></div>
+			<div class="attack-output"></div>
+			<!-- ... of course, you can move them if you want to, but that will not look consistent to other lessons -->
 		</div>
-	    <!-- do not remove the two following div's, this is where your feedback/output will land -->
-	   	<div class="attack-feedback"></div>
-	    <div class="attack-output"></div>
-	    <!-- ... of course, you can move them if you want to, but that will not look consistent to other lessons -->
 	</div>
-
 </html>

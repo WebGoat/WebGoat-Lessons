@@ -50,15 +50,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HttpBasicsQuiz extends LessonEndpoint {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody AttackResult completed(@RequestParam String answer, HttpServletRequest request) throws IOException {
-	    if ("POST".equals(answer.toUpperCase())) {
+	public @ResponseBody AttackResult completed(@RequestParam String answer, @RequestParam String magic_answer, @RequestParam String magic_num, HttpServletRequest request) throws IOException {
+	    if ("POST".equals(answer.toUpperCase()) && magic_answer.equals(magic_num)) {
 	        return AttackResult.success();
 	    } else {
 	        return AttackResult.failed("You are close, try again");
 	    }
 	}
-
-
 
     @Override
     public String getPath() {

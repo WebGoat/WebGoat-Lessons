@@ -8,7 +8,7 @@
     <version>1.0</version>
 
     <properties>
-        <webgoat.container.version>7.1-SNAPSHOT</webgoat.container.version>
+        <webgoat.container.version>7.1</webgoat.container.version>
     </properties>
 
     <modules>

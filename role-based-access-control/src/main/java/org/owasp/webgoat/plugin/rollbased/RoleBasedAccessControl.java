@@ -200,6 +200,11 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
     {
         // Here is where dispatching to the various action handlers happens.
         // It would be a good place verify authorization to use an action.
+        public void handleRequest(WebSession s) {
+If(!isAuthorized(s, userId, requestedActionname){
+throw new UnauthorizedException();
+}
+}
 
         // System.out.println("RoleBasedAccessControl.handleRequest()");
         if (s.getLessonSession(this) == null) {

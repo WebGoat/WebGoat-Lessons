@@ -14,26 +14,30 @@
     <modules>
         <module>common</module>
         <module>goat-hills-financial</module>
-        <module>access-control-matrix</module>
+        <!-- <module>access-control-matrix</module>
         <module>back-doors</module>
         <module>basic-authentication</module>
+        -->
         <module>blind-numeric-sql-injection</module>
         <module>blind-script</module>
         <module>blind-string-sql-injection</module>
-        <module>bypass-html-field-restrictions</module>
+        <module>el-injection</module>
+        <!-- <module>bypass-html-field-restrictions</module>
         <module>challenge</module>
         <module>client-side-filtering</module>
         <module>client-side-validation</module>
+        -->
         <module>command-injection</module>
-        <module>concurrency-cart</module>
+        <!-- <module>concurrency-cart</module> -->
         <module>cross-site-scripting</module>
-        <module>csrf-prompt-by-pass</module>
+        <!-- <module>csrf-prompt-by-pass</module>
         <module>csrf-token-by-pass</module>
         <module>csrf</module>
         <module>dangerous-eval-injection</module>
+        -->
         <module>db-cross-site-scripting</module>
         <module>db-sql-injection</module>
-        <module>dom-injection</module>
+        <!-- <module>dom-injection</module>
         <module>dom-xss</module>
         <module>dos-login</module>
         <module>encoding</module>
@@ -48,39 +52,45 @@
         <module>insecure-login</module>
         <module>java-script-validation</module>
         <module>json-injection</module>
+        -->
         <!--<module>lesson-converter</module>-->
-        <module>lesson-template-legacy</module>
+        <!-- <module>lesson-template-legacy</module>
         <module>log-spoofing</module>
-        <module>malicious-file-execution</module>
+        -->
+        <!-- <module>malicious-file-execution</module>
         <module>multi-level-login1</module>
         <module>multi-level-login2</module>
         <module>off-by-one</module>
         <module>password-strength</module>
         <module>path-based-access-control</module>
         <module>phishing</module>
+        -->
         <module>reflected-xss</module>
-        <module>remote-admin-flaw</module>
+        <!-- <module>remote-admin-flaw</module>
         <module>role-based-access-control</module>
         <module>same-origin-policy-protection</module>
         <module>session-fixation</module>
         <module>silent-transactions</module>
         <module>soap-request</module>
+        -->
         <module>sql-injection</module>
         <module>sql-numeric-injection</module>
         <module>sql-string-injection</module>
         <module>stored-xss</module>
-        <module>thread-safety-problem</module>
+        <!-- <module>thread-safety-problem</module> -->
         <module>trace-xss</module>
-        <module>unchecked-email</module>
+        <!-- <module>unchecked-email</module>
         <module>weak-authentication-cookie</module>
         <module>weak-session-id</module>
         <module>ws-sax-injection</module>
+        -->
         <module>ws-sql-injection</module>
-        <module>wsdl-scanning</module>
+        <!-- <module>wsdl-scanning</module>
         <module>xml-injection</module>
         <module>xpath-injection</module>
+        -->
         <module>xxe</module>
-        <module>zip-bomb</module>
+        <!-- <module>zip-bomb</module> -->
 
         <!--Should be defined as the last module -->
         <module>dist</module>
